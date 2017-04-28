@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<style>
+		body {
+			font: 10px sans-serif;
+		}
+		#chart {
+			text-align: center;
+		}
+		#chart svg {
+			border: 1px solid #ccc
+		}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #ccc;
+			shape-rendering: crispEdges;
+		}
+		.axis .tick line {
+			stroke: #eee;
+		}
+		.bar {
+			fill: steelblue;
+		}
+		.bar:hover{
+			fill: #36393a !important;
+			cursor: pointer;
+		}
+		.bar.selected {
+			fill: #36393a !important;
+		}
+		.legend_area .selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.legend_area g {
+			cursor: pointer;
+		}
+		.legend_area g:hover circle {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.tooltip {
+		 	position: absolute;
+			text-align: center;               
+			padding: 20px;
+			font: 12px sans-serif;
+			background: #36393a;
+			border: 0px;
+			border-radius: 2px;
+			pointer-events: none;
+			color : white;
+			text-align: left;
+			border: 1px solid #888;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart">
+	</div>
+</body>
+
+<script type="text/javascript">
+
+	var tooltip = d3.select("#chart").append("div").attr("class", "tooltip hidden");
+
+	var data = [
+		{
+			group : "This is Measure Unit 1",
+			value : 27
+		},
+		{
+			group : "This is Measure Unit 2",
+			value : 20
+		},
+		{
+			group : "This is Measure Unit 3",
+			value : 12
+		},
+		{
+			group : "This is Measure Unit 4",
+			value : 11
+		},
+		{
+			group : "This is Measure Unit 5",
+			value : 88
+		},
+		{
+			group : "This is Measure Unit 6",
+			value : 73
+		}
+	];
+
+	var margin = {top: 20, right: 300, bottom: 200, left: 300},
+		width = 1200 - margin.left - margin.right,
+		height = 800 - margin.top - margin.bottom;
+
+	var x = d3.scaleLinear()
+		.range([0, width]);
+
+	var y = d3.scaleBand()
+		.rangeRound([0, height])
+    	.padding(0.1)
+    	.align(0.1);
+
+	var xAxis = d3.axisBottom()
+		.scale(x)
+		.tickSizeInner(-height)
+		.tickSizeOuter(0)
+		.tickFormat(d3.format(".0f"));
+
+	var yAxis = d3.axisLeft()
+		.scale(y)
+		.tickSizeInner(-width)
+		.tickSizeOuter(0);
+
+	var svg = d3.select("#chart").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	x.domain([0, d3.max(data, function(d) { return d3.max(data, function(d) { return d.value }) })]);
+	y.domain(data.map(function(d) { return d.group }));
+
+	var xaxis = svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+
+	xaxis.selectAll('.tick')
+		.append("circle")
+		.style("fill", "#36393a")
+		.attr("cy", 15)
+		.attr("r", 3);
+
+	xaxis.selectAll('text')
+		.style("font-size","14px")
+		.style("text-anchor","start")
+		.style("fill", "#4c596b")
+		.attr("transform", "translate(5, 30)rotate(45)");
+
+	var yaxis = svg.append("g")
+		.attr("class", "y axis")
+		.call(yAxis);
+
+	yaxis.selectAll('text')
+		.style("font-size", "14px")
+		.style("text-anchor", "end")
+		.style("fill", "#4c596b")
+		.attr("x", -30);
+
+	yaxis.selectAll('.tick')
+		.append("circle")
+		.style("fill", "#36393a")
+		.attr("cx", -10)
+		.attr("r", 3);
+
+	yaxis.append("text")
+		.attr("transform", "translate(-280, 200)rotate(90)")
+		.style("fill", "#36393a")
+		.style("text-anchor", "start")
+		.style("font-size", "16px")
+		.style("font-weight", "bold")
+		.text("High Level Measurement X");
+
+	var legend = svg.append("g")
+		.attr("class", "legend_area")
+		.selectAll("g")
+		.data(data)
+		.enter().append("g")
+		.attr("class", function(d, i){
+			return "group" + i
+		})
+		.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+		.on("mousemove", function(d, i) {
+			$('.bar_area .group' + i).addClass("selected");
+		})
+		.on("mouseout",  function(d,i) {
+			$('.selected').removeClass('selected');
+		});
+
+	legend.append("circle")
+		.attr("cx", width + 70)
+		.attr("cy", 10)
+		.attr("r", 12)
+		.attr("width", 18)
+		.attr("height", 18)
+		.style("fill", "#b6c6cc");
+
+	legend.append("text")
+		.attr("x", width + 100)
+		.attr("y", 9)
+		.attr("dy", ".35em")
+		.style("text-anchor", "start")
+		.style("font-size", "14px")
+		.style("fill", "#4c596b")
+		.text(function(d) { return d.group });
+
+	var group_bar = svg.append("g")
+		.attr("class", "bar_area")
+		.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		.attr("class", function(d, i){
+			return "bar group" + i
+		})
+		.attr("width", function(d){return x(d.value)} )
+		.attr("x", 0)
+		.attr("y", function(d) { return y(d.group); })
+		.attr("height", y.bandwidth())
+		.style("fill", "#b6c6cc")
+		.on("mousemove", function(d, i) {
+			$('.legend_area .group' + i).find('text').addClass("selected");
+			$('.legend_area .group' + i).find('circle').addClass("selected");
+
+			var html = '<div>' + d.value + '</div>';
+			var pos = $(".bar_area").position();
+			tooltip.classed("hidden", false)
+				.style("opacity", 1)
+				.style("left", (pos.left + x(d.value) + 30) + "px")
+				.style("top", (pos.top + y(d.group)) + "px")
+				.html(html);
+		})
+		.on("mouseout",  function(d,i) {
+			$('.selected').removeClass('selected');
+			tooltip.classed("hidden", true).style("opacity", 0);
+		});
+</script>

@@ -1,0 +1,872 @@
+[
+	{
+		"year": "2016",
+		"month": "4",
+		"department": "58975aa0ceee20742952dbb2",
+		"domains": [
+			{
+				"name": "Access to Care 3 month",
+				"topboxscore": 66.01512,
+				"threshold": 3,
+				"questions": [
+					{
+						"question": "Right Away appt as soon as needed",
+						"topboxscore": 76.47059,
+						"threshold": 3,
+						"count": 17,
+						"topboxcount": 13
+					},
+					{
+						"question": "Routine appt/chk-up soon as needed",
+						"topboxscore": 93.10345,
+						"threshold": 3,
+						"count": 29,
+						"topboxcount": 27
+					},
+					{
+						"question": "Phone during offc hrs answr same day",
+						"topboxscore": 36.363636,
+						"threshold": 3,
+						"count": 11,
+						"topboxcount": 4
+					},
+					{
+						"question": "Phn aftr offc hrs answr same day",
+						"topboxscore": 50,
+						"threshold": 3,
+						"count": 2,
+						"topboxcount": 1
+					},
+					{
+						"question": "See provider w/n 15 min this visit",
+						"topboxscore": 74.13793,
+						"threshold": 3,
+						"count": 58,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Physician Comm Quality",
+				"topboxscore": 92.57257,
+				"threshold": 80,
+				"questions": [
+					{
+						"question": "Provider expl in way you understand",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Provider listen carefully to you",
+						"topboxscore": 93.10345,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 54
+					},
+					{
+						"question": "Talk with provider re prob/concern",
+						"topboxscore": 98.305084,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 58
+					},
+					{
+						"question": "Know important info medical history",
+						"topboxscore": 86.44068,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 51
+					},
+					{
+						"question": "Show respect for what you say",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Spend enough time with you",
+						"topboxscore": 87.93104,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 51
+					}
+				],
+				"comparisons": {
+					"hospital": 99.5,
+					"department": 60.4
+				}
+			},
+			{
+				"name": "Overall Doctor Rating 0-10",
+				"topboxscore": 72.881355,
+				"threshold": 90,
+				"questions": [
+					{
+						"question": "Rate provider 0-10",
+						"topboxscore": 72.881355,
+						"threshold": 90,
+						"count": 59,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Recommend this provider office",
+				"topboxscore": 94.91525,
+				"threshold": 99,
+				"questions": [
+					{
+						"question": "Recommend this provider office",
+						"topboxscore": 94.91525,
+						"threshold": 99,
+						"count": 59,
+						"topboxcount": 56
+					}
+				],
+				"comparisons": {
+					"hospital": 45.5,
+					"department": 45.4
+				}
+			},
+			{
+				"name": "Care Coordination",
+				"topboxscore": 69.84127,
+				"threshold": 77,
+				"questions": [
+					{
+						"question": "Office follow-up with test results",
+						"topboxscore": 66.666664,
+						"threshold": 77,
+						"count": 24,
+						"topboxcount": 16
+					},
+					{
+						"question": "Proivder have medical records",
+						"topboxscore": 100,
+						"threshold": 77,
+						"count": 57,
+						"topboxcount": 57
+					},
+					{
+						"question": "Health team ask abt Rx meds",
+						"topboxscore": 42.857143,
+						"threshold": 77,
+						"count": 49,
+						"topboxcount": 21
+					}
+				],
+				"comparisons": {
+					"hospital": 25.5,
+					"department": 35.4
+				}
+			}
+		]
+	},
+	{
+		"year": "2016",
+		"month": "5",
+		"department": "58975aa0ceee20742952dbb2",
+		"domains": [
+			{
+				"name": "Access to Care 3 month",
+				"topboxscore": 66.01512,
+				"threshold": 3,
+				"questions": [
+					{
+						"question": "Right Away appt as soon as needed",
+						"topboxscore": 76.47059,
+						"threshold": 3,
+						"count": 17,
+						"topboxcount": 13
+					},
+					{
+						"question": "Routine appt/chk-up soon as needed",
+						"topboxscore": 93.10345,
+						"threshold": 3,
+						"count": 29,
+						"topboxcount": 27
+					},
+					{
+						"question": "Phone during offc hrs answr same day",
+						"topboxscore": 36.363636,
+						"threshold": 3,
+						"count": 11,
+						"topboxcount": 4
+					},
+					{
+						"question": "Phn aftr offc hrs answr same day",
+						"topboxscore": 50,
+						"threshold": 3,
+						"count": 2,
+						"topboxcount": 1
+					},
+					{
+						"question": "See provider w/n 15 min this visit",
+						"topboxscore": 74.13793,
+						"threshold": 3,
+						"count": 58,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Physician Comm Quality",
+				"topboxscore": 92.57257,
+				"threshold": 80,
+				"questions": [
+					{
+						"question": "Provider expl in way you understand",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Provider listen carefully to you",
+						"topboxscore": 93.10345,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 54
+					},
+					{
+						"question": "Talk with provider re prob/concern",
+						"topboxscore": 98.305084,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 58
+					},
+					{
+						"question": "Know important info medical history",
+						"topboxscore": 86.44068,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 51
+					},
+					{
+						"question": "Show respect for what you say",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Spend enough time with you",
+						"topboxscore": 87.93104,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 51
+					}
+				],
+				"comparisons": {
+					"hospital": 99.5,
+					"department": 60.4
+				}
+			},
+			{
+				"name": "Overall Doctor Rating 0-10",
+				"topboxscore": 72.881355,
+				"threshold": 90,
+				"questions": [
+					{
+						"question": "Rate provider 0-10",
+						"topboxscore": 72.881355,
+						"threshold": 90,
+						"count": 59,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Recommend this provider office",
+				"topboxscore": 94.91525,
+				"threshold": 99,
+				"questions": [
+					{
+						"question": "Recommend this provider office",
+						"topboxscore": 94.91525,
+						"threshold": 99,
+						"count": 59,
+						"topboxcount": 56
+					}
+				],
+				"comparisons": {
+					"hospital": 45.5,
+					"department": 45.4
+				}
+			},
+			{
+				"name": "Care Coordination",
+				"topboxscore": 69.84127,
+				"threshold": 77,
+				"questions": [
+					{
+						"question": "Office follow-up with test results",
+						"topboxscore": 66.666664,
+						"threshold": 77,
+						"count": 24,
+						"topboxcount": 16
+					},
+					{
+						"question": "Proivder have medical records",
+						"topboxscore": 100,
+						"threshold": 77,
+						"count": 57,
+						"topboxcount": 57
+					},
+					{
+						"question": "Health team ask abt Rx meds",
+						"topboxscore": 42.857143,
+						"threshold": 77,
+						"count": 49,
+						"topboxcount": 21
+					}
+				],
+				"comparisons": {
+					"hospital": 25.5,
+					"department": 35.4
+				}
+			}
+		]
+	},
+	{
+		"year": "2016",
+		"month": "6",
+		"department": "58975aa0ceee20742952dbb2",
+		"domains": [
+			{
+				"name": "Access to Care 3 month",
+				"topboxscore": 66.01512,
+				"threshold": 3,
+				"questions": [
+					{
+						"question": "Right Away appt as soon as needed",
+						"topboxscore": 76.47059,
+						"threshold": 3,
+						"count": 17,
+						"topboxcount": 13
+					},
+					{
+						"question": "Routine appt/chk-up soon as needed",
+						"topboxscore": 93.10345,
+						"threshold": 3,
+						"count": 29,
+						"topboxcount": 27
+					},
+					{
+						"question": "Phone during offc hrs answr same day",
+						"topboxscore": 36.363636,
+						"threshold": 3,
+						"count": 11,
+						"topboxcount": 4
+					},
+					{
+						"question": "Phn aftr offc hrs answr same day",
+						"topboxscore": 50,
+						"threshold": 3,
+						"count": 2,
+						"topboxcount": 1
+					},
+					{
+						"question": "See provider w/n 15 min this visit",
+						"topboxscore": 74.13793,
+						"threshold": 3,
+						"count": 58,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Physician Comm Quality",
+				"topboxscore": 92.57257,
+				"threshold": 80,
+				"questions": [
+					{
+						"question": "Provider expl in way you understand",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Provider listen carefully to you",
+						"topboxscore": 93.10345,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 54
+					},
+					{
+						"question": "Talk with provider re prob/concern",
+						"topboxscore": 98.305084,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 58
+					},
+					{
+						"question": "Know important info medical history",
+						"topboxscore": 86.44068,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 51
+					},
+					{
+						"question": "Show respect for what you say",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Spend enough time with you",
+						"topboxscore": 87.93104,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 51
+					}
+				],
+				"comparisons": {
+					"hospital": 99.5,
+					"department": 60.4
+				}
+			},
+			{
+				"name": "Overall Doctor Rating 0-10",
+				"topboxscore": 72.881355,
+				"threshold": 90,
+				"questions": [
+					{
+						"question": "Rate provider 0-10",
+						"topboxscore": 72.881355,
+						"threshold": 90,
+						"count": 59,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Recommend this provider office",
+				"topboxscore": 94.91525,
+				"threshold": 99,
+				"questions": [
+					{
+						"question": "Recommend this provider office",
+						"topboxscore": 94.91525,
+						"threshold": 99,
+						"count": 59,
+						"topboxcount": 56
+					}
+				],
+				"comparisons": {
+					"hospital": 45.5,
+					"department": 45.4
+				}
+			},
+			{
+				"name": "Care Coordination",
+				"topboxscore": 69.84127,
+				"threshold": 77,
+				"questions": [
+					{
+						"question": "Office follow-up with test results",
+						"topboxscore": 66.666664,
+						"threshold": 77,
+						"count": 24,
+						"topboxcount": 16
+					},
+					{
+						"question": "Proivder have medical records",
+						"topboxscore": 100,
+						"threshold": 77,
+						"count": 57,
+						"topboxcount": 57
+					},
+					{
+						"question": "Health team ask abt Rx meds",
+						"topboxscore": 42.857143,
+						"threshold": 77,
+						"count": 49,
+						"topboxcount": 21
+					}
+				],
+				"comparisons": {
+					"hospital": 25.5,
+					"department": 35.4
+				}
+			}
+		]
+	},
+	{
+		"year": "2016",
+		"month": "7",
+		"department": "58975aa0ceee20742952dbb2",
+		"domains": [
+			{
+				"name": "Access to Care 3 month",
+				"topboxscore": 66.01512,
+				"threshold": 3,
+				"questions": [
+					{
+						"question": "Right Away appt as soon as needed",
+						"topboxscore": 76.47059,
+						"threshold": 3,
+						"count": 17,
+						"topboxcount": 13
+					},
+					{
+						"question": "Routine appt/chk-up soon as needed",
+						"topboxscore": 93.10345,
+						"threshold": 3,
+						"count": 29,
+						"topboxcount": 27
+					},
+					{
+						"question": "Phone during offc hrs answr same day",
+						"topboxscore": 36.363636,
+						"threshold": 3,
+						"count": 11,
+						"topboxcount": 4
+					},
+					{
+						"question": "Phn aftr offc hrs answr same day",
+						"topboxscore": 50,
+						"threshold": 3,
+						"count": 2,
+						"topboxcount": 1
+					},
+					{
+						"question": "See provider w/n 15 min this visit",
+						"topboxscore": 74.13793,
+						"threshold": 3,
+						"count": 58,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Physician Comm Quality",
+				"topboxscore": 92.57257,
+				"threshold": 80,
+				"questions": [
+					{
+						"question": "Provider expl in way you understand",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Provider listen carefully to you",
+						"topboxscore": 93.10345,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 54
+					},
+					{
+						"question": "Talk with provider re prob/concern",
+						"topboxscore": 98.305084,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 58
+					},
+					{
+						"question": "Know important info medical history",
+						"topboxscore": 86.44068,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 51
+					},
+					{
+						"question": "Show respect for what you say",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Spend enough time with you",
+						"topboxscore": 87.93104,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 51
+					}
+				],
+				"comparisons": {
+					"hospital": 99.5,
+					"department": 60.4
+				}
+			},
+			{
+				"name": "Overall Doctor Rating 0-10",
+				"topboxscore": 72.881355,
+				"threshold": 90,
+				"questions": [
+					{
+						"question": "Rate provider 0-10",
+						"topboxscore": 72.881355,
+						"threshold": 90,
+						"count": 59,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Recommend this provider office",
+				"topboxscore": 94.91525,
+				"threshold": 99,
+				"questions": [
+					{
+						"question": "Recommend this provider office",
+						"topboxscore": 94.91525,
+						"threshold": 99,
+						"count": 59,
+						"topboxcount": 56
+					}
+				],
+				"comparisons": {
+					"hospital": 45.5,
+					"department": 45.4
+				}
+			},
+			{
+				"name": "Care Coordination",
+				"topboxscore": 69.84127,
+				"threshold": 77,
+				"questions": [
+					{
+						"question": "Office follow-up with test results",
+						"topboxscore": 66.666664,
+						"threshold": 77,
+						"count": 24,
+						"topboxcount": 16
+					},
+					{
+						"question": "Proivder have medical records",
+						"topboxscore": 100,
+						"threshold": 77,
+						"count": 57,
+						"topboxcount": 57
+					},
+					{
+						"question": "Health team ask abt Rx meds",
+						"topboxscore": 42.857143,
+						"threshold": 77,
+						"count": 49,
+						"topboxcount": 21
+					}
+				],
+				"comparisons": {
+					"hospital": 25.5,
+					"department": 35.4
+				}
+			}
+		]
+	},
+	{
+		"year": "2016",
+		"month": "8",
+		"department": "58975aa0ceee20742952dbb2",
+		"domains": [
+			{
+				"name": "Access to Care 3 month",
+				"topboxscore": 66.01512,
+				"threshold": 3,
+				"questions": [
+					{
+						"question": "Right Away appt as soon as needed",
+						"topboxscore": 76.47059,
+						"threshold": 3,
+						"count": 17,
+						"topboxcount": 13
+					},
+					{
+						"question": "Routine appt/chk-up soon as needed",
+						"topboxscore": 93.10345,
+						"threshold": 3,
+						"count": 29,
+						"topboxcount": 27
+					},
+					{
+						"question": "Phone during offc hrs answr same day",
+						"topboxscore": 36.363636,
+						"threshold": 3,
+						"count": 11,
+						"topboxcount": 4
+					},
+					{
+						"question": "Phn aftr offc hrs answr same day",
+						"topboxscore": 50,
+						"threshold": 3,
+						"count": 2,
+						"topboxcount": 1
+					},
+					{
+						"question": "See provider w/n 15 min this visit",
+						"topboxscore": 74.13793,
+						"threshold": 3,
+						"count": 58,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Physician Comm Quality",
+				"topboxscore": 92.57257,
+				"threshold": 80,
+				"questions": [
+					{
+						"question": "Provider expl in way you understand",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Provider listen carefully to you",
+						"topboxscore": 93.10345,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 54
+					},
+					{
+						"question": "Talk with provider re prob/concern",
+						"topboxscore": 98.305084,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 58
+					},
+					{
+						"question": "Know important info medical history",
+						"topboxscore": 86.44068,
+						"threshold": 80,
+						"count": 59,
+						"topboxcount": 51
+					},
+					{
+						"question": "Show respect for what you say",
+						"topboxscore": 94.82758,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 55
+					},
+					{
+						"question": "Spend enough time with you",
+						"topboxscore": 87.93104,
+						"threshold": 80,
+						"count": 58,
+						"topboxcount": 51
+					}
+				],
+				"comparisons": {
+					"hospital": 99.5,
+					"department": 60.4
+				}
+			},
+			{
+				"name": "Overall Doctor Rating 0-10",
+				"topboxscore": 72.881355,
+				"threshold": 90,
+				"questions": [
+					{
+						"question": "Rate provider 0-10",
+						"topboxscore": 72.881355,
+						"threshold": 90,
+						"count": 59,
+						"topboxcount": 43
+					}
+				],
+				"comparisons": {
+					"hospital": 85.5,
+					"department": 95.4
+				}
+			},
+			{
+				"name": "Recommend this provider office",
+				"topboxscore": 94.91525,
+				"threshold": 99,
+				"questions": [
+					{
+						"question": "Recommend this provider office",
+						"topboxscore": 94.91525,
+						"threshold": 99,
+						"count": 59,
+						"topboxcount": 56
+					}
+				],
+				"comparisons": {
+					"hospital": 45.5,
+					"department": 45.4
+				}
+			},
+			{
+				"name": "Care Coordination",
+				"topboxscore": 69.84127,
+				"threshold": 77,
+				"questions": [
+					{
+						"question": "Office follow-up with test results",
+						"topboxscore": 66.666664,
+						"threshold": 77,
+						"count": 24,
+						"topboxcount": 16
+					},
+					{
+						"question": "Proivder have medical records",
+						"topboxscore": 100,
+						"threshold": 77,
+						"count": 57,
+						"topboxcount": 57
+					},
+					{
+						"question": "Health team ask abt Rx meds",
+						"topboxscore": 42.857143,
+						"threshold": 77,
+						"count": 49,
+						"topboxcount": 21
+					}
+				],
+				"comparisons": {
+					"hospital": 25.5,
+					"department": 35.4
+				}
+			}
+		]
+	}
+]

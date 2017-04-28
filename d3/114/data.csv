@@ -1,0 +1,79 @@
+start,end,group,content,group_name
+"new Date(2015, 3, 17, 07, 07)","new Date(2015, 3, 17, 09, 31)",102,"EXPLORATORY LAPAROTOMY, ABD SACRAL COLPOPEXY, SUPRACERVICAL HYSTERECTOMY, BSO, AP REPAIR, CYSTO",OR 2
+"new Date(2014, 3, 17, 08, 04)","new Date(2014, 3, 17, 10, 51)",109,"OPEN BICEPS TENODESIS, left",OR 9
+"new Date(2014, 3, 17, 10, 49)","new Date(2014, 3, 17, 13, 21)",111,"Abdominal sacral colpopexy, anterior repair, cystoscopy, lysis of adhesions ",OR 11
+"new Date(2014, 3, 17, 11, 28)","new Date(2014, 3, 17, 13, 07)",109,Right shoulder arthroscopy lysis of adhesions,OR 9
+"new Date(2014, 3, 17, 07, 45)","new Date(2014, 3, 17, 08, 38)",115,CATARACT EXTRACTION RIGHT EYE WITH IOL LENS,E3-3
+"new Date(2014, 3, 17, 08, 57)","new Date(2014, 3, 17, 09, 45)",115,CATARACT EXTRACTION LEFT EYE WITH IOL LENS,E3-3
+"new Date(2014, 3, 17, 10, 07)","new Date(2014, 3, 17, 11, 35)",102,"CO2 LASER ABLATION VAGINAL, CYSTOSCOPY, ACELL GRAFTING",OR 2
+"new Date(2014, 3, 17, 08, 42)","new Date(2014, 3, 17, 09, 42)",105,TRANS ANAL EXCISION OF RECTAL LESION,OR 5
+"new Date(2014, 3, 17, 10, 03)","new Date(2014, 3, 17, 11, 52)",107,ALTEMEIRE PROCEDURE,OR 7
+"new Date(2014, 3, 17, 07, 43)","new Date(2014, 3, 17, 10, 06)",110,Percutaneous ,OR 10
+"new Date(2014, 3, 17, 10, 32)","new Date(2014, 3, 17, 13, 23)",110,Percutaneous insertion of thoracic epidural eletrodes and insertion of pulse generator battery,OR 10
+"new Date(2014, 3, 17, 11, 14)","new Date(2014, 3, 17, 11, 50)",115,CATARACT EXTRACTION RIGHT EYE WITH IOL LENS,E3-3
+"new Date(2014, 3, 17, 11, 48)","new Date(2014, 3, 17, 15, 26)",105,LAPAROSCOPY Low anterior resection,OR 5
+"new Date(2015, 3, 17, 11, 28)","new Date(2015, 3, 17, 12, 08)",121,EGD,Endo1
+"new Date(2014, 3, 17, 12, 51)","new Date(2014, 3, 17, 14, 33)",121,EGD,Endo1
+"new Date(2014, 3, 17, 12, 39)","new Date(2014, 3, 17, 13, 15)",122,EGD,Endo2
+"new Date(2015, 3, 17, 07, 45)","new Date(2015, 3, 17, 10, 45)",106,GASTRIC SLEEVE -LAPAROSCOPIC with Band removal,OR 6
+"new Date(2014, 3, 17, 08, 09)","new Date(2014, 3, 17, 09, 00)",108,EXCISION VOCAL CORD POLYP LEFT,OR 8
+"new Date(2014, 3, 17, 12, 25)","new Date(2014, 3, 17, 15, 34)",102,"ABD SACRAL COLPOPEXY, TVT SLING, CYSTOSCOPY, AP REPAIR",OR 2
+"new Date(2015, 3, 17, 10, 05)","new Date(2015, 3, 17, 10, 52)",115,CATARACT EXTRACTION LEFT EYE WITH IOL LENS,E3-3
+"new Date(2014, 3, 17, 10, 22)","new Date(2014, 3, 17, 11, 18)",121,COLONOSCOPY,Endo1
+"new Date(2014, 3, 17, 08, 19)","new Date(2014, 3, 17, 09, 30)",121,COLONOSCOPY WITH E.G.D.,Endo1
+"new Date(2014, 3, 17, 09, 40)","new Date(2014, 3, 17, 12, 02)",108,RHINOPLASTY,OR 8
+"new Date(2014, 3, 17, 15, 58)","new Date(2014, 3, 17, 21, 03)",103,Robot assisted inguinal hernia repair,OR 3
+"new Date(2014, 3, 17, 07, 47)","new Date(2014, 3, 17, 14, 52)",103,Robotic assisted colectomy,OR 3
+"new Date(2014, 3, 17, 07, 39)","new Date(2014, 3, 17, 08, 27)",111,CYSTOSCOPY TURBT,OR 11
+"new Date(2014, 3, 17, 07, 37)","new Date(2014, 3, 17, 08, 30)",104,PLEUREX CATHETER REMOVAL LEFT,OR 4
+"new Date(2015, 3, 17, 12, 35)","new Date(2015, 3, 17, 13, 28)",108,BIOPSY OF VOCAL CHORD LESION BILATERAL,OR 8
+"new Date(2014, 3, 17, 09, 41)","new Date(2014, 3, 17, 11, 16)",101,Cholecystectomy with cholangiography,OR 1
+"new Date(2014, 3, 17, 14, 21)","new Date(2014, 3, 17, 16, 33)",106,Laparoscopic sleeve gastrectom with hiatal hernia repair and EGD,OR 6
+"new Date(2014, 3, 17, 08, 25)","new Date(2014, 3, 17, 08, 44)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 08, 50)","new Date(2014, 3, 17, 09, 09)",116,LUMBAR FACET BLOCK -X-RAY,E3-4
+"new Date(2014, 3, 17, 07, 45)","new Date(2014, 3, 17, 08, 59)",102,Infusaport placement,OR 2
+"new Date(2014, 3, 17, 10, 26)","new Date(2014, 3, 17, 10, 34)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 11, 53)","new Date(2014, 3, 17, 12, 12)",116,LUMBAR TRANSFORMINAL EPIDURAL X-RAY,E3-4
+"new Date(2014, 3, 17, 12, 55)","new Date(2014, 3, 17, 13, 08)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 09, 24)","new Date(2014, 3, 17, 09, 34)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 09, 41)","new Date(2014, 3, 17, 09, 52)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 09, 59)","new Date(2014, 3, 17, 10, 14)",116,LUMBAR FACET BLOCK -X-RAY,E3-4
+"new Date(2015, 3, 17, 19, 26)","new Date(2015, 3, 17, 21, 13)",107,ORIF distal humerus,OR 7
+"new Date(2014, 3, 17, 08, 03)","new Date(2014, 3, 17, 08, 42)",122,COLONOSCOPY,Endo2
+"new Date(2014, 3, 17, 08, 50)","new Date(2014, 3, 17, 09, 10)",122,EGD,Endo2
+"new Date(2015, 3, 17, 09, 17)","new Date(2015, 3, 17, 10, 16)",122,COLONOSCOPY WITH E.G.D.,Endo2
+"new Date(2014, 3, 17, 10, 32)","new Date(2014, 3, 17, 11, 05)",122,COLONOSCOPY,Endo2
+"new Date(2014, 3, 17, 11, 20)","new Date(2014, 3, 17, 11, 51)",122,COLONOSCOPY,Endo2
+"new Date(2014, 3, 17, 11, 51)","new Date(2014, 3, 17, 13, 03)",102,"POSSIBLE POSTERIOR REPAIR, TVT SLING, TOT REMOVAL",OR 2
+"new Date(2014, 3, 17, 08, 10)","new Date(2014, 3, 17, 08, 24)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 13, 15)","new Date(2014, 3, 17, 13, 25)",116,CERVICAL EPIDURAL STEROID INJECTION-X-RAY,E3-4
+"new Date(2015, 3, 17, 08, 33)","new Date(2015, 3, 17, 09, 34)",117,Repeat C-SECTION and bilateral tubal ligation,OB 1
+"new Date(2014, 3, 17, 17, 11)","new Date(2014, 3, 17, 18, 45)",120,C-SECTION REPEAT,OB 2
+"new Date(2014, 3, 17, 13, 55)","new Date(2014, 3, 17, 14, 29)",122,COLONOSCOPY,Endo2
+"new Date(2014, 3, 17, 15, 43)","new Date(2014, 3, 17, 16, 20)",122,EGD,Endo2
+"new Date(2014, 3, 17, 07, 45)","new Date(2014, 3, 17, 08, 06)",116,LUMBAR EPIDURAL STEROID INJECTION - X-RAY,E3-4
+"new Date(2014, 3, 17, 07, 40)","new Date(2014, 3, 17, 08, 12)",121,EGD,Endo1
+"new Date(2014, 3, 17, 09, 37)","new Date(2014, 3, 17, 10, 52)",104,Infusaport,OR 4
+"new Date(2014, 3, 17, 14, 32)","new Date(2014, 3, 17, 16, 58)",104,Mediastinoscopy with biopsy,OR 4
+"new Date(2014, 3, 17, 11, 37)","new Date(2014, 3, 17, 13, 45)",104,Thoracoscopy ,OR 4
+"new Date(2014, 3, 17, 01, 40)","new Date(2014, 3, 17, 02, 14)",135,Closed hip reduction,ER
+"new Date(2014, 3, 17, 08, 03)","new Date(2014, 3, 17, 11, 03)",112,Surgical laparoscopy with cholecystectomy,OR 12
+"new Date(2014, 3, 17, 09, 14)","new Date(2014, 3, 17, 10, 55)",128,Anesthesia for insertion of transvenous permanent pacemaker,EP
+"new Date(2014, 3, 17, 08, 30)","new Date(2014, 3, 17, 14, 09)",131,Labor epidural,L and D3
+"new Date(2014, 3, 17, 11, 25)","new Date(2014, 3, 17, 12, 49)",128,Anesthesia for insertion of transvenous permanent pacemaker,EP
+"new Date(2014, 3, 17, 16, 03)","new Date(2014, 3, 17, 17, 09)",122,COLONOSCOPY,Endo2
+"new Date(2014, 3, 17, 10, 45)","new Date(2014, 3, 17, 11, 58)",118,Cesarean delivery,OB 2
+"new Date(2014, 3, 17, 12, 07)","new Date(2014, 3, 17, 13, 57)",127,Introduction of percutaneous transhepatic catheter for biliary drainage,IR
+"new Date(2014, 3, 17, 12, 22)","new Date(2014, 3, 17, 14, 54)",101,Left burr hole,OR 1
+"new Date(2014, 3, 17, 13, 07)","new Date(2014, 3, 17, 13, 32)",122,"Upper Gastrointestinal Endoscopy (EGD), Including Esophagus, Stomach, and Either the Duodenum And/Or Jejunum as Appropriate; with Transendoscopic Stent Placement (Includes Predilation)",Endo2
+"new Date(2014, 3, 17, 11, 15)","new Date(2014, 3, 17, 13, 45)",106,Laparoscopic sleeve gastrectom with hiatal hernia repair and EGD,OR 6
+"new Date(2014, 3, 17, 13, 53)","new Date(2014, 3, 17, 14, 44)",122,EGD and colonoscopy,Endo2
+"new Date(2014, 3, 17, 14, 30)","new Date(2014, 3, 17, 15, 42)",122,EGD and colon,Endo2
+"new Date(2014, 3, 17, 13, 16)","new Date(2014, 3, 17, 14, 41)",117,Cesarean delivery,OB 1
+"new Date(2014, 3, 17, 15, 02)","new Date(2014, 3, 17, 16, 50)",128,Pacemaker insertion,EP
+"new Date(2014, 3, 17, 16, 11)","new Date(2014, 3, 17, 20, 06)",108,"Diagnostic laparoscopy , Open Cholecyestectomy",OR 8
+"new Date(2014, 3, 17, 15, 06)","new Date(2014, 3, 17, 21, 36)",106,Labor epidural ,OR 6
+"new Date(2014, 3, 17, 17, 45)","new Date(2014, 3, 17, 19, 09)",110,Left TFN,OR 10
+"new Date(2014, 3, 17, 17, 26)","new Date(2014, 3, 17, 18, 48)",128,Pacemaker insertion /dule chamber ,EP
+"new Date(2014, 3, 17, 20, 58)","new Date(2014, 3, 17, 22, 44)",101,Laparoscopic appendectomy ,OR 1
+"new Date(2014, 3, 17, 02, 15)","new Date(2014, 3, 17, 07, 06)",131,Cesarean deliveryLabor epidural,L and D3

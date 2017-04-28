@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<style>
+		body {
+			font: 10px sans-serif;
+		}
+		#chart {
+			text-align: center;
+		}
+		#chart svg {
+			border: 1px solid #ccc
+		}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #ccc;
+			shape-rendering: crispEdges;
+		}
+		.axis .tick line {
+			stroke: #eee;
+		}
+		.tooltip {
+			position: absolute;
+			text-align: center;               
+			padding: 20px;
+			font: 12px sans-serif;
+			background: #36393a;
+			border: 0px;
+			border-radius: 2px;
+			pointer-events: none;
+			color : white;
+			text-align: left;
+			border: 1px solid #888;
+		}
+
+		/* pie chart */
+		.donut-chart .line {
+			stroke: #b6c6cc !important;
+			fill: none;
+		}
+		.donut-chart .legend_area circle.selected{
+			stroke: #36393a;
+			stroke-width: 2px;
+		}
+		.donut-chart .legend_area text.selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.donut-chart .legend_area g {
+			cursor: pointer;
+		}
+		.donut-chart .legend_area g:hover circle {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.donut-chart .legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.donut-chart .arc:hover {
+			opacity: 1 !important;
+		}
+		.donut-chart .arc.selected {
+			opacity: 1 !important;
+		}
+		.donut-chart .arc.selected path{
+			fill: #36393a !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart"></div>
+</body>
+
+<script type="text/javascript">
+	var data = [
+		{
+			unit : "This is Measure Unit 1",
+			value : 5
+		},
+		{
+			unit : "This is Measure Unit 2",
+			value : 7
+		},
+		{
+			unit : "This is Measure Unit 3",
+			value : 10
+		},
+		{
+			unit : "This is Measure Unit 4",
+			value : 30
+		},
+		{
+			unit : "This is Measure Unit 5",
+			value : 30
+		},
+		{
+			unit : "This is Measure Unit 6",
+			value : 30
+		}
+	];
+	
+	var tooltip = d3.select("#chart").append("div").attr("class", "tooltip hidden");
+
+	initialize();
+
+	function initialize() {
+
+		var margin = {top: 50, right: 300, bottom: 200, left: 100},
+			width = 900 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
+
+		var c20 = d3.scaleOrdinal(d3.schemeCategory20);
+
+		var svg_container = d3.select("#chart").append("svg").attr("class", "donut-chart").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom);
+		var svg = svg_container.append("g").attr("class", "chart-body");
+		svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		svg_container.append("text")
+			.attr("transform", "translate(20, 200)rotate(90)")
+			.style("fill", "#36393a")
+			.style("text-anchor", "start")
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.text("High Level Measurement X");
+
+		var legend = svg.append("g")
+			.attr("class", "legend_area")
+			.selectAll("g")
+			.data(data)
+			.enter().append("g")
+			.attr("class", function(d, i){
+				return "unit" + i
+			})
+			.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+			.on("mousemove", function(d, i) {
+				$('.chart-area .unit' + i).addClass("selected");
+			})
+			.on("mouseout",  function(d,i) {
+				$('.selected').removeClass('selected');
+			});
+		legend.append("circle")
+			.attr("cx", width + 70)
+			.attr("cy", 10)
+			.attr("r", 12)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", function(d, i){
+				return c20(i)
+			});
+		legend.append("text")
+			.attr("x", width + 100)
+			.attr("y", 9)
+			.attr("dy", ".35em")
+			.style("text-anchor", "start")
+			.style("font-size", "14px")
+			.style("fill", "#4c596b")
+			.text(function(d) { return d.unit });
+
+		var arcs = d3.pie().sort(null).value(function(d) { return d.value });
+					
+		var arc = d3.arc()
+			.outerRadius(width/2)
+			.innerRadius(width/3)
+			.padAngle(0.01)
+
+		var pieG = svg.append('g')
+			.attr("class", "chart-area")
+			.selectAll("g")
+			.data([data])
+			.enter()
+			.append("g")
+			.attr("class", "pie-area")
+			.attr("transform", "translate("+[width/2, width/2]+")")
+		
+		var block = pieG.selectAll(".arc").data(arcs)
+			
+		var newBlock = block.enter()
+			.append("g")
+			.attr("class", function(d, i){return "arc unit"+i})
+			.style("opacity", 0.6);
+
+		var paths = newBlock.append("path")
+			.transition()
+			.duration(1000)
+			// .attr("d", arc)
+			.attrTween('d', function(d) {
+			   var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+			   var j = d3.interpolate(0, d.startAngle);
+			   return function(t) {
+			   		d.startAngle = t * j(t);
+			       	d.endAngle = t * i(t);
+			     	return arc(d);
+			   }
+			})
+			.attr("id", function(d, i) { return "arc-" + i })
+			.attr("stroke", "gray")
+			.attr("fill", function(d,i){ return c20(i) });
+			
+		newBlock
+			.on("mouseenter", function(d, i){
+
+				$('.legend_area .unit' + i).find('text').addClass("selected");
+				$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+				var p = $(".unit" + i +" .tooltip-helper").position();
+				var c = $(".pie-center").position();
+
+				var html = '<div>' + d.value + '</div>';
+
+				tooltip.html(html).style("opacity", 1).classed("hidden", false);
+
+				var w = $('#chart .tooltip').outerWidth();
+				var h = $('#chart .tooltip').outerHeight();
+
+				if(c.top > p.top) {
+					p.top -= h;
+				}
+				if(c.left > p.left) {
+					p.left -= w;
+				}
+
+				tooltip.style("left", (p.left) + "px").style("top", (p.top) + "px")				
+			})
+			.on("mouseout", function(d){
+				d3.select(this)
+					.select("path")
+					.attr("d", arc);
+				$('.selected').removeClass('selected');
+				tooltip.classed("hidden", true).style("opacity", 0);
+			})
+
+		var total = 0;
+		data.forEach(function(d){
+			total += d.value;
+		});
+		
+		newBlock.append("text")
+			.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+			.attr("dy", ".35em")
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.attr("fill", "white")
+			.style("text-anchor","middle")
+			.style("opacity", 0)
+			.transition()
+			.duration(1500)
+			.style("opacity", 1)
+			.text(function(d) { 
+				return d.data.value + "%"
+			})
+
+		newBlock.append("text")
+			.attr("class", "tooltip-helper")
+			.attr("transform", function(d) {
+				var offset = [arc.centroid(d)[0] * 1.2, arc.centroid(d)[1] * 1.2];
+				return "translate(" + offset + ")"; 
+			})
+			.attr("dy", ".35em")
+			.text("")
+
+		newBlock.append("text")
+			.attr("class", "pie-center")
+			.attr("transform", function(d) {
+				return "translate(" + [0,0] + ")"; 
+			})
+			.attr("dy", ".35em")
+	}
+</script>

@@ -1,0 +1,587 @@
+.sub-wrapper {
+	font-family: 'Palanquin', sans-serif;
+	padding: 0 30px;
+	border:	1px solid black;
+}
+.sub-wrapper .title {
+	font-size: 48px;
+	font-weight: bolder;
+	padding: 10px 0
+}
+.sub-wrapper .title .tip-number {
+	display: inline-block;
+	line-height: 50px;
+	border-radius: 50%;
+	background: #e34935;
+	color: white;
+	padding: 0 20px;
+	text-decoration: none;
+	cursor: pointer;
+}
+.sub-wrapper .filter {
+	display: flex;
+	background-color: #eee;
+	padding: 20px
+}
+.sub-wrapper .filter  label {
+	float: left;
+	font-size: 20px;
+	padding: 10px
+}
+.sub-wrapper .filter .date-filter {
+	float: left;
+	margin-right: 30px;
+	font-size: 20px;
+	padding: 5px 30px 5px 10px;
+}
+.sub-wrapper .filter .compare-filter {
+	float: left;
+	font-size: 20px;
+	padding: 5px 30px 5px 10px;
+}
+.sub-wrapper .reviews {
+	margin-top: 30px;
+	text-align: right;
+}
+.sub-wrapper .reviews .review-count {
+	color: #00b8c1
+}
+.sub-wrapper .domain-graph {
+	position: relative;
+	height: 600px;
+}
+.sub-wrapper .domain-graph svg.overall .y.axis .tick line {
+	shape-rendering: crispEdges;
+}
+.sub-wrapper .domain-graph svg.overall .axis text{
+	font-size: 20px;
+}
+.sub-wrapper .domain-graph svg.overall .overlay {
+	fill: none;
+	pointer-events: all;
+}
+.sub-wrapper .domain-graph .overall-tooltip {
+	position: absolute;
+	text-align: center;
+	padding: 20px;
+	font-size: 22px;
+	background: #36393a;
+	border: 0px;
+	border-radius: 2px;
+	pointer-events: none;
+	color : #ccc;
+	text-align: left;
+	opacity: 0;
+	pointer-events: none;
+}
+.sub-wrapper .domain-graph .overall-tooltip .domain-name {
+	float: left;
+	list-style: none;
+	padding: 0;
+	margin-right: 20px;
+}
+.sub-wrapper .domain-graph .overall-tooltip .domain-score {
+	float: left;
+	list-style: none;
+	padding: 0;
+}
+.sub-wrapper .domain-graph .overall-tooltip .arrow-right {
+	position: absolute;
+	top: calc(50% - 30px);
+	right: -30px;
+	width: 0; 
+	height: 0; 
+	border-top: 30px solid transparent;
+	border-bottom: 30px solid transparent;
+	border-left: 30px solid #36393a;
+}
+.sub-wrapper .domain-graph .overall-tooltip .arrow-left {
+	position: absolute;
+	top: calc(50% - 30px);
+	left: -30px;
+	width: 0; 
+	height: 0; 
+	border-top: 30px solid transparent;
+	border-bottom: 30px solid transparent; 
+	border-right:30px solid #36393a; 
+}
+.sub-wrapper .domain-graph .line-helper {
+	stroke: #333;
+	stroke-width: 2px;
+	stroke-dasharray: 10,3;
+}
+.sub-wrapper .domain-graph svg.domain .y.axis .tick line {
+	shape-rendering: crispEdges;
+	stroke: #ccc;
+}
+.sub-wrapper .domain-graph svg.domain .axis text{
+	font-size: 20px;
+}
+.sub-wrapper .domain-graph svg.domain .threshold-line {
+	stroke: gray;
+	stroke-width: 4px;
+	stroke-dasharray: 16,8;
+}
+.sub-wrapper .domain-graph svg.domain .overlay {
+	fill: none;
+	pointer-events: all;
+}
+.sub-wrapper .domain-graph .domain-tooltip {
+	position: absolute;
+	text-align: center !important;
+	padding: 20px;
+	font-size: 22px;
+	background: #36393a;
+	border: 0px;
+	border-radius: 2px;
+	pointer-events: none;
+	color : #fff;
+	text-align: left;
+	opacity: 0;
+	pointer-events: none;
+}
+.sub-wrapper .domain-graph .domain-tooltip .percent {
+	font-size: 60px;
+	font-weight: bolder;
+	line-height: 60px;
+}
+.sub-wrapper .domain-graph .domain-tooltip .percent span {
+	font-size: 24px;
+}
+.sub-wrapper .domain-graph .domain-tooltip ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 20px;
+	line-height: 20px;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-up-center{
+	position: absolute;
+	top: -30px;
+	left: calc(50% - 30px);
+	width: 0; 
+ 	height: 0; 
+  	border-left: 30px solid transparent;
+  	border-right: 30px solid transparent;
+  	border-bottom: 30px solid #36393a;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-up-left{
+	position: absolute;
+	top: -29px;
+	left: 0px;
+	width: 0; 
+ 	height: 0; 
+ 	border-style: solid;
+	border-width: 30px 0 0 30px;
+	border-color: transparent transparent transparent #36393a;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-up-right{
+	position: absolute;
+	top: -29px;
+	right: 0px;
+	width: 0; 
+ 	height: 0; 
+  	border-style: solid;
+	border-width: 0 0 30px 30px;
+	border-color: transparent transparent #36393a transparent;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-down-center {
+	position: absolute;
+	bottom: -30px;
+	left: calc(50% - 30px);
+	width: 0; 
+  	height: 0; 
+  	border-left: 30px solid transparent;
+  	border-right: 30px solid transparent;
+  	border-top: 30px solid #36393a;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-down-left {
+	position: absolute;
+	bottom: -28px;
+	left: 0px;
+	width: 0; 
+  	height: 0; 
+  	border-style: solid;
+	border-width: 30px 30px 0 0;
+	border-color: #36393a transparent transparent transparent;
+}
+.sub-wrapper .domain-graph .domain-tooltip .arrow-down-right {
+	position: absolute;
+	bottom: -28px;
+	right: 0px;
+	width: 0; 
+  	height: 0; 
+  	border-style: solid;
+	border-width: 0 30px 30px 0;
+	border-color: transparent #36393a transparent transparent;
+}
+.sub-wrapper .domain-buttons {
+	text-align: center;
+}
+.sub-wrapper .domain-buttons a {
+	display: inline-block;
+	width: calc(20% - 10px);
+	margin-right: 6px;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	color: white;
+	font-size: 20px;
+	font-weight: bolder;
+	padding-bottom: 10px;
+}
+.sub-wrapper .domain-buttons a:hover {
+	opacity: 0.8;
+}
+.sub-wrapper .domain-buttons img {
+	width: 50%;
+	padding: 10% 0;
+}
+.sub-wrapper .domain-buttons a.deselect {
+	background-color: #dfdfdf;
+}
+.sub-wrapper .domain-buttons .comm-quality {
+	background-color: #06527e;
+}
+.sub-wrapper .domain-buttons .doctor-rating {
+	background-color: #00b8c0;
+}
+.sub-wrapper .domain-buttons .recomm-practice {
+	background-color: #de9b22;
+}
+.sub-wrapper .domain-buttons .access-care {
+	background-color: #18ac5c;
+}
+.sub-wrapper .domain-buttons .care-coord {
+	background-color: #e44935;
+}
+.sub-wrapper .domain-specs {
+	width: 100%;
+	padding: 50px 0 0 0;
+	display: table;
+	content: ""
+}
+.sub-wrapper .domain-specs .quiz-graph {
+	width: 40%;
+	float: left;
+}
+.sub-wrapper .quiz-graph svg .axis line {
+	shape-rendering: crispEdges;
+	stroke: #ccc;
+}
+.sub-wrapper .quiz-graph svg .axis text{
+	font-size: 20px;
+}
+.sub-wrapper .quiz-graph .bar:hover {
+	opacity: 0.9;
+}
+.sub-wrapper .domain-specs .domain-specs-info {
+	width: 60%;
+	float: left;
+	color: #333;
+}
+.sub-wrapper .domain-specs .domain-specs-info .domain-specs-info-border {
+	background-color: #e5e5e5;
+	padding-left: 40px
+}
+.sub-wrapper .domain-specs .domain-specs-info .percentage {
+	font-size: 48px;
+	font-weight: bolder;
+}
+.sub-wrapper .domain-specs .domain-specs-info .domain-name {
+	font-size: 48px;
+	line-height: 48px;
+	font-weight: bolder;
+}
+.sub-wrapper .domain-specs .domain-specs-info .factors {
+	font-size: 24px;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list {
+	padding: 30px 0;
+	display: table;
+	content: ""
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-order {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-order li {
+	height: 54px;
+	width: 54px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 48px;
+	line-height: 48px;
+	color: white;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name li {
+	height: 54px;
+	margin-bottom: 20px;
+	font-size: 26px;
+	padding: 0 30px;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li {
+	height: 54px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li a {
+	background-color: #08B4C2;
+	text-decoration: none;
+	text-align: center;
+	color: white;
+	font-size: 48px;
+	line-height: 25px;
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	position: absolute;
+	top: 7px;
+}
+.sub-wrapper .doctor-tips {
+	padding: 50px 5% 50px 5%;
+	display: flex;
+}
+.sub-wrapper .doctor-tips .tips-text {
+	width: 70%;
+	float: left;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane {
+	margin-top: 80px;
+	position: relative;
+	border: 3px solid black;
+	padding: 10px 50px 30px 30px;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-big {
+	font-size: 48px;
+	font-weight: bolder;
+	padding: 10px 0;
+	line-height: 60px;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-small {
+	font-size: 24px;
+	line-height: 30px;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-readmore {
+	font-size: 24px;
+	line-height: 30px;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-readmore a {
+	color: #08B4C2;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .arrow-container {
+	position: absolute;
+	right: -80px;
+	top: 50px;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .arrow {
+	position: relative;
+	width: 0;
+	border-top: solid 55px black;
+	border-right: solid 80px transparent;
+}
+.sub-wrapper .doctor-tips .tips-text .rect-pane .arrow .empty {
+	position: absolute;
+	bottom: -10px;
+	left: -21px;
+	width: 0;
+	border-top: solid 61px white;
+	border-right: solid 89px transparent;
+}
+.sub-wrapper .doctor-tips .doctor-img {
+	width: 30%;
+	float: left;
+	text-align: center;
+}
+
+@media all and (max-width: 1200px) {
+	.sub-wrapper .domain-graph {
+		height: 500px;
+	}
+	.sub-wrapper .domain-buttons a {
+		font-size: 14px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .percentage {
+		font-size: 40px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .domain-name {
+		font-size: 40px;
+		line-height: 40px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .factors {
+		font-size: 20px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .domain-specs-info-border {
+		padding-left: 20px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list {
+		width: 100%;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-order li {
+		height: 44px;
+		width: 44px;
+		font-size: 30px;
+		line-height: 38px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name {
+		width: calc(100% - 150px);
+		white-space: nowrap;
+		margin-right: 50px;
+		overflow: hidden;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name li {
+		height: 44px;
+		font-size: 22px;
+		padding: 0 10px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li {
+		height: 44px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li a {
+		width: 30px;
+		height: 30px;
+		font-size: 22px;
+	}
+	.sub-wrapper .doctor-tips .tips-text {
+		width: calc(100% - 300px);
+		padding-right: 100px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-big {
+		font-size: 28px;
+		line-height: 34px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-small {
+		font-size: 16px;
+		line-height: 24px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-readmore {
+		font-size: 16px;
+		line-height: 24px;
+	}
+	.sub-wrapper .doctor-tips .doctor-img {
+		width: 200px;
+	}
+	.sub-wrapper .doctor-tips .doctor-img img{
+		width: 100%;
+	}
+	.sub-wrapper .domain-graph .overall-tooltip {
+		font-size: 18px;
+		line-height: 22px;
+		padding: 0 20px;
+	}
+}
+
+@media all and (max-width: 900px) {
+	.sub-wrapper .domain-graph {
+		height: 400px;
+	}
+	.sub-wrapper .domain-graph .domain-tooltip {
+		padding: 10px;
+	}
+	.sub-wrapper .domain-graph .domain-tooltip .percent {
+		font-size: 50px;
+		line-height: 50px;
+	}
+	.sub-wrapper .domain-graph .domain-tooltip ul {
+		font-size: 14px;
+		line-height: 14px;
+	}
+	.sub-wrapper .domain-buttons a .domain-name{
+		width: 80%;
+		margin: 0 auto;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	.sub-wrapper .domain-specs .quiz-graph {
+		width: 50%;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info {
+		width: 50%;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .percentage {
+		font-size: 22px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .domain-name {
+		font-size: 22px;
+		line-height: 22px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .factors {
+		font-size: 16px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list {
+		padding: 20px 0;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-order li {
+		height: 30px;
+		width: 30px;
+		font-size: 20px;
+		line-height: 26px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name {
+		width: calc(100% - 100px);
+		margin-right: 20px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-name li {
+		height: 30px;
+		font-size: 14px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li {
+		height: 30px;
+	}
+	.sub-wrapper .domain-specs .domain-specs-info .quiz-list .quiz-link li a {
+		width: 20px;
+		height: 20px;
+		font-size: 14px;
+		line-height: 14px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane {
+		margin-top: 45px;
+	}
+	.sub-wrapper .doctor-tips .tips-text {
+		width: calc(100% - 250px);
+		padding-right: 100px;
+	}
+	.sub-wrapper .doctor-tips .doctor-img {
+		width: 150px;
+	}
+}
+
+@media all and (max-width: 700px) {
+	.sub-wrapper .doctor-tips .tips-text .rect-pane {
+		margin-top: 10px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-big {
+		font-size: 20px;
+		line-height: 24px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-small {
+		font-size: 14px;
+		line-height: 16px;
+	}
+	.sub-wrapper .doctor-tips .tips-text .rect-pane .tips-readmore {
+		font-size: 14px;
+		line-height: 16px;
+	}
+	.sub-wrapper .doctor-tips .tips-text {
+		width: calc(100% - 200px);
+		padding-right: 100px;
+	}
+	.sub-wrapper .doctor-tips .doctor-img {
+		width: 100px;
+	}
+}

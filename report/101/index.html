@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script src="jquery.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+	<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+	<style>
+		body {
+			padding-top: 50px;
+		}
+		#step2 {
+			width: 400px;
+			/*height: 400px;*/
+			margin: 0 auto;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border: 1px solid #ccc;
+			padding: 20px;
+		}
+
+		#step2 .column-container {
+			overflow: scroll; overflow-y: hidden;
+		}
+
+		#step2 .column-slider {
+			width: 1000px;
+		}
+
+		#step2 .column {
+			float: left;
+			margin-right: 20px;
+			width: 345px
+		}
+		
+
+		/* column on edit*/
+		#step2 .column.on-edit .column-keys {
+			border: 2px solid #52bad5;
+			height: 156px;
+			padding: 10px
+		}
+
+		#step2 .column.on-edit .column-values{
+			border: 2px solid #52bad5;
+		}
+
+		#step2 .column.on-edit .column-values .column_value {
+			padding: 10px 0 10px 10px;
+			border-bottom: 1px dotted #52bad5;
+			background: #b1e0ec
+		}
+
+		#step2 .column.on-edit .column-values .column_value.title {
+			background: #52bad5
+		}
+
+		#step2 .column.on-edit .column-values .column_value:last-child {
+			border: none;
+		}
+
+		/* column raw state */
+		#step2 .column.raw .column-keys {
+			border: 2px solid #ee836e;
+			height: 156px;
+			padding: 10px;
+			text-align: center;
+		}
+
+		#step2 .column.raw .column-values{
+			border: 2px solid #ee836e;
+		}
+
+		#step2 .column.raw .column-values .column_value {
+			padding: 10px 0 10px 10px;
+			border-bottom: 1px dotted #ee836e;
+			background: #fbe3e4
+		}
+
+		#step2 .column.raw .column-values .column_value.title {
+			background: #ee836e
+		}
+
+		#step2 .column.raw .column-values .column_value:last-child {
+			border: none;
+		}
+
+		/* column edited */
+		#step2 .column.edited .column-keys {
+			border: 2px solid #ccc;
+			height: 156px;
+			padding: 10px;
+			text-align: center;
+		}
+
+		#step2 .column.edited .column-values{
+			border: 2px solid #ccc;
+		}
+
+		#step2 .column.edited .column-values .column_value {
+			padding: 10px 0 10px 10px;
+			border-bottom: 1px dotted #ccc;
+			background: #eee
+		}
+
+		#step2 .column.edited .column-values .column_value.title {
+			background: #ccc
+		}
+
+		#step2 .column.edited .column-values .column_value:last-child {
+			border: none;
+		}
+	</style>
+</head>
+<body>
+	<!-- templates on edit -->
+	<template id="column-on-edit">
+		<div class="column on-edit">
+			<div class="column-keys form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-5">Column Name</label>
+					<div class="col-sm-7"><input class="column-title form-control" type="text"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-5">Type</label>
+					<div class="col-sm-7">
+						<select class="column-type form-control">
+							<option value="" selected disabled>Make a Selection</option>
+							<option value="location">Location</option>
+							<option value="label">Label</option>
+							<option value="value">Value</option>
+							<option value="color">Color</option>
+							<option value="category">Category</option>
+						</select>
+					</div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-default btn-column-back"><span class="glyphicon glyphicon-chevron-left"></span><b>Back</b></button>
+					<button class="btn btn-default btn-column-save"><b>Save</b><span class="glyphicon glyphicon-chevron-right"></span></button>
+					<a class="btn-column-skip" href="javascript:void(0)"><b>Skip</b></a>
+				</div>
+			</div>
+			<div class="column-values"></div>
+		</div>
+	</template>
+	<template id="column-on-edit-first">
+		<div class="column on-edit first">
+			<div class="column-keys form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-5">Column Name</label>
+					<div class="col-sm-7"><input class="column-title form-control" type="text"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-5">Type</label>
+					<div class="col-sm-7">
+						<select class="column-type form-control">
+							<option value="" selected disabled>Make a Selection</option>
+							<option value="location">Location</option>
+							<option value="label">Label</option>
+							<option value="value">Value</option>
+							<option value="color">Color</option>
+							<option value="category">Category</option>
+						</select>
+					</div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-default btn-column-save"><b>Save</b><span class="glyphicon glyphicon-chevron-right"></span></button>
+					<a href="javascript:void(0)" class="btn-column-skip"><b>Skip</b></a>
+				</div>
+			</div>
+			<div class="column-values">
+			</div>
+		</div>
+	</template>
+	<template id="column-on-edit-last">
+		<div class="column on-edit last">
+			<div class="column-keys form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-5">Column Name</label>
+					<div class="col-sm-7"><input class="column-title form-control" type="text"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-5">Type</label>
+					<div class="col-sm-7">
+						<select class="column-type form-control">
+							<option value="" selected disabled>Make a Selection</option>
+							<option value="location">Location</option>
+							<option value="label">Label</option>
+							<option value="value">Value</option>
+							<option value="color">Color</option>
+							<option value="category">Category</option>
+						</select>
+					</div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-default btn-column-back"><span class="glyphicon glyphicon-chevron-left"></span><b>Back</b></button>
+					<button class="btn btn-default btn-column-save"><b>Save</b><span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
+			</div>
+			<div class="column-values">
+			</div>
+		</div>
+	</template>
+
+	<!-- templates raw -->
+	<template id="column-raw">
+		<div class="column raw">
+			<div class="column-keys form-horizontal">
+				<p>Will not be imported</p>
+				<p class="column-title"></p>
+				<p>(unmatched column)</p>
+				<p><a class="btn-column-edit">Edit</a> - <a class="btn-column-skip">Skip</a></p>
+			</div>
+			<div class="column-values"></div>
+		</div>
+	</template>
+	<template id="column-raw-last">
+		<div class="column raw last">
+			<div class="column-keys form-horizontal">
+				<p>Will not be imported</p>
+				<p class="column-title"></p>
+				<p>(unmatched column)</p>
+				<p><a class="btn-column-edit">Edit</a></p>
+			</div>
+			<div class="column-values">
+			</div>
+		</div>
+	</template>
+
+	<!-- templates edited -->
+	<template id="column-edited">
+		<div class="column edited">
+			<div class="column-keys form-horizontal">
+				<p>Type : <b class="column-type"></b></p>
+				<p>Configured</p>
+				<p><a class="btn-column-edit">Edit</a></p>
+			</div>
+			<div class="column-values"></div>
+		</div>
+	</template>
+	<div id="step2">
+		<p><b>Define your columns</b></p>
+		<div class="column-container">
+			<div class="column-slider">
+			</div>
+		</div>
+	</div>
+	<script>
+		$("document").ready(function(){
+
+			var data = [
+				"SUBTYPECODE :,PHASINGCODE :,FEEDERID :,OPERVOLT :,NEUTTYPE :,NEUTSIZE :,ASSEMBLYCODE :,RATEDVOLT :,PHASEORIENTATION :,GlobalID :,INSTALLDATE :,OBJECTID :,SHAPE.STLength() :,BEGIN_MEASURE :,END_MEASURE :",
+				"3,7,6,230,ACSR,1/0,DS5100,230,ABC,{802C344F-E645-4C79-8A7B-C6DA04942AE2},null,166,215.50457727575503,82,22",
+				"3,7,12,230,ACSR,1/0,DS5100,230,ABC,{6CF75375-7190-4212-89DA-1BAB15E39A07},null,1036,269.5942170250713,87,58",
+				"1,4,9,175,ACSR,1/0,DS5100,175,A,{98FF0BE0-0CBA-4F67-BDDE-AA7E3EB08178},946684800000,1242,263.49520535808426,50,51",
+				"1,4,9,175,ACSR,1/0,DS5100,175,A,{B1F05762-CFD9-4028-BB76-DC402A17976B},946684800000,1257,279.8617085720486,97,89"
+			];
+
+			generate_columns(data);
+
+			function generate_columns(data){
+
+				// predefined attribute
+				var title_not_exist = $("#title-not-exist").is(':checked');
+				if(title_not_exist) {
+					var column_attr = data.length - 1;
+				} else {
+					var column_attr = data.length;
+				}
+
+				// separate lines
+				var lines = data;
+				
+				// separate columns, get column count
+				var column_count = 0;
+				for(var i = 0;i < lines.length;i++){
+					lines[i] = lines[i].split(',');
+					if(lines[i].length > column_count) {
+						column_count = lines[i].length;
+					}
+				}
+
+				// set slider width
+				$(".column-slider").width((column_count * 365) + "px");
+
+				// columns list & generate column view
+				var columns = [];
+				for (var i = 0 ; i < column_count ; i ++) {
+
+					// get column data
+					var column = {};
+					for (var j = 0 ; j < lines.length ; j ++) {
+						if( j < column_attr) {
+							column[j] = lines[j][i];
+						}
+					}
+					if(title_not_exist) {
+						column["title"] = "column" + i;
+					}
+					column["type"] = "";
+					columns.push(column);
+
+
+					// column data view
+					switch (i) {
+						case 0:
+							temp1 = document.getElementById('column-on-edit-first');
+							temp2 = document.getElementById('column-raw');
+							temp3 = document.getElementById('column-edited');
+							var on_edit = $(".column-slider").append(temp1.content.cloneNode(true)).find('.column').last();
+							var raw     = $(".column-slider").append(temp2.content.cloneNode(true)).find('.column').last();
+							var edited  = $(".column-slider").append(temp3.content.cloneNode(true)).find('.column').last();
+							raw.hide();
+							edited.hide();
+							break;
+						case column_count-1:
+							temp1 = document.getElementById('column-on-edit-last');
+							temp2 = document.getElementById('column-raw-last');
+							temp3 = document.getElementById('column-edited');
+							var on_edit = $(".column-slider").append(temp1.content.cloneNode(true)).find('.column').last();
+							var raw     = $(".column-slider").append(temp2.content.cloneNode(true)).find('.column').last();
+							var edited  = $(".column-slider").append(temp3.content.cloneNode(true)).find('.column').last();
+							on_edit.hide();
+							edited.hide();
+							break;
+						default:
+							temp1 = document.getElementById('column-on-edit');
+							temp2 = document.getElementById('column-raw');
+							temp3 = document.getElementById('column-edited');
+							var on_edit = $(".column-slider").append(temp1.content.cloneNode(true)).find('.column').last();
+							var raw     = $(".column-slider").append(temp2.content.cloneNode(true)).find('.column').last();
+							var edited  = $(".column-slider").append(temp3.content.cloneNode(true)).find('.column').last();
+							on_edit.hide();
+							edited.hide();
+							break;
+					}
+					// col.addClass("column" + i);
+					if( title_not_exist ) {
+						on_edit.find('.column-values').append('<div class="column_value title">' + column["title"] + '</div>');
+						raw.find('.column-values').append('<div class="column_value title">' + column["title"] + '</div>');
+						edited.find('.column-values').append('<div class="column_value title">' + column["title"] + '</div>');
+						for (var k = 0 ; k < column_attr; k ++) {
+							on_edit.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+							raw.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+							edited.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+						}
+					} else {
+						for (var k = 0 ; k < column_attr; k ++) {
+							if(k) {
+								on_edit.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+								raw.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+								edited.find('.column-values').append('<div class="column_value">' + column[k] + '</div>')
+							} else {
+								on_edit.find('.column-values').append('<div class="column_value title">' + column[k] + '</div>')
+								raw.find('.column-values').append('<div class="column_value title">' + column[k] + '</div>')
+								edited.find('.column-values').append('<div class="column_value title">' + column[k] + '</div>')
+							}
+						}
+					}
+					on_edit.find('.column-title').val(column["title"]);
+					raw.find('.column-title').append(column["title"]);
+				}
+
+				// skip
+				$(".column.on-edit .btn-column-skip").on("click", function(){
+					var index = $(".column.on-edit .btn-column-skip").index(this);
+					var next  = index + 1;
+
+					$(".column-container").animate({
+						scrollLeft: (index + 1) * 365
+					}, 800, function(){
+						$(".column.on-edit:eq("+index+") .column-title").val(columns[index].title);
+						$(".column.on-edit:eq("+index+") .column-type").val(columns[index].type);
+						if(columns[index].type) {
+							$(".column.edited:eq("+index+")").show();	
+						} else {
+							$(".column.raw:eq("+index+")").show();	
+						}
+						$(".column.on-edit:eq("+index+")").hide();
+						$(".column.on-edit:eq("+next+")").show();
+						$(".column.raw:eq("+next+")").hide();
+						$(".column.edited:eq("+next+")").hide();
+					});
+				});
+
+				$(".column.raw .btn-column-skip").on("click", function(){
+					var index = $(".column.raw .btn-column-skip").index(this);
+					var next  = index + 1;
+					var edit  = $(".column.on-edit:visible");
+					var cur   = $(".column.on-edit").index(edit);
+
+					$(".column-container").animate({
+						scrollLeft: (index + 1) * 365
+					}, 800, function(){
+						$(".column.on-edit:eq("+cur+") .column-title").val(columns[cur].title);
+						$(".column.on-edit:eq("+cur+") .column-type").val(columns[cur].type);
+						if(columns[cur].type) {
+							$(".column.edited:eq("+cur+")").show();	
+						} else {
+							$(".column.raw:eq("+cur+")").show();	
+						}
+						$(".column.on-edit:eq("+cur+")").hide();
+						$(".column.on-edit:eq("+next+")").show();
+						$(".column.raw:eq("+next+")").hide();
+						$(".column.edited:eq("+next+")").hide();
+					});
+				});
+
+				// back
+				$(".column.on-edit .btn-column-back").on("click", function(){
+					var index = $(".column.on-edit .btn-column-back").index(this);
+					var cur   = index + 1;
+					var prev  = index;
+
+					$(".column-container").animate({
+						scrollLeft: (index) * 365
+					}, 800, function(){
+						$(".column.on-edit:eq("+cur+") .column-title").val(columns[cur].title);
+						$(".column.on-edit:eq("+cur+") .column-type").val(columns[cur].type);
+						if(columns[index].type) {
+							$(".column.edited:eq("+cur+")").show();	
+						} else {
+							$(".column.raw:eq("+cur+")").show();	
+						}
+						$(".column.on-edit:eq("+cur+")").hide();
+						$(".column.on-edit:eq("+prev+")").show();
+						$(".column.raw:eq("+prev+")").hide();
+						$(".column.edited:eq("+prev+")").hide();
+					});
+				});
+
+				// edit
+				$(".column.raw .btn-column-edit").on("click", function(){
+					var index = $(".column.raw .btn-column-edit").index(this);
+					$(".column-container").animate({
+						scrollLeft: (index) * 365
+					}, 400, function(){
+						$(".column.on-edit:eq("+index+")").show();
+						$(".column.raw:eq("+index+")").hide();
+					});
+				});
+
+				$(".column.edited .btn-column-edit").on("click", function(){
+					var index = $(".column.edited .btn-column-edit").index(this);
+					$(".column-container").animate({
+						scrollLeft: (index) * 365
+					}, 400, function(){
+						$(".column.on-edit:eq("+index+")").show();
+						$(".column.edited:eq("+index+")").hide();
+					});
+				});
+
+				// save
+				$(".column.on-edit .btn-column-save").on("click", function(){
+					var index = $(".column.on-edit .btn-column-save").index(this);
+					var next  = index + 1;
+
+					var title = $(".column.on-edit:eq("+index+") .column-title").val();
+					var type  = $(".column.on-edit:eq("+index+") .column-type").val();
+
+					if(type) {
+						columns[index].title = title;
+						columns[index].type = type;
+
+						$(".column.edited:eq("+index+") .column-type").html(type);
+					} else {
+						alert("please fill type field!")
+						return;
+					}
+
+					$(".column-container").animate({
+						scrollLeft: (index + 1) * 365
+					}, 800, function(){
+						if(columns[index].type) {
+							$(".column.edited:eq("+index+")").show();	
+						} else {
+							$(".column.raw:eq("+index+")").show();	
+						}
+						$(".column.on-edit:eq("+index+")").hide();
+						$(".column.on-edit:eq("+next+")").show();
+						$(".column.raw:eq("+next+")").hide();
+						$(".column.edited:eq("+next+")").hide();
+					});
+				});
+			}
+		});
+	</script>
+</body>

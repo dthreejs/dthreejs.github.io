@@ -1,0 +1,89 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+	font-weight: lighter;
+}
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+.title1 {
+	background-color: #39A1D4;
+}
+.title1 p {
+	padding: 30px;
+	color: white;
+}
+.title2 {
+	background-color: #3494D0;
+}
+.title2 p {
+	padding: 30px;
+	color: white;;
+	font-family: sans-serif;
+}
+.category {
+	padding: 0 10px;
+}
+.category .content {
+	color: white;
+	padding: 30px 0;
+}
+
+/* Chart style */
+.category .category-bar {
+	height: 300px;
+	position: relative;
+}
+.bubble-tooltip {
+	width: 60px;
+	height: 35px;
+	text-align: center;
+    line-height: 25px;
+    font-size: 16px;
+    position: absolute;
+    background-color: #becc42;
+    padding: 5px 0;
+    color: white;
+    font-weight: bolder;
+    border-radius: 17px;
+    left: calc(50% - 30px);
+}
+.bubble-tooltip i {
+	pointer-events: none;
+}
+.bubble-tooltip .arrow-down.tip1 {
+	width: 0; 
+  	height: 0; 
+  	border-left: 10px solid transparent;
+  	border-right: 10px solid transparent;
+  	border-top: 10px solid #becc42;
+  	position: absolute;
+    bottom: -10px;
+    left: calc(50% - 10px);
+    pointer-events: none;
+}
+.bubble-tooltip .arrow-down.tip2 {
+	width: 0; 
+  	height: 0; 
+  	border-left: 10px solid transparent;
+  	border-right: 10px solid transparent;
+  	border-top: 10px solid #cd5d2d;
+  	position: absolute;
+    bottom: -10px;
+    left: calc(50% - 10px);
+    pointer-events: none;
+}
+.bar-tooltip {
+ 	position: absolute;
+	text-align: center;
+	width: 300px;
+	padding: 10px;
+	font-size: 16px;
+	border: 0px;
+	border-radius: 2px;
+	pointer-events: none;
+	color : white;
+	z-index: 1;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

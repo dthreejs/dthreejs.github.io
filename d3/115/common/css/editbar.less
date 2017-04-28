@@ -1,0 +1,21 @@
+.edit-bar{
+      .position-fixed;
+      z-index: 9;
+      .vertical-center;
+      width: 32px;
+      a{  
+          margin: 2px 0; 
+          background: @blue-color;
+          display: @block;
+          color: #4c859b;
+          font-size: 13px;
+          line-height: 20px;
+          text-align: @text-center;
+          padding: 12px 5px;
+          &.delete:hover, &.delete.active{
+            color: #231f20;
+            background: @error-color;
+          }
+      }
+
+}

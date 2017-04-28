@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title></title>
+	<link href="https://fonts.googleapis.com/css?family=Palanquin" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+	<div class="sub-wrapper">
+		<div class="title">
+			Overall Performance*
+			<a href="#" class="tip-number">!</a>
+		</div>
+		<div class="filter">
+			<label>During</label>
+			<select class="date-filter">
+				<option>six months</option>
+			</select>
+			<label>Compared to</label>
+			<select class="compare-filter">
+				<option>self</option>
+			</select>
+		</div>
+		<div class="reviews">
+			* based on 
+			<a href="#" class="review-count">87 unique reviews</a>
+		</div>
+		<div class="domain-graph"></div>
+		<div class="domain-buttons">
+			<a href="javascript:void(0)" class="comm-quality">
+				<div>
+					<img src="img/comm-quality.png">
+				</div>
+				<div class="domain-name">Communication Quality</div>
+			</a>
+			<a href="javascript:void(0)" class="doctor-rating">
+				<div>
+					<img src="img/doctor-rating.png">
+				</div>
+				<div class="domain-name">Overall Doctor Rating</div>
+			</a>
+			<a href="javascript:void(0)" class="recomm-practice">
+				<div>
+					<img src="img/recomm-practice.png">
+				</div>
+				<div class="domain-name">Recommend Practice</div>
+			</a>
+			<a href="javascript:void(0)" class="access-care">
+				<div>
+					<img src="img/access-care.png">
+				</div>
+				<div class="domain-name">Access to Care</div>
+			</a>
+			<a href="javascript:void(0)" class="care-coord">
+				<div>
+					<img src="img/care-coord.png">
+				</div>
+				<div class="domain-name">Care Coordination</div>
+			</a>
+		</div>
+		<div class="domain-specs">
+			<div class="quiz-graph">
+				<svg></svg>
+			</div>
+			<div class="domain-specs-info">
+				<div class="domain-specs-info-border">
+					<div class="percentage">83% Average in </div>
+					<div class="domain-name">Care Coordination</div>
+					<div class="factors">is based on 3 factors:</div>
+					<div class="quiz-list">
+						<ul class="quiz-order">
+							<li>A</li>
+							<li>B</li>
+							<li>C</li>
+						</ul>
+						<ul class="quiz-name">
+							<li>Office follows up with test results</li>
+							<li>Provider has medical records</li>
+							<li>Health team ask about Rx meds</li>
+						</ul>
+						<ul class="quiz-link">
+							<li><a href="#">&gt;</a></li>
+							<li><a href="#">&gt;</a></li>
+							<li><a href="#">&gt;</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="doctor-tips">
+			<div class="tips-text">
+				<div class="rect-pane">
+					<div class="tips-big">
+						Congratulations! Your average overall performance is 86.4%
+					</div>
+					<div class="tips-small">
+						based on the five domains outlined above. Patients describe you as "gentle, punctual, humble, fast, and kind." Click on a domain for more details and tips for improvement.
+					</div>
+					<div class="tips-readmore">
+					</div>
+					<div class="arrow-container">
+						<div class="arrow">
+							 <div class="empty"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="doctor-img">
+				<img src="img/doctor.png">
+			</div>
+		</div>
+	</div>
+</body>
+</html>

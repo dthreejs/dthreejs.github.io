@@ -1,0 +1,123 @@
+.prepdeploy-form{
+    padding: 15px 0 0; 
+    margin-bottom: 7px; 
+    border-bottom: 1px solid #d2d4d3; 
+    clear: both; 
+    float: left; 
+    width: 100%; 
+    position: @position-relative;
+    &:after { 
+      content: ""; 
+      height: 2px; 
+      width: 100%; 
+      .position-absolute; 
+      top: auto;
+      bottom: -3px; 
+      background: @white-color; 
+    }
+    .form-row { 
+      margin: 15px 0 56px; 
+      max-width: 1068px; 
+      .form-input{
+        font-size: 26px;
+        color: #132328;
+        height: 40px;
+      }
+      .fa{
+        color: #00a69c;
+        font-size: 18px;
+        line-height: 24px;
+        top: 9px;
+      }
+    }
+    h4{
+      padding: 0 0 13px; 
+      font-size: 16px; 
+      line-height: 22px; 
+      color: #132328; 
+      font-weight: @font-bold;
+      i{
+        font-size: 19px;
+        color: #94979b;
+        font-weight: 400;
+        margin-right: 5px;
+      }
+      .accordion{
+        margin: 2px 5px 0 0; 
+        float: right; 
+        font-size: 17px; 
+        color: #7193a4;
+        i{
+          display: block; 
+          margin: 0px;           
+          &.fa-angle-up{
+            display: @none;
+          }
+        }
+        &:hover{
+          i{
+            color: #132328;
+          }
+        }
+        &.open{
+          .fa-angle-up{
+            display: @block;
+          }
+          .fa-angle-down{
+            display: @none;
+          }
+        }
+      }
+    }
+    .content{
+      padding: 27px 67px;
+      p{
+        font-size: 17px; 
+        color: #132328; 
+        line-height: 24px; 
+        font-weight: 300; 
+        padding-bottom: 15px;
+      }
+    }
+    @media @tablet{
+      .form-row{
+        margin: 14px 0 56px;
+        max-width: 598px;
+        .fa{
+          font-size: 16px;
+        }
+        .form-input{
+          font-size: 23px;
+        }
+      }
+      h4{
+        font-size: 15px;
+        i{
+          margin-right: 9px;
+        }
+      }
+      .content{
+        padding: 27px 10px 25px;
+        max-width: 620px;
+        p{
+          font-size: 16px;
+          line-height: 22px;
+
+        }
+      }
+    }
+    @media @mobile{
+      h4{
+        font-size: 14px;
+      }
+      .content{
+        padding: 20px 0px;
+        max-width: 470px;
+        p{
+          font-size: 14px;
+          line-height: 20px;
+
+        }
+      }
+    }
+}

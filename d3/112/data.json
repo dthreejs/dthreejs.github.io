@@ -1,0 +1,25 @@
+{
+	"data" : {
+		"d0" : 6,
+		"d1" : 25,
+		"d2" : 22,
+		"d3" : 22,
+		"d4" : 29,
+		"d5" : 31,
+		"d6" : 32,
+		"d7" : 22,
+		"d8" : 32,
+		"d9" : 37,
+		"d10" : 22,
+		"d11" : 27,
+		"d12" : 40
+	},
+	"analysis" : {
+		"stats" : {
+			"cases_less" : 135,
+			"cases_greater" : 207,
+			"cases_equal" : 9
+		},
+		"fact" : "59% of people are better than you."
+	}
+}

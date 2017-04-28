@@ -1,0 +1,206 @@
+.table-overlay{          
+      width: 100%; 
+      position: relative !important; 
+      z-index: 991;            
+      float: left;      
+      .backface;       
+      background: @blue-color;
+      display: none; 
+	  padding-left: 63px; /* added by vishal */
+      .left{
+        padding: 28px 10px;
+        .float-left;
+        width: 23%;
+        .survey-name{
+          padding: 0 0 15px;
+          font-size: 20px;
+          color: #fff;
+          font-weight: @font-light;
+          line-height: 26px;
+          display: @block;
+          i{
+            margin: 5px 15px 0 0;
+            font-size: 13px;
+            color: #b6c6cc;
+            margin-right: 15px;
+            vertical-align: top;
+          }
+        }
+        .info{
+          font-size: 11px;
+          line-height: 15px;
+          font-weight: @font-medium;
+          color: #aab8bc;
+          display: @block;
+          padding: 0 0 10px 28px;
+		  background:inherit;
+		  text-align:left;
+          &.instatus{
+            padding-top: 21px;
+            line-height: 24px;
+			width:auto;
+          }
+          span{
+            color: @notification-color;
+            font-size: 18px;
+            font-weight: @font-light;
+            display: @inline-block;
+            vertical-align: top;
+            padding-left: 8px;
+            margin-top: -1px;
+          }
+        }
+      }
+      .middle{
+        width: 12.5%;
+        .float-left;
+        text-align: @text-center;
+        padding: 57px 0 0;
+        .progress{
+          font-size: 12px;
+          color: @white-color;
+          line-height: 15px;
+          strong{
+            font-size: 52px;
+            display: @block;
+            line-height: 56px;
+            font-weight: 400;
+            padding-bottom: 9px;
+          }
+        }
+      }
+      .right{
+        .float-right;
+        width: 63.7%;
+        padding: 18px 0 0;
+        .over-notes{
+          color: @notification-color;
+          font-size: 10px;
+          line-height: 14px;
+          display: @block; 
+          padding: 0 0 18px 20px;         
+        }
+        ul{
+          .style-type-none;
+          max-width: 540px;
+          &:after{
+            .clearFix;
+          }
+          li{
+            text-align: @text-center;
+            .float-left;
+            width: 20%;
+            padding-bottom: 42px;
+            &:nth-of-type(5n+1){
+              clear: both;
+            }
+            &.light-color{
+              a{
+                color: #4c859b;
+              }
+            }
+            a{
+              display: @block;
+              font-size: 9px;
+              line-height: 12px; 
+              color: #fff;              
+              i{
+                display: block;
+                font-size: 13px;
+                line-height: 20px;
+                margin-bottom: 10px;
+                color: #4c859b;
+              }   
+              .fa-pencil{
+                font-size: 15px;
+                line-height: 20px;
+                color: #b6c6cc;
+              }          
+            }
+          }
+        }
+      }
+
+  @media @desktop{
+    padding: 0px;
+    .left{
+      width: 30%;
+      padding-left: 0px;
+      .survey-name{
+        font-size: 17px;
+      }
+    }
+    .middle{
+      width: 16%;
+    }
+    .right{
+      width: 52%;
+    }
+  }
+
+  @media @tablet{
+    .left{
+      width: 32%;
+      .survey_name{
+        font-size: 16px;
+      }
+    }
+    .middle{
+      width: 12%;
+      .progress{
+        strong{
+          font-size: 48px;
+          line-height: 54px;
+          padding-bottom: 4px;
+        }
+      } 
+    }
+    .right{
+      width: 54%;
+    }
+  }
+
+  @media @mobile{
+    .left{
+      width: 32%;
+      padding: 28px 10px 28px 0;
+      .info{
+        padding: 0 0 6px 23px;
+        .instatus{
+          padding-top: 14px;
+          line-height: 20px;
+        }
+        span{
+          font-size: 13px;
+        }
+      }      
+      .survey-name{
+        font-size: 13px;
+        padding: 0 0 7px;
+        i{
+          margin: 7px 9px 0 0;
+          font-size: 12px;
+        }
+      }
+    }
+    .middle{
+      width: 12%;
+      .progress{
+        font-size: 10px;
+        line-height: 14px;
+        strong{
+          font-size: 38px;
+          line-height: 44px;
+          padding-bottom: 4px;
+        }
+      } 
+    }
+    .right {
+      ul{
+        li{
+          padding-bottom: 25px;
+        }
+      }
+    }
+  }  
+}

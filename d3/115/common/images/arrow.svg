@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="14px" height="10px" viewBox="0 0 14 10" enable-background="new 0 0 14 10" xml:space="preserve">
+<font horiz-adv-x="1792">
+<!-- Copyright Dave Gandy 2015. All rights reserved. -->
+<!-- Copyright: Copyright 2016 Adobe System Incorporated. All rights reserved. -->
+<font-face font-family="FontAwesome" units-per-em="1792" underline-position="0" underline-thickness="0"/>
+<missing-glyph horiz-adv-x="896" d="M224,112l0,1312l448,0l0,-1312l-448,0M112,0l672,0l0,1536l-672,0l0,-1536z"/>
+<glyph unicode="&#xF00C;" horiz-adv-x="1792" d="M1671,970C1671,995 1661,1020 1643,1038l-136,136C1489,1192 1464,1202 1439,1202C1414,1202 1389,1192 1371,1174l-656,-657l-294,295C403,830 378,840 353,840C328,840 303,830 285,812l-136,-136C131,658 121,633 121,608C121,583 131,558 149,540l362,-362l136,-136C665,24 690,14 715,14C740,14 765,24 783,42l136,136l724,724C1661,920 1671,945 1671,970z"/>
+<glyph unicode=" " horiz-adv-x="448"/>
+</font>
+
+	<text transform="matrix(1 0 0 1 -2.7891 9.4893)" fill="#00A79C" font-family="'FontAwesome'" font-size="13"> </text>
+</svg>

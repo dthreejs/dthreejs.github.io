@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="Chart.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" charset="utf-8"></script>
+	<style type="text/css">
+		.chartjs-report1 {
+			margin : 10px;
+			padding : 10px;
+			box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+		}
+		.chartjs-report1 a {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+		.chartjs-report1 .report-section {
+			padding: 20px;
+		}
+		.chartjs-report1 .report-section-left{
+			padding: 20px 50px;
+		}
+		.chartjs-report1 .report-section-left.date-select label{
+			margin-right: 20px;
+			font-size: 20px
+		}
+		.chartjs-report1 #from-date {
+			margin-right: 50px;
+			width : 100px
+		}
+		.chartjs-report1 #to-date {
+			width : 100px
+		}
+		.chartjs-report1 .report-section.report-title {
+			font-size: 30px;
+			text-align: center;
+		}
+		.chartjs-report1 .report-section-left.total-apps {
+			font-size: 26px
+		}
+		.chartjs-report1 .report-section-left.avgtime {
+			font-size: 26px
+		}
+		.chartjs-report1 .app-processing-time td {
+			border: none
+		}
+		.chartjs-report1 .max-apps td {
+			border: none;
+			font-size: 20px
+		}
+		.detail_view {
+			margin : 10px;
+			padding : 30px;
+			box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			display: none;
+		}
+		table.dataTable thead th, table.dataTable thead td {
+			border-bottom: none
+		}
+		.dataTables_wrapper.no-footer .dataTables_scrollBody {
+			border-bottom: none
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="chartjs-report1">
+			<div class="form-inline row report-section-left date-select">
+				<div class="form-group">
+					<label for="from"> From Date </label>
+					<input class="form-control" type="text" id="from-date" name="from">
+				</div>
+				<div class="form-group">
+					<label for="to"> To Date </label>
+					<input class="form-control" type="text" id="to-date" name="to">
+				</div>
+			</div>
+			<div class="row report-section report-title">
+				Reporting Period : 01/01/2015 ~ 01/01/2016
+			</div>
+			<div class="row report-section chart1" id="report1-chart1">
+				<canvas width="400" height="100"></canvas>
+			</div>
+			<div class="row report-section-left total-apps">
+				Total Applications
+				<a id="total-apps">0</a>
+			</div>
+			<div class="row report-section-left avgtime" >
+				Average Time to process Application (Create Case)
+				<a id="avg-day">0 days</a>
+			</div>
+			<div class="row report-section">
+				<div class="col-xs-4" id="report1-chart2">
+				</div>
+				<div class="col-xs-4">
+					<table class="table app-processing-time">
+						<thead>
+							<tr>
+								<th colspan="2">Apps Processing Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>0-30 days</td>
+								<td><a id="sub-total1">0</a></td>
+							</tr>
+							<tr>
+								<td>31-45 days</td>
+								<td><a id="sub-total2">0</a></td>
+							</tr>
+							<tr>  
+								<td>45+ days</td>
+								<td><a id="sub-total3">0</a></td>
+							</tr>
+						</tbody>
+					  </table>
+				</div>
+				<div class="col-xs-4">
+					<table class="table max-apps">
+						<tbody>
+							<tr>
+								<td>Fastest App</td>
+								<td><a id="fastest-app"></a></td>
+							</tr>
+							<tr>
+								<td>Longest App</td>
+								<td><a id="longest-app"></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="detail_view">
+			<div>
+				<p><button class="btn btn-primary" id="back_to_report">Back</button></p>
+			</div>
+			<div id="report-detail">
+				<table class="table table-bordered table-hover" >
+					<thead>
+						<tr>
+							<td>No</td>
+							<td>name</td>
+							<td>Days</td>
+							<td>Date</td>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+	var all_data, prev_data;
+	var total_apps = [], total_days = 0, sub_total1 = [], sub_total2 = [], sub_total3 = [];
+	var fastest_app, longest_app;
+
+	// Date filter
+	var dateFormat = "mm/dd/yy";
+	var from_date = $("#from-date").datepicker({
+		defaultDate: "+1w",
+		changeMonth: true,
+		changeYear: true,
+		numberOfMonths: 1
+	});
+	var to_date = $( "#to-date" ).datepicker({
+		defaultDate: "+1w",
+		changeMonth: true,
+		changeYear: true,
+		numberOfMonths: 1
+	});
+	// load data
+	d3.csv("data.csv", function(data) {
+		all_data = data;
+		var start_day, end_day;
+		$.each(data, function(i, d){
+			var day = $.datepicker.parseDate( "yy-mm-dd", d.date);
+			if(i) {
+				if(start_day > day) {
+					start_day = day
+				}
+				if(end_day < day) {
+					end_day = day
+				}
+			} else {
+				start_day = day;
+				end_day = day;
+			}
+		});
+
+		from_date.datepicker("setDate", new Date(start_day));
+		to_date.datepicker("setDate", new Date(end_day));
+		from_date.datepicker("option", "minDate", new Date(start_day));
+		from_date.datepicker("option", "maxDate", new Date(end_day));
+		to_date.datepicker("option", "minDate", new Date(start_day));
+		to_date.datepicker("option", "maxDate", new Date(end_day));
+		
+
+		from_date.on("change", function() {
+			to_date.datepicker( "option", "minDate", getDate( this ) );
+			draw_report();
+		});
+		to_date.on("change", function() {
+			from_date.datepicker( "option", "maxDate", getDate( this ) );
+			draw_report();
+		});
+
+		d3.csv("prev.csv", function(data) {
+			prev_data = data
+			draw_report();
+		});
+	});
+
+	function getDate( element ) {
+		var date;
+		try {
+			date = $.datepicker.parseDate( dateFormat, element.val() );
+		} catch( error ) {
+			date = null;
+		}
+		return date;
+	}
+
+	function draw_report() {
+		var start_day     = getDate(from_date);
+		var end_day       = getDate(to_date);
+		var state_day_str = from_date.val();
+		var end_day_str   = to_date.val();
+		var start_month   = start_day.getMonth();
+		var end_month     = end_day.getMonth();
+		var month_name    = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+		
+		var chart1_labels = [];
+		var chart1_data_array1 = {};
+		var chart1_data_array2 = {};
+		var chart1_data1 = [];
+		var chart1_data2 = [];
+		for (var i = start_month ; i <= end_month ; i ++) {
+			chart1_labels.push(month_name[i]);
+			chart1_data_array1[i] = 0;
+			chart1_data_array2[i] = 0;
+		}
+
+		fastest_app = all_data[0];
+		longest_app = all_data[0];
+		total_days  = 0;
+		total_apps  = [];
+		sub_total1  = [];
+		sub_total2  = [];
+		sub_total3  = [];
+		$.each(all_data, function(i, d){
+			var day = $.datepicker.parseDate( "yy-mm-dd", d.date);
+			var month = (new Date(day)).getMonth();
+			if(day >= start_day && day <= end_day) {
+				chart1_data_array1[month] += parseInt(d.days);
+				total_apps.push(d);
+				total_days += parseInt(d.days);
+				if(d.days < 31) {
+					sub_total1.push(d);
+				}
+				if(d.days > 30 && d.days < 46) {
+					sub_total2.push(d);
+				}
+				if(d.days > 45) {
+					sub_total3.push(d);
+				}
+				if(fastest_app.days >= d.days) {
+					fastest_app = d;
+				}
+				if(longest_app.days <= d.days) {
+					longest_app = d;
+				}
+			}
+		});
+
+		start_day.setFullYear(start_day.getFullYear() - 1);
+		end_day.setFullYear(end_day.getFullYear() - 1);
+		$.each(prev_data, function(i, d){
+			var day = $.datepicker.parseDate( "yy-mm-dd", d.date);
+			var month = (new Date(day)).getMonth();
+			if(day >= start_day && day <= end_day) {
+				chart1_data_array2[month] += parseInt(d.days);
+			}
+		});
+
+		for (i = start_month ; i <= end_month ; i ++) {
+			chart1_data1.push(chart1_data_array1[i]);
+			chart1_data2.push(chart1_data_array2[i]);
+		}
+
+
+		$(".report-title").html("Reporting Period : " + state_day_str + " ~ " + end_day_str);
+		$("#total-apps").html(total_apps.length);
+		$("#avg-day").html(parseInt(total_days / total_apps.length) + " days");
+		$("#sub-total1").html(sub_total1.length);
+		$("#sub-total2").html(sub_total2.length);
+		$("#sub-total3").html(sub_total3.length);
+		$("#fastest-app").html(fastest_app.name);
+		$("#longest-app").html(longest_app.name);
+
+		// Chart1
+		$("#report1-chart1 canvas").remove();
+		$("#report1-chart2s canvas").remove();
+		$("#report1-chart1").append('<canvas width="400" height="130"></canvas>');
+		$("#report1-chart2").append('<canvas></canvas>');
+		var ctx_report1_chart1 = $("#report1-chart1 canvas");
+		var report1_chart1 = new Chart(ctx_report1_chart1, {
+			type: 'line',
+			data: {
+				labels: chart1_labels,
+				datasets: [
+					{
+						label: "Current Period",
+						fill: false,
+						lineTension: 0.1,
+						backgroundColor: "rgba(75,192,192,1)",
+						borderColor: "rgba(75,192,192,1)",
+						borderCapStyle: 'butt',
+						borderDash: [],
+						borderDashOffset: 0.0,
+						borderJoinStyle: 'miter',
+						pointBorderColor: "rgba(75,192,192,1)",
+						pointBackgroundColor: "#fff",
+						pointBorderWidth: 1,
+						pointHoverRadius: 5,
+						pointHoverBackgroundColor: "rgba(75,192,192,1)",
+						pointHoverBorderColor: "rgba(220,220,220,1)",
+						pointHoverBorderWidth: 2,
+						pointRadius: 1,
+						pointHitRadius: 10,
+						data: chart1_data1,
+						spanGaps: false,
+					},
+					{
+						label: "Corresponding Period",
+						fill: false,
+						lineTension: 0.1,
+						backgroundColor: "rgba(75,192,192,0.3)",
+						borderColor: "rgba(75,192,192,0.3)",
+						borderCapStyle: 'butt',
+						borderDash: [],
+						borderDashOffset: 0.0,
+						borderJoinStyle: 'miter',
+						pointBorderColor: "rgba(75,192,192,0.3)",
+						pointBackgroundColor: "#fff",
+						pointBorderWidth: 1,
+						pointHoverRadius: 5,
+						pointHoverBackgroundColor: "rgba(75,192,192,0.3)",
+						pointHoverBorderColor: "rgba(220,220,220,0.3)",
+						pointHoverBorderWidth: 2,
+						pointRadius: 1,
+						pointHitRadius: 10,
+						data: chart1_data2,
+						spanGaps: false,
+					}
+				]
+			},
+			options: {
+				// legend : {
+				// 	display : false
+				// }
+			}
+		});
+
+		var ctx_report1_chart2 = $("#report1-chart2 canvas");
+		var chart2 = new Chart(ctx_report1_chart2,{
+			type: 'doughnut',
+			data: {
+				labels: [
+					"0-30  days",
+					"31-45 days",
+					"45 +  days"
+				],
+				datasets: [
+					{
+						data: [sub_total1.length, sub_total2.length, sub_total3.length],
+						backgroundColor: [
+							"rgba(0,0,255,0.6)",
+							"rgba(255,255,0,0.6)",
+							"rgba(255,0,0,0.6)"
+						],
+						hoverBackgroundColor: [
+							"rgba(0,0,255,0.3)",
+							"rgba(255,255,0,0.3)",
+							"rgba(255,0,0,0.3)"
+						]
+					}
+				]
+			},
+			options: {
+				circumference : 4 * Math.PI / 3,
+				rotation : Math.PI * 5 / 6,
+				legend : {
+					display : false
+				}
+			}
+		});
+	}
+
+	function detail_view(data) {
+		$(".chartjs-report1").hide();
+		$(".detail_view").show();
+		var tbody = '';
+		$.each(data, function(i, d){
+			tbody += "\
+				<tr>\
+					<td>"+(i+1)+"</td>\
+					<td>"+d.name+"</td>\
+					<td>"+d.days+"</td>\
+					<td>"+d.date+"</td>\
+				</tr>"
+		});
+		$("#report-detail").html("\
+			<table class='table table-bordered table-hover' >\
+				<thead>\
+					<tr>\
+						<td>No</td>\
+						<td>name</td>\
+						<td>Days</td>\
+						<td>Date</td>\
+					</tr>\
+				</thead>\
+				<tbody>\
+				"+tbody+"\
+				</tbody>\
+			</table>\
+		");
+		$("#report-detail table").DataTable({
+			bFilter: false,
+			info: false,
+	        scrollY:        800,
+	        scrollCollapse: true,
+	        paging:         false
+	    });
+	}
+
+	$("#back_to_report").on("click", function(){
+		$(".chartjs-report1").show();
+		$(".detail_view").hide();
+		$("#report-detail").html("");
+	})
+
+	$("#total-apps").on("click", function(){
+		detail_view(total_apps);
+	});
+
+	$("#avg-day").on("click", function(){
+		detail_view(total_apps);
+	});
+
+	$("#sub-total1").on("click", function(){
+		detail_view(sub_total1);
+	});
+
+	$("#sub-total2").on("click", function(){
+		detail_view(sub_total2);
+	});
+
+	$("#sub-total3").on("click", function(){
+		detail_view(sub_total3);
+	});
+
+	$("#fastest-app").on("click", function(){
+		detail_view([fastest_app]);
+	});
+
+	$("#longest-app").on("click", function(){
+		detail_view([longest_app]);
+	});
+</script>

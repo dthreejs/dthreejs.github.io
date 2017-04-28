@@ -1,0 +1,130 @@
+.analytic-cntr{
+	padding: 106px 25px 50px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    &:after{
+      .clearFix;
+    }
+    .top-bar{
+    	padding: 0 0 37px 34px;
+    	h1{
+    		color: @body-color;
+    		font-size: 27px;
+    		line-height: 30px;
+    		font-weight: @font-light;
+    	}
+    	.edit{
+    		color: @body-color1;
+    		font-size: 13px;
+    		line-height: 20px;
+    		display: inline-block;
+    		vertical-align: top;
+    		margin: 6px 0 0 21px;
+    	}
+    	.new-survey-btn{
+    		font-size: 17px;
+    		color: @dark-color;
+    		font-weight: @font-bold;
+    		line-height: 22px;
+    		float: right;
+    		margin: 7px 0 0;
+    		i{
+    			font-size: 19px;
+    			line-height: 22px;
+    			display: inline-block;
+    			vertical-align: top;
+    			margin: 1px 0 0 8px;                
+    		}
+    	}
+    }
+
+    .tabs-bar{
+    	padding: 0 0 6px 32px;
+    	border-bottom: 1px solid @light-gray-color;
+        position: relative;
+        &:before, &:after{
+            background: @light-gray-color;
+            content: "";
+            display: block;
+            width: 2500px;
+            height: 1px;
+            position: absolute;
+            bottom: -1px;
+            left: -2500px;    
+        }
+        &:after{
+            left: 0px;
+            right: -2500px;  
+        }
+    	.tabs{
+            &:after{
+                .clearFix;
+            }            
+    		li{
+    			font-size: 13px;
+    			font-weight: 700;
+    			color: @dark-color1;
+    			text-transform: uppercase;
+    			margin-right: 54px;
+    			a{
+    				padding: 8px 35px 4px 28px;
+    				color: @dark-color1;
+    				border-bottom: 4px solid transparent;
+    				&:hover,&.active{
+    					background: none;
+    					border-bottom-color: @dark-color1;
+    				}
+    			}
+                &.report-data { 
+                    margin-left: 2px;
+                    a{
+                        padding: 8px 20px 4px 28px;
+                    }
+                }
+    		}
+    	}
+    }
+    @media @tablet{ 
+        .top-bar{
+            padding: 0 0 37px 0px;
+        }
+        .tabs-bar{
+            padding: 0 0 6px 0px
+        }
+    }
+    @media @mobile{ 
+        .top-bar{
+            position: relative;
+            padding: 0 0 40px;
+            h1{
+                font-size: 20px;
+                line-height: 26px;
+            }
+            .edit{
+                font-size: 14px;
+                line-height: 18px;
+                margin: 3px 0 0 26px;
+            }
+            .new-survey-btn{
+                font-size: 15px;
+                line-height: 20px;
+                margin-right: -4px;
+                i{
+                    font-size: 17px;
+                    line-height: 18px;
+                }
+            }
+        }
+        .tabs-bar{
+            .tabs{
+                li{
+                    margin-right: 35px;
+                    a{
+                        padding: 8px 24px 4px 22px;
+                    }
+                }
+            }
+        }
+    }
+}

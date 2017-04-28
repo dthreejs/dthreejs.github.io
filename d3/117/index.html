@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Radar Chart</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body class="container">
+		<!-- main content -->
+		<div class="main container">
+			<div class="myradar"></div>
+		</div>
+		<!-- scripts -->
+		<script src="//d3js.org/d3.v3.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="radar.js"></script>
+		<script>
+			var config = {
+		        w: 600,
+		        h: 600,
+		        facet: false,
+		        levels: 5,
+		        levelScale: 0.85,
+		        labelScale: 0.9,
+		        facetPaddingScale: 2.1,
+		        showLevels: true,
+		        showLevelsLabels: false,
+		        showAxesLabels: true,
+		        showAxes: true,
+		        showLegend: true,
+		        showVertices: false,
+		        showPolygons: true
+	      	};
+			d3.csv("data.csv", function(json) {
+				var data = [];
+				$.each(json, function(index, record){
+					var line = {};
+					line.group = record.name;
+					line.axes = [];
+					$.each(record, function(key, value){
+						if(key != 'name'){
+							var axes = {};
+							axes.axis = key;
+							axes.value = value;
+							axes.description = '';
+							line.axes.push(axes);
+						}
+					});
+					data.push(line);
+				});
+				var myradar = $('.myradar');
+				RadarChart.draw(myradar[0], data, config);
+			});
+		</script>
+	</body>
+</html>

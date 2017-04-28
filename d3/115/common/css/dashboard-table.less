@@ -1,0 +1,548 @@
+.datatable-bar{
+	padding-bottom: 100px;
+	&:after{
+		.clearFix;
+	}	
+	table{
+		width: 100%;
+		border-spacing:0px 2px; 
+      	border-collapse:separate;
+		&.dragging-on{
+			tr{
+				opacity: 0.5;
+			}
+		}
+      	tr{
+      		display: block;
+      		width: 100%;
+      	}
+      	td.details-overlay:after, td.details-overlay:before{
+	        background: @blue-color;
+	        content: "";
+	        display: block;
+	        width: 2500px;
+	        height: 100%;
+	        position: absolute;
+	        top: 0px;
+	        left: -2500px;
+	        z-index: 999;
+			
+	      }
+		td.details-overlay:after{
+			left: auto;
+			right: -2500px;
+		}		
+      	thead{
+      		th{
+      			&.details-overlay{
+      				height: 0px;
+      				display: table-cell;
+      				width: 1px;
+      			}
+      		}
+      		.custom-checkbox{
+      			background: none;
+      			&.on{
+      				background: none;	
+      			}
+      			&:hover{
+      				i{
+      					color: @white-color;
+      				}
+      			}
+      			i{
+      				position: @position-relative;
+      				top: auto;
+      				margin: 7px 14px 0 0;
+      				font-size: 11px;
+      				opacity: 1;      				      				
+      			}
+      		}
+      	}
+      	tbody{
+      		tr{
+      			td{      			
+      			}
+      			&:first-child{
+      				td{
+						padding: 20px 0;
+					}
+				}
+				&.highlight{
+					td{
+						background: rgba(255,255,255,0.11);
+					}
+					.custom-checkbox{
+						background: @blue-color;
+						i{
+							opacity: 1;
+							color: #fff !important;
+						}					
+					}
+					td:first-child:before{
+						background: rgba(255,255,255,0.11);
+						content: "";
+						display: block;
+						width: 2500px;
+						height: 100%;
+						position: absolute;
+						top: 0px;
+						left: -2500px;
+					}
+					td.date:after{
+						background: rgba(255,255,255,0.11);
+						content: "";
+						display: block;
+						width: 2500px;
+						height: 100%;
+						position: absolute;
+						top: 0px;
+						right: -2500px;
+					}
+				}
+				&:hover{
+					.custom-checkbox{						
+						i{
+							opacity: 1;
+							color: #a1adb7;
+						}					
+					}
+					td{
+						background: rgba(255,255,255,0.11);
+						&:first-child:before{
+							background: rgba(255,255,255,0.11);
+							content: "";
+							display: block;
+							width: 2500px;
+							height: 100%;
+							position: absolute;
+							top: 0px;
+							left: -2500px;
+						}
+						&.date:after{
+							background: rgba(255,255,255,0.11);
+							content: "";
+							display: block;
+							width: 2500px;
+							height: 100%;
+							position: absolute;
+							top: 0px;
+							right: -2500px;
+						}
+					}
+				}
+      		}
+      	}
+      	.custom-checkbox{
+      		.position-absolute;
+      		width: 29px;
+      		right: 0px;
+      		margin: 0 auto;
+      		height: 100%;      		
+      		cursor: pointer;
+      		text-align: @text-center;
+      		&.on{
+      			background: @blue-color;
+      			i{
+      				opacity: 1;
+      			}
+      		}
+      		input{
+      			.position-absolute;
+      			height: 100%;
+      			cursor: pointer;
+      			opacity: 0;	
+      			z-index: 2;			
+      		}
+      		i{
+      			display: @block;
+      			.position-absolute;
+      			width: 100%;
+      			top: 50%;
+      			opacity: 0; 
+      			.transform(translateY(-50%));     			
+      		}
+      	}
+      	.check-col{
+      		width: 77px;
+      		padding: 20px 39px;
+      	} 
+      	.survey-name{
+      		width: 250px;
+      		i{
+      			font-size: 11px;
+      			color: @light-color;      			
+      		}
+      		.create-date {
+      			display: none;
+      		}
+      	}
+      	td.survey-name{
+      		i{
+      			margin-right: 12px;
+      		}
+      		a{
+      			color: #fff;
+      			&:hover{
+      				color: #b6c6cc;
+      			}
+      		}
+      	}
+      	.details-overlay{
+			width: auto;			
+			padding: 0px !important;			
+			display: block;				
+		}
+		td.details-overlay{
+			width: 100%;
+			float: left;
+			margin: -64px 0 0 0;
+			z-index: 991;
+		}
+      	.latest-activity{
+      		width: 246px;	      		
+	      		.latest{
+	      				display: none;
+				}      		
+      	}
+      	td.latest-activity{
+  			span{
+  				color: #6f7986;	
+  				padding-left: 7px;      			
+  			}
+		}
+      	.status{
+      		width: 183px;
+      		font-weight: @font-medium;
+      	}
+      	.response{
+      		width: 180px;
+      		font-weight: @font-medium;      		
+      	}
+      	td.response{
+      		font-size: 14px;
+      		text-align: @text-center;
+      		padding-right: 80px !important;
+      	}
+      	.date{
+      		width: 240px;
+      	}
+	}
+	td{
+		position: @position-relative;
+		padding: 20px 0; 
+		font-size: 13px;
+		color: @white-color;
+		font-weight: @font-light;
+		line-height: 20px;
+		vertical-align: middle;
+		text-align: @text-left;		
+	}
+
+	th{
+		padding: 0 0 6px;
+		position: @position-relative;
+		font-size: 12px;
+		font-weight: @font-medium;
+		line-height: 18px;
+		text-align: @text-left;
+		vertical-align: middle;
+		color: @tiffany-blue;
+		border-bottom: 1px solid #424d53;
+		a{
+			color: @tiffany-blue;
+			display: @block;
+			&:hover{
+				color: @white-color;
+				i{
+					color: @white-color;
+				}
+			}
+		}
+		&:first-child:after{
+			content: "";
+			width: 2500px;
+			height: 1px;
+			position: absolute;
+			bottom: -1px;
+			left: -2500px;
+			background: #424d53;			
+		}
+		&:last-child:after{
+			content: "";
+			width: 2500px;
+			height: 1px;
+			position: absolute;
+			bottom: -1px;
+			right: -2500px;
+			background: #424d53;			
+		}
+		i{
+			margin-right: 19px;
+		}
+		&.check-col{
+			padding: 0px;			
+		}
+	}
+	@media @desktop{
+	    .check-col, .date {
+	      display: @none;
+	    } 
+	    thead{
+	    	th.survey-name{
+	    		&:after{
+					content: "";
+					width: 2500px;
+					height: 1px;
+					position: absolute;
+					bottom: -1px;
+					left: -2500px;
+					background: #424d53;			
+				}
+	    	}
+	    }
+	    tbody{
+	    	tr:hover, tr.highlight{
+				.survey-name:before{
+					background: rgba(255,255,255,0.11);
+					content: "";
+					display: block;
+					width: 2500px;
+					height: 100%;
+					position: absolute;
+					top: 0px;
+					left: -2500px;
+				}
+				.response:after{
+					background: rgba(255,255,255,0.11);
+					content: "";
+					display: block;
+					width: 2500px;
+					height: 100%;
+					position: absolute;
+					top: 0px;
+					right: -2500px;
+				}
+			}
+	    }	    
+	}
+	@media @tablet{
+		th{
+			i{
+				margin-right: 12px;
+			}
+		}
+	}
+	@media @mobile{
+		.response {
+		  display: @none;
+		} 
+		tbody{
+	    	tr:hover, tr.highlight {
+				.survey-name:before{
+					background: rgba(255,255,255,0.11);
+					content: "";
+					display: block;
+					width: 2500px;
+					height: 100%;
+					position: absolute;
+					top: 0px;
+					left: -2500px;
+				}
+				.status:after{
+					background: rgba(255,255,255,0.11);
+					content: "";
+					display: block;
+					width: 2500px;
+					height: 100%;
+					position: absolute;
+					top: 0px;
+					right: -2500px;
+				}
+			}
+	    }	    
+	}
+}
+
+.most-recent{
+	.datatable-bar{
+		table{
+			/*.custom-checkbox{
+				display: none;
+			}*/
+			td.details-overlay{
+				margin-top: -82px;
+			}
+			/*thead{
+				.check-col{
+					#allChk{
+						display: @none;
+					}
+				}
+			}*/
+			.survey-name{
+				width: 400px;
+			}
+			.latest-activity{
+				width: 295px;
+			}
+			.status{
+				width: 413px;
+			}
+		
+			/*.check-col{
+				opacity: 0;
+			}*/
+			.response, .date  {
+				display: none;
+			}
+			th.survey-name:before {
+				content: "";
+				width: 2500px;
+				height: 1px;
+				position: absolute;
+				bottom: -1px;
+				left: -2500px;
+				background: #424d53;
+			}
+			th.status:after {
+				content: "";
+				width: 2500px;
+				height: 1px;
+				position: absolute;
+				bottom: -1px;
+				right: -2500px;
+				background: #424d53;
+			}
+			.latest-activity{
+				.latest{
+					display: @inline;
+				}
+				.last-update{
+					display: @none;
+				}
+			}
+			
+			td.latest-activity{
+				
+				font-size: 14px;
+				font-weight: @font-light;
+				padding-left: 28px;
+				span{
+					display: @block;
+					padding: 0px;
+					font-size: 10px;
+					font-weight: @font-medium;
+					line-height: 14px;
+					color: #aab8bc;
+				}			
+			}
+			tbody{
+				tr:hover, tr.highlight{
+					.survey-name:before{
+						/*background: rgba(255,255,255,0.11);*/
+						content: "";
+						display: block;
+						width: 2500px;
+						height: 100%;
+						position: absolute;
+						top: 0px;
+						left: -2500px;
+					}
+					.status:after{
+						background: rgba(255,255,255,0.11);
+						content: "";
+						display: block;
+						width: 2500px;
+						height: 100%;
+						position: absolute;
+						top: 0px;
+						right: -2500px;
+					}
+				}
+			}
+			td.survey-name{
+				
+				font-size: 17px;
+				line-height: 24px;
+				font-weight: @font-light;
+				.create-date{
+					display: @block;
+					font-weight: @font-medium;
+					color: #aab8bc;
+					font-size: 10px;
+					line-height: 14px;
+					padding: 0 0 0 24px;
+				}
+			}
+			td.status{
+				
+				font-size: 20px;
+				line-height: 26px;
+				color: #fff;
+				font-weight: @font-light;
+				padding-left: 28px;
+			}
+			@media @desktop{
+				.status{
+					width: 350px;
+				}
+			    td.status {	     
+			      font-size: 18px;
+			    } 	
+			    td.survey-name{
+			    	font-size: 15px;
+			    }
+			}
+			@media @tablet{
+				.survey-name{
+					width: 236px;
+				}
+				.status{
+			    	width: 236px;
+			    }
+			    .latest-activity{
+			    	width: 236px;
+			    }
+			    td.latest-activity, td.status{
+			    	padding-left: 17px;
+			    }
+			}
+			@media @mobile{
+				th{
+					font-size: 10px;
+				}
+				.survey-name{
+					width: 215px;
+				}
+			 	td.survey-name{			 		
+			 		font-size: 13px;
+			 	}
+			    td.survey-name {	      
+			      font-size: 14px;
+			    } 
+			    .status{
+			    	width: 140px;
+			    }
+			    .latest-activity{
+			    	width: 130px;
+			    }
+			    td.status {	      
+			      font-size: 15px;
+			    } 	
+			    td.latest-activity{
+			    	font-size: 12px;			    	
+			    }    
+			 
+			}
+		}
+	}
+	.notes{
+		display: @none;
+	}
+	.most-activity{
+		display: @block;
+		padding: 0px;
+	}	
+
+}

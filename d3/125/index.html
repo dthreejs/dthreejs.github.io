@@ -1,0 +1,278 @@
+<!DOCTYPE html >
+<html >
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>3D Scatter Plot</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/x3dom-full.js"></script>
+    <script type="text/javascript" src="js/scatter_plot_3d_demo.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/x3dom.css"/>
+  </head>
+  <body>
+    <div id="divPlot">
+        <x3d xmlns="http://www.web3d.org/specifications/x3d-namespace" id="x3dScene" width="2500px" height="2000px">
+        </x3d>
+    </div>
+    <div id="legend"></div>
+    <div class="tooltip">
+<!--         <img class="callout" src="img/callout.gif" /> -->
+        <div class="teamValue">Team 3</div>
+        <div class="groupValue">Group I</div>
+    </div>
+    <script>
+      var AllValues = [
+                    [
+                        "Chinese",
+                        "Buddhist",
+                        "Female",
+                        1
+                    ],
+                    [
+                        "Chinese",
+                        "Buddhist",
+                        "Male",
+                        3
+                    ],
+                    [
+                        "Chinese",
+                        "Christian",
+                        "Female",
+                        1
+                    ],
+                    [
+                        "Chinese",
+                        "Christian",
+                        "Male",
+                        11
+                    ],
+                    [
+                        "Chinese",
+                        "Hindu",
+                        "Female",
+                        1
+                    ],
+                    [
+                        "Chinese",
+                        "Hindu",
+                        "Male",
+                        4
+                    ],
+                    [
+                        "Hispanic",
+                        "Buddhist",
+                        "Female",
+                        4
+                    ],
+                    [
+                        "Hispanic",
+                        "Buddhist",
+                        "Male",
+                        13
+                    ],
+                    [
+                        "Hispanic",
+                        "Christian",
+                        "Female",
+                        6
+                    ],
+                    [
+                        "Hispanic",
+                        "Christian",
+                        "Male",
+                        16
+                    ],
+                    [
+                        "Hispanic",
+                        "Hindu",
+                        "Female",
+                        1
+                    ],
+                    [
+                        "Hispanic",
+                        "Hindu",
+                        "Male",
+                        11
+                    ],
+                    [
+                        "Indian",
+                        "Buddhist",
+                        "Female",
+                        5
+                    ],
+                    [
+                        "Indian",
+                        "Buddhist",
+                        "Male",
+                        15
+                    ],
+                    [
+                        "Indian",
+                        "Christian",
+                        "Female",
+                        4
+                    ],
+                    [
+                        "Indian",
+                        "Christian",
+                        "Male",
+                        20
+                    ],
+                    [
+                        "Indian",
+                        "Hindu",
+                        "Female",
+                        4
+                    ],
+                    [
+                        "Indian",
+                        "Hindu",
+                        "Male",
+                        6
+                    ],
+                    [
+                        "Japanese",
+                        "Buddhist",
+                        "Female",
+                        3
+                    ],
+                    [
+                        "Japanese",
+                        "Buddhist",
+                        "Male",
+                        20
+                    ],
+                    [
+                        "Japanese",
+                        "Christian",
+                        "Female",
+                        7
+                    ],
+                    [
+                        "Japanese",
+                        "Christian",
+                        "Male",
+                        11
+                    ],
+                    [
+                        "Japanese",
+                        "Hindu",
+                        "Female",
+                        1
+                    ],
+                    [
+                        "Japanese",
+                        "Hindu",
+                        "Male",
+                        7
+                    ]
+                ];
+      var teamValues = [], groupValues = [], choiceValues = [];
+      var yHeight = [], yValues = [];
+      var ChoiceColors = ['#7cb5ec','#434348','#90ed7d'];
+      var ChoiceNames = ['A','B','C'];
+      var cylinderRadius = 0.2;
+      var xzRate = 0.2;
+      var domainMax = 100;
+      var textColor = '#606060';
+
+      function isExist(arr, val){
+        var i;
+        for(i = 0; i < arr.length; i++){
+          if(arr[i] == val){
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function init(){
+        var i, j;
+        for(i = 0; i < AllValues.length; i++){
+          if(isExist(teamValues, AllValues[i][0]) == false){
+            teamValues.push(AllValues[i][0]);
+          }
+          if(isExist(groupValues, AllValues[i][1]) == false){
+            groupValues.push(AllValues[i][1]);
+          }
+          if(isExist(choiceValues, AllValues[i][2]) == false){
+            choiceValues.push(AllValues[i][2]);
+          }
+        }
+        yHeight = [];
+        yValues = [];
+        for(i = 0; i < AllValues.length/choiceValues.length; i++){
+          var choiceYHeight = [], sum = 0, choiceYValue = [];
+          for(j = 0; j < choiceValues.length; j++){
+            sum += AllValues[i*choiceValues.length+j][3];
+          }
+          for(j = 0; j < choiceValues.length; j++){
+            choiceYHeight.push(AllValues[i*choiceValues.length+j][3]/sum*100);
+            choiceYValue.push(AllValues[i*choiceValues.length+j][3]);
+          }
+          yValues.push(choiceYValue);
+          yHeight.push(choiceYHeight);
+        }
+        for(i = 0; i < choiceValues.length; i++){
+            var html = '<div class="chioiceValue'+(i+1)+'">'+choiceValues[i]+'</div>';
+            $('.tooltip').append(html);
+        }
+      }
+
+      $(document).ready(function(){
+        init();
+        scatterPlot3d();
+        drawLegend();
+      });
+
+    function handleSingleMouseOver(shape, event) {
+        var pagePt = invertMousePosition(event);
+        // console.log(shape);
+        var shape = $(shape);
+        $('.tooltip .teamValue').html(shape.attr('teamvalue'));
+        $('.tooltip .groupValue').html(shape.attr('groupvalue'));
+        var choices = shape.attr('choices');
+        var choicesArr = choices.split(',');
+        for(var i = 0; i < choiceValues.length; i++){
+            var className = '.tooltip .chioiceValue'+(i+1);
+            $(className).html(choicesArr[i]);
+        }
+        var tooltipHeight = $('.tooltip').height();
+        $('.tooltip').css('left',pagePt.x);
+        $('.tooltip').css('top',pagePt.y);
+        $('.tooltip').css('display','block');
+        // console.log(pagePt);
+    }
+    function handleSingleMouseOut(shape){
+        $('.tooltip').hide();
+    }
+
+    function invertMousePosition(evt) 
+    {
+      var convertPoint = window.webkitConvertPointFromPageToNode;
+      var pageX = -1, pageY = -1;
+      if ( "getBoundingClientRect" in document.documentElement ) {
+        var elem = d3.select('#divPlot').node();
+        // console.log('elem:', elem)
+        var box = elem.getBoundingClientRect();
+        var scrolleft =  window.pageXOffset || document.body.scrollLeft;
+        var scrolltop =  window.pageYOffset || document.body.scrollTop;
+        var paddingLeft = parseFloat(document.defaultView.getComputedStyle(elem, null).getPropertyValue('padding-left'));
+        var borderLeftWidth = parseFloat(document.defaultView.getComputedStyle(elem, null).getPropertyValue('border-left-width'));
+        var paddingTop = parseFloat(document.defaultView.getComputedStyle(elem, null).getPropertyValue('padding-top'));
+        var borderTopWidth = parseFloat(document.defaultView.getComputedStyle(elem, null).getPropertyValue('border-top-width'));
+        pageX = Math.round(evt.layerX + (box.left + paddingLeft + borderLeftWidth + scrolleft));
+        pageY = Math.round(evt.layerY + (box.top + paddingTop + borderTopWidth + scrolltop));
+      } else if (convertPoint) {
+        var pagePoint = convertPoint(evt.target, new WebKitPoint(0, 0));
+        x = Math.round(point.x);
+        y = Math.round(point.y);
+      } else {
+        x3dom.debug.logError('NO getBoundingClientRect, NO webkitConvertPointFromPageToNode');
+      }
+      return { x: pageX, y: pageY };
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Pivot</title>
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="css/pivot.min.css">
+    </head>
+
+    <body>
+        <div id="output" style="margin: 30px;"></div>
+    </body>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/pivot.min.js"></script>
+    <script type="text/javascript" src="js/subtotal.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(function() {
+        var dataClass = $.pivotUtilities.SubtotalPivotData;
+        var derivers = $.pivotUtilities.derivers;
+        var renderers = $.pivotUtilities.subtotal_renderers;
+        var tpl = $.pivotUtilities.aggregatorTemplates;
+
+        $.getJSON("data/mps.json", function(mps) {
+            $("#output").pivotUI(mps, {
+                dataClass: dataClass,
+                rows: ["Gender", "Party"],
+                cols: ["Province", "Age Bin", "Gender Imbalance"],
+                renderers: renderers,
+                derivedAttributes: {
+                    "Age Bin": derivers.bin("Age", 10),
+                    "Gender Imbalance": function(mp) {
+                        return mp["Gender"] == "Male" ? 1 : -1;
+                    }
+                    // ,
+                    // "Party": function(mp) {
+                    //     return mp["Party"];
+                    // },
+                    // "Province": function(mp) {
+                    //     return mp["Province"];
+                    // }
+                },
+                // aggregators: {
+                //     "Sum1": function() { return tpl.sum()(["totSale"])}
+                // },
+                // aggregatorName: "Sum1",
+                rendererName: "Table With Subtotal",
+                rendererOptions: {
+                    collapseRowsAt: 0,
+                    collapseColsAt: 1 
+                }
+            });
+        });
+    });
+    </script>
+
+</html>

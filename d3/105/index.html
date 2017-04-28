@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<style>
+		body {
+			font: 10px sans-serif;
+		}
+		#chart {
+			text-align: center;
+		}
+		#chart svg {
+			border: 1px solid #ccc
+		}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #ccc;
+			shape-rendering: crispEdges;
+		}
+		.axis .tick line {
+			stroke: #eee;
+		}
+		.bar {
+			fill: steelblue;
+		}
+		.group_bar rect:hover{
+			fill: #36393a !important;
+		}
+		.legend_area text.selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.legend_area circle.selected{
+			stroke: #36393a;
+			stroke-width: 2px;
+		}
+		.bar_area rect.selected {
+			fill: #36393a;
+		}
+		.legend_area g {
+			cursor: pointer;
+		}
+		.legend_area g:hover circle {
+			stroke: #36393a;
+			stroke-width: 2px;
+		}
+		.legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.bar_area rect:hover {
+			cursor: pointer;
+			fill: #36393a;
+		}
+		.tooltip {
+			position: absolute;
+			text-align: center;               
+			padding: 20px;
+			font: 12px sans-serif;
+			background: #36393a;
+			border: 0px;
+			border-radius: 2px;
+			pointer-events: none;
+			color : white;
+			text-align: left;
+			border: 1px solid #888;
+		}
+		.line {
+			fill: none;
+		}
+		.line.selected {
+			stroke-width: 4px;	
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart">
+	</div>
+</body>
+
+<script type="text/javascript">
+
+	var tooltip = d3.select("#chart").append("div").attr("class", "tooltip hidden");
+
+	var data = [
+		{
+			unit : "This is Measure Unit 1",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 27
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 44
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 21
+				}
+			]
+		},
+		{
+			unit : "This is Measure Unit 2",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 20
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 32
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 14
+				}
+			]
+		},
+		{
+			unit : "This is Measure Unit 3",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 12
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 21
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 10
+				}
+			]
+		},
+		{
+			unit : "This is Measure Unit 4",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 11
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 19
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 92
+				}
+			]
+		},
+		{
+			unit : "This is Measure Unit 5",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 88
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 15
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 72
+				}
+			]
+		},
+		{
+			unit : "This is Measure Unit 6",
+			values : [
+				{
+					group : "This is A Legend Item 1",
+					value : 73
+				},
+				{
+					group : "This is A Legend Item 2",
+					value : 13
+				},
+				{
+					group : "This is A Legend Item 3",
+					value : 67
+				}
+			]
+		}
+	];
+
+	var margin = {top: 120, right: 300, bottom: 200, left: 200},
+		width = 1200 - margin.left - margin.right,
+		height = 800 - margin.top - margin.bottom;
+
+	var x = d3.scaleBand()
+		.rangeRound([0, width]);
+
+	var y = d3.scaleLinear()
+		.range([height, 0]);
+
+	var c20 = d3.scaleOrdinal(d3.schemeCategory20);;
+
+	var xAxis = d3.axisBottom()
+		.scale(x)
+		.tickSizeInner(-height)
+		.tickSizeOuter(0);
+
+	var yAxis = d3.axisLeft()
+		.scale(y)
+		.tickSizeInner(-width)
+		.tickSizeOuter(0)
+		.tickFormat(d3.format(".0f"));
+
+	var svg = d3.select("#chart").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	x.domain(data.map(function(d) { return d.unit }));
+	y.domain([0, d3.max(data, function(d) { return d3.max(d.values, function(e){ return e.value}) })]).nice();
+
+	var xaxis_g = svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+
+	xaxis_g.selectAll('.tick')
+		.append("circle")
+		.style("fill", "#36393a")
+		.attr("cy", 15)
+		.attr("r", 3);
+
+	xaxis_g.selectAll('text')
+		.style("font-size","14px")
+		.style("text-anchor","start")
+		.style("fill", "#4c596b")
+		.attr("transform", "translate(5, 30)rotate(45)");
+
+	var yaxis_g = svg.append("g")
+		.attr("class", "y axis")
+		.call(yAxis);
+
+	yaxis_g.selectAll('text')
+		.style("font-size", "14px")
+		.style("text-anchor", "end")
+		.style("fill", "#4c596b")
+		.attr("x", -30);
+
+	yaxis_g.selectAll('.tick')
+		.append("circle")
+		.style("fill", "#36393a")
+		.attr("cx", -10)
+		.attr("r", 3);
+
+	yaxis_g.append("text")
+		.attr("transform", "translate(-180, 200)rotate(90)")
+		.style("fill", "#36393a")
+		.style("text-anchor", "start")
+		.style("font-size", "16px")
+		.style("font-weight", "bold")
+		.text("High Level Measurement X");
+
+	var legend_name = data[0].values.map(function(d) { return d.group })
+
+	var legend = svg.append("g")
+		.attr("class", "legend_area")
+		.selectAll("g")
+		.data(legend_name)
+		.enter().append("g")
+		.attr("class", function(d, i){return "group" + i})
+		.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+		.on("mousemove", function(d, i) { $('.line_area .group' + i + ' .line').addClass("selected") })
+		.on("mouseout",  function(d,i) { $('.selected').removeClass('selected') });
+
+	legend.append("circle")
+		.attr("cx", width + 70)
+		.attr("cy", 10)
+		.attr("r", 12)
+		.attr("width", 18)
+		.attr("height", 18)
+		.style("fill", function(d, i){
+			return c20(i)
+		});
+
+	legend.append("text")
+		.attr("x", width + 100)
+		.attr("y", 9)
+		.attr("dy", ".35em")
+		.style("text-anchor", "start")
+		.style("font-size", "14px")
+		.style("fill", "#4c596b")
+		.text(function(d) { return d });
+
+	var linedata = legend_name.map(function(group, i) {
+		return {
+			group: group,
+			values: data.map(function(d) {
+				return {
+					group: group, 
+					unit: d.unit,
+					value: d.values[i].value
+				};
+			})
+		}
+	});
+	
+	var line = d3.line()
+		.x(function(d) { return x(d.unit) + x.bandwidth()/2 })
+		.y(function(d) { return y(d.value) });
+
+	var line_area = svg.append("g")
+		.attr("class", "line_area")
+		.selectAll(".group")
+		.data(linedata);
+
+	var lines = line_area.enter().append("g")		
+		.attr("class", function(d, i){
+			return "group"+i
+		})
+		.attr('id',function(d){ return d.group+"-line"; })
+		.style("stroke-width",1)
+		.style("stroke", function(d, i) { return c20(i) })
+		.style("fill", function(d, i) { return c20(i) })
+		.on("mouseover", function (d, i) {
+			$('.line_area .group' + i + ' .line').addClass("selected")
+			$('.line_area .group' + i + ' circle').css("opacity", 1);
+			var legend_item = '.legend_area .group' + i;
+			$(legend_item).find('text').addClass("selected");
+			$(legend_item).find('circle').addClass("selected");
+		})
+		.on("mouseout",	function(d) {
+			$('.line_area circle').css("opacity", 0);
+			$('.selected').removeClass('selected');
+		});
+
+	lines.append("path")
+		.attr("class", "line")
+		.attr("d", function(d){
+			return line(d.values);
+		})
+
+	lines.selectAll("circle")
+		.data( function(d) {return(d.values)} )
+		.enter()
+		.append("circle")
+		.attr("class","tipcircle")
+		.attr("cx", function(d,i){return x(d.unit) + x.bandwidth()/2})
+		.attr("cy",function(d,i){return y(d.value)})
+		.attr("r",4)
+		.style('opacity', 0)
+		.on("mouseover", function (d, i) {
+			d3.select(this).attr("r", 8);
+
+			var html = '<div>' + d.value + '</div>';
+			var pos = $(".line_area").position();
+			tooltip.classed("hidden", false)
+				.style("opacity", 1)
+				.style("left", (pos.left + x(d.unit) + 20) + "px")
+				.style("top", (pos.top + y(d.value) - 100) + "px")
+				.html(html);
+		})
+		.on("mouseout",	function(d) {
+			d3.select(this).attr("r", 4);
+			tooltip.classed("hidden", true).style("opacity", 0);
+		});
+</script>

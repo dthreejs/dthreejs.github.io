@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script> 
+	<style>
+		body {
+			font: 10px sans-serif;
+		}
+		#chart {
+			text-align: center;
+			padding: 10px;
+		}
+		#chart svg {
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+		.axis {
+			font-size: 16px;
+		}
+		.axis path {
+			fill: none;
+			stroke: #ccc;
+			shape-rendering: crispEdges;
+		}
+		.axis .tick line {
+			stroke: #ccc;
+		}
+		.grid1 .tick line {
+			stroke: #f0f0f0;
+		}
+		.grid2 .tick line {
+			stroke: #fbfbfb;
+		}
+		.grid3 .tick line {
+			stroke: #e5e5e5;
+		}
+		.left-label {
+			font-size: 18px;
+			letter-spacing: 10px;
+		}
+		.bottom-label {
+			font-size: 18px;
+			letter-spacing: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart"></div>
+</body>
+
+<script type="text/javascript">
+	d3.tsv("chart1_data.tsv", function(error, data) {
+		var years_min = d3.min(data, function(d){return d["Year"]}) - 2;
+		var years_max = d3.max(data, function(d){return d["Year"]});
+
+		var margin = {top: 200, right: 50, bottom: 150, left: 150},
+			width = 1200 - margin.left - margin.right,
+			height = 800 - margin.top - margin.bottom;
+
+		var svg_container = d3.select("#chart").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		var svg = svg_container
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		var x = d3.scaleLinear().range([0, width]).domain([years_min, years_max]);
+		var y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(data, function(d) { return d["Disrupt"] })]).nice();
+
+		var xAxis = d3.axisBottom()
+			.scale(x)
+			.tickSizeInner(20)
+			.tickSizeOuter(0)
+			.tickPadding(30)
+			.tickFormat(d3.format(".0f"));
+		var yAxis = d3.axisLeft()
+			.scale(y)
+			.tickSizeInner(10)
+			.tickSizeOuter(0)
+			.tickPadding(30)
+			.tickFormat(d3.format(".0f"));
+		var xgrid1 = d3.axisBottom()
+			.scale(x)
+			.tickSizeInner(-height)
+			.tickSizeOuter(0)
+			.tickPadding(30)
+			.tickFormat("");
+		var xgrid2 = d3.axisBottom()
+			.scale(x)
+			.tickSizeInner(-height)
+			.tickSizeOuter(0)
+			.tickPadding(30)
+			.ticks(years_max - years_min + 1)
+			.tickFormat("");
+		var xgrid3 = d3.axisBottom()
+			.scale(x)
+			.tickSizeInner(10)
+			.tickSizeOuter(0)
+			.tickPadding(30)
+			.ticks(years_max - years_min + 1)
+			.tickFormat("");
+
+		svg.append("g")
+			.attr("class", "x grid1")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xgrid1);
+		svg.append("g")
+			.attr("class", "x grid2")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xgrid2);
+		svg.append("g")
+			.attr("class", "x grid3")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xgrid3);
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+		var top_label = svg_container.append("g").attr("class", "top-label");
+		top_label.append("rect")
+			.attr("x", 20)
+			.attr("y", 20)
+			.attr("width", margin.left + margin.right + width - 40)
+			.attr("height", 120)
+			.style("stroke","#333")
+			.style("stroke-width",2)
+			.style("fill","#fff");
+		top_label.append("rect")
+			.attr("x", 30)
+			.attr("y", 30)
+			.attr("width", margin.left + margin.right + width - 60)
+			.attr("height", 100)
+			.style("fill","#333");
+		top_label.append("text")
+			.attr("transform", "translate("+(margin.left+margin.right+width)/2+",90)")
+			.text("DISRUPT SCORE BY START YEAR")
+			.style("text-anchor", "middle")
+			.style("fill", "#fff")
+			.style("font-size", "30px")
+
+		var left_label = svg_container.append("g").attr("class", "left-label");
+		left_label.append("line")
+			.attr("x1",35)
+			.attr("y1",margin.top)
+			.attr("x2",35)
+			.attr("y2",margin.top + 80)
+			.attr("stroke","#ccc");
+		left_label.append("line")
+			.attr("x1",35)
+			.attr("y1",margin.top + height - 80)
+			.attr("x2",35)
+			.attr("y2",margin.top + height)
+			.attr("stroke","#ccc");
+		left_label.append("text")
+			.attr("transform", "translate(40, "+(margin.top + height/2)+")rotate(-90)")
+			.style("fill", "#666")
+			.style("text-anchor", "middle")
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.text("DISRUPT SCORE");
+
+		var bottom_label = svg_container.append("g").attr("class", "bottom-label");
+		bottom_label.append("line")
+			.attr("x1",margin.left)
+			.attr("y1",margin.top + margin.bottom + height - 45)
+			.attr("x2",margin.left + 380)
+			.attr("y2",margin.top + margin.bottom + height - 45)
+			.attr("stroke","#ccc");
+		bottom_label.append("line")
+			.attr("x1",margin.left + width - 380)
+			.attr("y1",margin.top + margin.bottom + height - 45)
+			.attr("x2",margin.left + width)
+			.attr("y2",margin.top + margin.bottom + height - 45)
+			.attr("stroke","#ccc");
+		bottom_label.append("text")
+			.attr("transform", "translate("+(margin.left+width/2)+","+(margin.top + margin.bottom + height - 40)+")")
+			.style("fill", "#666")
+			.style("text-anchor", "middle")
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.text("START YEAR");
+
+		var bubble_container = svg.append("g").attr("class", "bubbles");
+		var bubbles = bubble_container.selectAll("g")
+			.data(data)
+			.enter().append("g")
+			.attr("transform", function(d){
+				return "translate("+x(d["Year"])+", "+y(d["Disrupt"])+")"
+			})
+		bubbles.append("circle")
+			.attr("r", 25)
+			.attr("fill", function(d){
+				var color = "#ffcc00"
+				if(d["Disrupt"] > 25) {
+					color = "#66cc00"
+				}
+				if(d["Disrupt"] > 50) {
+					color = "#0099ff"
+				}
+				if(d["Disrupt"] > 75) {
+					color = "#ff0099"
+				}
+				return color
+			})
+			.style("opacity", 0.3);
+		bubbles.append("circle")
+			.attr("r", 5)
+			.attr("fill", "#fff")
+	});
+</script>

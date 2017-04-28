@@ -1,0 +1,402 @@
+{
+	"deployment" : [
+		{
+			"collectortype" : "Weblink",
+			"value" : 7
+		},
+		{
+			"collectortype" : "Mobile Link",
+			"value" : 5
+		},
+		{
+			"collectortype" : "Mobile Browser",
+			"value" : 33
+		},
+		{
+			"collectortype" : "Email Link",
+			"value" : 40
+		}
+	],
+	"heatmap" : [
+		{
+			"day":"02/10/2017",
+			"data":[
+				{
+					"hour":"1a",
+					"value":0
+				},
+				{
+					"hour":"2a",
+					"value":1
+				},
+				{
+					"hour":"3a",
+					"value":1
+				},
+				{
+					"hour":"4a",
+					"value":2
+				},
+				{
+					"hour":"5a",
+					"value":10
+				},
+				{
+					"hour":"6a",
+					"value":2
+				},
+				{
+					"hour":"7a",
+					"value":3
+				},
+				{
+					"hour":"8a",
+					"value":0
+				},
+				{
+					"hour":"9a",
+					"value":6
+				},
+				{
+					"hour":"10a",
+					"value":0
+				},
+				{
+					"hour":"11a",
+					"value":9
+				},
+				{
+					"hour":"12p",
+					"value":0
+				},
+				{
+					"hour":"1p",
+					"value":11
+				},
+				{
+					"hour":"2p",
+					"value":0
+				},
+				{
+					"hour":"3p",
+					"value":12
+				},
+				{
+					"hour":"4p",
+					"value":0
+				},
+				{
+					"hour":"5p",
+					"value":8
+				},
+				{
+					"hour":"6p",
+					"value":0
+				},
+				{
+					"hour":"7p",
+					"value":3
+				},
+				{
+					"hour":"8p",
+					"value":0
+				},
+				{
+					"hour":"9p",
+					"value":4
+				},
+				{
+					"hour":"10p",
+					"value":0
+				},
+				{
+					"hour":"11p",
+					"value":0
+				},
+				{
+					"hour":"12a",
+					"value":6
+				}
+			]
+		},
+		{
+			"day":"02/11/2017",
+			"data":[
+				{
+					"hour":"1a",
+					"value":0
+				},
+				{
+					"hour":"2a",
+					"value":1
+				},
+				{
+					"hour":"3a",
+					"value":1
+				},
+				{
+					"hour":"4a",
+					"value":2
+				},
+				{
+					"hour":"5a",
+					"value":10
+				},
+				{
+					"hour":"6a",
+					"value":0
+				},
+				{
+					"hour":"7a",
+					"value":2
+				},
+				{
+					"hour":"8a",
+					"value":2
+				},
+				{
+					"hour":"9a",
+					"value":2
+				},
+				{
+					"hour":"10a",
+					"value":0
+				},
+				{
+					"hour":"11a",
+					"value":0
+				},
+				{
+					"hour":"12p",
+					"value":0
+				},
+				{
+					"hour":"1p",
+					"value":0
+				},
+				{
+					"hour":"2p",
+					"value":5
+				},
+				{
+					"hour":"3p",
+					"value":0
+				},
+				{
+					"hour":"4p",
+					"value":0
+				},
+				{
+					"hour":"5p",
+					"value":0
+				},
+				{
+					"hour":"6p",
+					"value":0
+				},
+				{
+					"hour":"7p",
+					"value":0
+				},
+				{
+					"hour":"8p",
+					"value":0
+				},
+				{
+					"hour":"9p",
+					"value":8
+				},
+				{
+					"hour":"10p",
+					"value":0
+				},
+				{
+					"hour":"11p",
+					"value":0
+				},
+				{
+					"hour":"12a",
+					"value":10
+				}
+			]
+		},
+		{
+			"day":"02/12/2017",
+			"data":[
+				{
+					"hour":"1a",
+					"value":0
+				},
+				{
+					"hour":"2a",
+					"value":1
+				},
+				{
+					"hour":"3a",
+					"value":1
+				},
+				{
+					"hour":"4a",
+					"value":2
+				},
+				{
+					"hour":"5a",
+					"value":10
+				},
+				{
+					"hour":"6a",
+					"value":0
+				},
+				{
+					"hour":"7a",
+					"value":0
+				},
+				{
+					"hour":"8a",
+					"value":0
+				},
+				{
+					"hour":"9a",
+					"value":0
+				},
+				{
+					"hour":"10a",
+					"value":0
+				},
+				{
+					"hour":"11a",
+					"value":0
+				},
+				{
+					"hour":"12p",
+					"value":0
+				},
+				{
+					"hour":"1p",
+					"value":8
+				},
+				{
+					"hour":"2p",
+					"value":0
+				},
+				{
+					"hour":"3p",
+					"value":7
+				},
+				{
+					"hour":"4p",
+					"value":0
+				},
+				{
+					"hour":"5p",
+					"value":9
+				},
+				{
+					"hour":"6p",
+					"value":0
+				},
+				{
+					"hour":"7p",
+					"value":0
+				},
+				{
+					"hour":"8p",
+					"value":6
+				},
+				{
+					"hour":"9p",
+					"value":6
+				},
+				{
+					"hour":"10p",
+					"value":6
+				},
+				{
+					"hour":"11p",
+					"value":0
+				},
+				{
+					"hour":"12a",
+					"value":0
+				}
+			]
+		}
+	],
+	"geomap" : [
+		{
+			"country" : "us",
+			"state" : "us-va",
+			"city": "us-va-001",
+			"status": "process",
+			"value": "3"
+		},
+		{
+			"country" : "us",
+			"state" : "us-va",
+			"city": "us-va-013",
+			"status": "process",
+			"value": "5"
+		},
+		{
+			"country" : "us",
+			"state" : "us-ny",
+			"city": "us-ny-001",
+			"status": "process",
+			"value": "19"
+		},
+		{
+			"country" : "us",
+			"state" : "us-ca",
+			"city": "us-ca-001",
+			"status": "process",
+			"value": "10"
+		},
+		{
+			"country" : "us",
+			"state" : "us-fl",
+			"city": "us-fl-001",
+			"status": "process",
+			"value": "9"
+		},
+		{
+			"country" : "us",
+			"state" : "us-la",
+			"city": "us-la-001",
+			"status": "complete",
+			"value": "90"
+		},
+		{
+			"country" : "us",
+			"state" : "us-ia",
+			"city": "us-ia-001",
+			"status": "incomplete",
+			"value": "100"
+		}
+	],
+	"device" : [
+		{
+			"device" : "apple iphone",
+			"value" : 10
+		},
+		{
+			"device" : "samsung galaxy s5",
+			"value" : 5
+		},
+		{
+			"device" : "pixcel",
+			"value" : 20
+		},
+		{
+			"device" : "Apple macbook",
+			"value" : 80
+		},
+		{
+			"device" : "windows desktop",
+			"value" : 50
+		},
+		{
+			"device" : "tablet",
+			"value" : 130
+		}
+	]
+}

@@ -1,0 +1,32 @@
+.node circle {
+	fill: #fff;
+	stroke: steelblue;
+	stroke-width: 3px;
+}
+.node text { 
+	font: 10px sans-serif;
+	text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
+}
+.link {
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 2px;
+}
+#crosswalk-chart {
+	width: 1024px;
+	margin: 20px auto;
+	border: 1px solid #ccc
+}
+.tooltip {
+	position: absolute;
+	text-align: center;               
+	padding: 20px;
+	font: 12px sans-serif;
+	background: #36393a;
+	border: 0px;
+	border-radius: 2px;
+	pointer-events: none;
+	color : white;
+	text-align: left;
+	border: 1px solid #888;
+}

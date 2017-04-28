@@ -1,0 +1,60 @@
+body {
+	font-size: 12px;
+	font-weight: 400;
+	padding-top: 10px;
+	padding-bottom: 100px;
+}
+html {
+  overflow-y: scroll;
+}
+svg {
+  overflow: visible !important;
+}
+
+/* Customizable classes used in D3 vis, uncomment to customize
+.svg-vis {
+  background-color: gray;
+  opacity: 0.5;
+}
+.verticesTooltip {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  width: 100px;
+  height: auto;
+  padding: 5px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  pointer-events: none;
+  opacity: 0;
+  background: #f4f4f;
+}
+.level-lines {
+  stroke: red;
+  stroke-width: 1px;
+}
+.level-labels {
+  fill: red;
+  font-size: 12px;
+}
+.axis-lines {
+  stroke: blue;
+  stroke-width: 2px;
+}
+.axis-labels {
+  fill: blue;
+  font-size: 12px;
+}
+.polygon-vertices {
+  fill-opacity: 0.6;
+}
+.polygon-areas {
+  fill-opacity: 0.6;
+}
+.legend-tiles {
+  fill-opacity: 0.3;
+}
+.legend-labels {
+  font-size: 15px;
+}
+*/

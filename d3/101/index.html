@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<style>
+		body {
+			font: 10px sans-serif;
+		}
+		#chart {
+			text-align: center;
+		}
+		#chart svg {
+			border: 1px solid #ccc
+		}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #ccc;
+			shape-rendering: crispEdges;
+		}
+		.axis .tick line {
+			stroke: #eee;
+		}
+		.tooltip {
+			position: absolute;
+			text-align: center;               
+			padding: 20px;
+			font: 12px sans-serif;
+			background: #36393a;
+			border: 0px;
+			border-radius: 2px;
+			pointer-events: none;
+			color : white;
+			text-align: left;
+			border: 1px solid #888;
+		}
+		/* horizontal bar chart */
+		.bar-chart .bar {
+			fill: steelblue;
+		}
+		.bar-chart .bar:hover{
+			fill: #36393a !important;
+			cursor: pointer;
+		}
+		.bar-chart .bar.selected {
+			fill: #36393a !important;
+		}
+		.bar-chart .legend_area .selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.bar-chart .legend_area g {
+			cursor: pointer;
+		}
+		.bar-chart .legend_area g:hover circle {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.bar-chart .legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.bar-chart .line {
+			stroke: #b6c6cc !important;
+			fill: none;
+		}
+		/* line chart */
+		.line-chart .legend_area .selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.line-chart .legend_area g {
+			cursor: pointer;
+		}
+		.line-chart .legend_area g:hover circle {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.line-chart .legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.line-chart .line {
+			stroke: #b6c6cc !important;
+			fill: none;
+		}
+		.line-chart .line.selected {
+			stroke-width: 4px;	
+		}
+		/* pie chart */
+		.pie-chart .line {
+			stroke: #b6c6cc !important;
+			fill: none;
+		}
+		.pie-chart .legend_area circle.selected{
+			stroke: #36393a;
+			stroke-width: 2px;
+		}
+		.pie-chart .legend_area text.selected{
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.pie-chart .legend_area g {
+			cursor: pointer;
+		}
+		.pie-chart .legend_area g:hover circle {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.pie-chart .legend_area g:hover text {
+			fill: #36393a !important;
+			font-weight: bold;
+		}
+		.pie-chart .arc:hover {
+			opacity: 1 !important;
+		}
+		.pie-chart .arc.selected {
+			opacity: 1 !important;
+		}
+		.pie-chart .arc.selected path{
+			fill: #36393a !important;
+		}
+	</style>
+</head>
+<body>
+	<div style="text-align: center; padding: 20px">
+		<ul class="nav nav-pills" style="display:inline-block; font-size: 20px">
+			<li class="active"><a data-toggle="pill" href="#" class="show-bar">Bar</a></li>
+			<li><a data-toggle="pill" href="#" class="show-line">Line</a></li>
+			<li><a data-toggle="pill" href="#" class="show-pie">Pie</a></li>
+		</ul>
+	</div>
+	<div id="chart">
+	</div>
+</body>
+<script type="text/javascript">
+	var data = [
+		{
+			unit : "This is Measure Unit 1",
+			value : 27
+		},
+		{
+			unit : "This is Measure Unit 2",
+			value : 20
+		},
+		{
+			unit : "This is Measure Unit 3",
+			value : 12
+		},
+		{
+			unit : "This is Measure Unit 4",
+			value : 11
+		},
+		{
+			unit : "This is Measure Unit 5",
+			value : 88
+		},
+		{
+			unit : "This is Measure Unit 6",
+			value : 73
+		}
+	];
+
+	$(".show-bar").on("click", function(e){
+		bar();
+	});
+	$(".show-line").on("click", function(e){
+		line();
+	})
+	$(".show-pie").on("click", function(e){
+		pie();
+	})
+	
+	var tooltip = d3.select("#chart").append("div").attr("class", "tooltip hidden");
+
+	var bar_margin = {top: 50, right: 300, bottom: 200, left: 250};
+	var line_margin = {top: 50, right: 300, bottom: 200, left: 100};
+	var pie_margin = {top: 50, right: 300, bottom: 200, left: 100};
+
+	initialize();
+
+	function initialize() {
+
+		var margin = {top: 50, right: 300, bottom: 200, left: 250},
+			width = 900 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
+
+		var x = d3.scaleLinear().range([0, width]);
+		var y = d3.scaleBand().rangeRound([0, height]).padding(0.1).align(0.1);
+
+		var xAxis = d3.axisBottom().scale(x).tickSizeInner(-height).tickSizeOuter(0).tickFormat(d3.format(".0f"));
+		var yAxis = d3.axisLeft().scale(y).tickSizeInner(-width).tickSizeOuter(0);
+
+		var svg_container = d3.select("#chart").append("svg").attr("class", "bar-chart").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom);
+		var svg = svg_container.append("g").attr("class", "chart-body");
+		svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		x.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+		y.domain(data.map(function(d) { return d.unit }));
+
+		var xaxis_g = svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+		xaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cy", 15).attr("r", 3);
+		xaxis_g.selectAll('text').style("font-size","14px").style("text-anchor","start").style("fill", "#4c596b").attr("transform", "translate(5, 30)rotate(45)");
+
+		var yaxis_g = svg.append("g").attr("class", "y axis").call(yAxis);
+		yaxis_g.selectAll('text').style("font-size", "14px").style("text-anchor", "end").style("fill", "#4c596b").attr("x", -30);
+		yaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cx", -10).attr("r", 3);
+
+		svg_container.append("text")
+			.attr("transform", "translate(20, 200)rotate(90)")
+			.style("fill", "#36393a")
+			.style("text-anchor", "start")
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.text("High Level Measurement X");
+
+		var legend = svg.append("g")
+			.attr("class", "legend_area")
+			.selectAll("g")
+			.data(data)
+			.enter().append("g")
+			.attr("class", function(d, i){
+				return "unit" + i
+			})
+			.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+			.on("mousemove", function(d, i) {
+				$('.chart-area .unit' + i).addClass("selected");
+			})
+			.on("mouseout",  function(d,i) {
+				$('.selected').removeClass('selected');
+			});
+		legend.append("circle")
+			.attr("cx", width + 70)
+			.attr("cy", 10)
+			.attr("r", 12)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", "#b6c6cc");
+		legend.append("text")
+			.attr("x", width + 100)
+			.attr("y", 9)
+			.attr("dy", ".35em")
+			.style("text-anchor", "start")
+			.style("font-size", "14px")
+			.style("fill", "#4c596b")
+			.text(function(d) { return d.unit });
+
+		svg.append("g")
+			.attr("class", "chart-area")
+			.selectAll(".bar")
+			.data(data)
+			.enter().append("rect")
+			.attr("class", function(d, i){
+				return "bar unit" + i
+			})
+			.attr("width", function(d){return x(d.value)} )
+			.attr("x", 0)
+			.attr("y", function(d) { return y(d.unit); })
+			.attr("height", y.bandwidth())
+			.style("fill", "#b6c6cc")
+			.on("mousemove", function(d, i) {
+				$('.legend_area .unit' + i).find('text').addClass("selected");
+				$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+				var html = '<div>' + d.value + '</div>';
+				var pos = $(".chart-area").position();
+				tooltip.classed("hidden", false)
+					.style("opacity", 1)
+					.style("left", (pos.left + x(d.value) + 30) + "px")
+					.style("top", (pos.top + y(d.unit)) + "px")
+					.html(html);
+			})
+			.on("mouseout",  function(d,i) {
+				$('.selected').removeClass('selected');
+				tooltip.classed("hidden", true).style("opacity", 0);
+			});
+	}
+
+	function bar() {
+
+		var previous_chart = $("#chart svg").attr("class");
+
+		var margin = {top: 50, right: 300, bottom: 200, left: 250},
+			width = 900 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
+
+		var x = d3.scaleLinear().range([0, width]);
+		var y = d3.scaleBand().rangeRound([0, height]).padding(0.1).align(0.1);
+
+		var xAxis = d3.axisBottom().scale(x).tickSizeInner(-height).tickSizeOuter(0).tickFormat(d3.format(".0f"));
+		var yAxis = d3.axisLeft().scale(y).tickSizeInner(-width).tickSizeOuter(0);
+
+		var svg_container = d3.select("#chart svg").attr("class", "bar-chart").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom);
+		var svg = svg_container.select("g.chart-body");
+		svg.transition().duration(500).attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		x.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+		y.domain(data.map(function(d) { return d.unit }));
+
+		svg_container.select(".legend_area").remove();
+		var legend = svg.append("g")
+			.attr("class", "legend_area")
+			.selectAll("g")
+			.data(data)
+			.enter().append("g")
+			.attr("class", function(d, i){
+				return "unit" + i
+			})
+			.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+			.on("mousemove", function(d, i) {
+				$('.chart-area .unit' + i).addClass("selected");
+			})
+			.on("mouseout",  function(d,i) {
+				$('.selected').removeClass('selected');
+			});
+		legend.append("circle")
+			.attr("cx", width + 70)
+			.attr("cy", 10)
+			.transition()
+			.duration(500)
+			.attr("r", 12)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", "#b6c6cc");
+		legend.append("text")
+			.attr("x", width + 100)
+			.attr("y", 9)
+			.attr("dy", ".35em")
+			.style("text-anchor", "start")
+			.style("font-size", "14px")
+			.style("fill", "#4c596b")
+			.text(function(d) { return d.unit });
+
+		switch(previous_chart){
+			case 'line-chart':
+				var xaxis_g = svg.select("g.x.axis");
+				xaxis_g.selectAll('.tick circle').remove();
+				xaxis_g.attr("transform", "translate(0," + height + ")")
+					.transition()
+					.duration(500)
+					.call(xAxis)
+					.selectAll('text')
+					.style("font-size","14px")
+					.style("text-anchor","start")
+					.style("fill", "#4c596b")
+					.attr("transform", "translate(5, 30)rotate(45)");
+				xaxis_g.selectAll(".tick")
+					.append("circle")
+					.style("fill", "#36393a")
+					.attr("cy", 15)
+					.attr("r", 3);
+
+				var yaxis_g = svg.select("g.y.axis");
+				yaxis_g.selectAll('.tick circle').remove();
+				yaxis_g.transition()
+					.duration(500)
+					.call(yAxis)
+					.selectAll('text')
+					.style("font-size", "14px")
+					.style("text-anchor", "end")
+					.style("fill", "#4c596b")
+					.attr("x", -30);
+				yaxis_g.selectAll('.tick')
+					.append("circle")
+					.style("fill", "#36393a")
+					.attr("cx", -10)
+					.attr("r", 3);
+
+				svg.selectAll('.chart-area circle').remove();
+
+				var line = d3.line()
+					.y(function(d) { return y(d.unit) + y.bandwidth()/2 })
+					.x(function(d) { return x(d.value) });
+				svg.select('.chart-area .line')
+					.datum(data)
+					.transition()
+					.duration(1000)
+					.attr("d", line)
+					.transition()
+					.duration(500)
+					.remove();
+
+				svg.select(".chart-area")
+					.selectAll(".bar")
+					.data(data)
+					.enter().append("rect")
+					.on("mousemove", function(d, i) {
+						$('.legend_area .unit' + i).find('text').addClass("selected");
+						$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+						var html = '<div>' + d.value + '</div>';
+						var pos = $(".chart-area").position();
+						tooltip.classed("hidden", false)
+							.style("opacity", 1)
+							.style("left", (pos.left + x(d.value) + 30) + "px")
+							.style("top", (pos.top + y(d.unit)) + "px")
+							.html(html);
+					})
+					.on("mouseout",  function(d,i) {
+						$('.selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					})
+					.attr("x", 0)
+					.attr("y", function(d) { return y(d.unit) + y.bandwidth()/2 })
+					.attr("width", 0)
+					.attr("height", 1)
+					.transition()
+					.duration(1000)
+					.attr("class", function(d, i){
+						return "bar unit" + i
+					})
+					.transition()
+					.duration(500)
+					.style("fill", "#b6c6cc")
+					.attr("width", function(d){return x(d.value)} )
+					.transition()
+					.duration(1000)
+					.attr("y", function(d) { return y(d.unit) })
+					.attr("height", y.bandwidth());
+				break;
+			case 'pie-chart':
+
+				svg.select(".pie-area").selectAll("text").remove();
+				svg.select(".chart-area").selectAll("path")
+			        .transition()
+			        .duration(2000)
+			        .tween("arc", pie_to_bar)
+			        .style("fill", "#b6c6cc")
+			        .style("opacity", 0.8)
+			        .remove();
+
+			    var w = width + bar_margin.left - pie_margin.left;
+
+			    function pie_to_bar(d) {
+			        var path = d3.select(this),
+			            x0 = x(d.data.value),
+			            y0 = y(d.data.unit);
+
+			        return function(t) {
+			        	t = 1-t;
+			            var r = w / 2 / Math.min(1, t + 1e-3),
+			                //a is stepping factor, starting from 1 to 0,
+			                //as the timer t goes.
+			                //A simper alternative: a = 1 - t;
+			                a = Math.cos(t * Math.PI / 2),
+			                xx = (1 - a) * (w / 2),
+			                yy = (-r + (a) * (y0 + y.bandwidth()) + (1 - a) * w),
+			                arc = d3.arc()
+			                	.innerRadius((r - y.bandwidth() / (2 - a)) * a)
+			                	.outerRadius(r)
+			                	.startAngle(a * (Math.PI - x0 / r) + (1 - a) * d.startAngle)
+			                	.endAngle(a * (Math.PI) + (1 - a) * d.endAngle);
+			            path.attr("transform", "translate(" + (xx-w/2) + "," + (yy-w/2) + ")");
+			            path.attr("d", arc);
+			        };
+			    }
+
+				svg.select(".chart-area")
+					.transition()
+					.duration(1500)
+					.remove();
+
+				var xaxis_g = svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis).style("opacity", 0);
+				xaxis_g.transition().duration(1000).transition().duration(500).style("opacity", 1);
+				xaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cy", 15).attr("r", 3);
+				xaxis_g.selectAll('text').style("font-size","14px").style("text-anchor","start").style("fill", "#4c596b").attr("transform", "translate(5, 30)rotate(45)");
+
+				var yaxis_g = svg.append("g").attr("class", "y axis").call(yAxis).style("opacity", 0);
+				yaxis_g.transition().duration(1000).transition().duration(500).style("opacity", 1);
+				yaxis_g.selectAll('text').style("font-size", "14px").style("text-anchor", "end").style("fill", "#4c596b").attr("x", -30);
+				yaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cx", -10).attr("r", 3);
+
+				svg.append("g")
+					.attr("class", "chart-area")
+					.selectAll(".bar")
+					.data(data)
+					.enter().append("rect")
+					.on("mousemove", function(d, i) {
+						$('.legend_area .unit' + i).find('text').addClass("selected");
+						$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+						var html = '<div>' + d.value + '</div>';
+						var pos = $(".chart-area").position();
+						tooltip.classed("hidden", false)
+							.style("opacity", 1)
+							.style("left", (pos.left + x(d.value) + 30) + "px")
+							.style("top", (pos.top + y(d.unit)) + "px")
+							.html(html);
+					})
+					.on("mouseout",  function(d,i) {
+						$('.selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					})
+					.attr("x", 0)
+					.attr("y", function(d) { return y(d.unit) })
+					.attr("width", function(d){return x(d.value)} )
+					.attr("height", y.bandwidth())
+					.style("fill", "#b6c6cc")
+					.attr("class", function(d, i){
+						return "bar unit" + i
+					})
+					.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.transition()
+					.duration(500)
+					.style("opacity", 1)
+					
+				break;
+		}
+	}
+
+	function line() {
+		var previous_chart = $("#chart svg").attr("class");
+
+		var margin = {top: 50, right: 300, bottom: 200, left: 100},
+			width = 900 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
+
+		var x = d3.scaleBand().range([0, width]);
+		var y = d3.scaleLinear().range([height, 0]);
+
+		var xAxis = d3.axisBottom().scale(x).tickSizeInner(-height).tickSizeOuter(0);
+		var yAxis = d3.axisLeft().scale(y).tickSizeInner(-width).tickSizeOuter(0).tickFormat(d3.format(".0f"));
+
+		var svg_container = d3.select("#chart svg").attr("class", "line-chart").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom)
+		var svg = d3.select("#chart svg g.chart-body");
+		svg.transition().duration(500).attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		x.domain(data.map(function(d) { return d.unit }));
+		y.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+
+		svg_container.select(".legend_area").remove();
+		var legend = svg.append("g")
+			.attr("class", "legend_area")
+			.selectAll("g")
+			.data(data)
+			.enter().append("g")
+			.attr("class", function(d, i){
+				return "unit" + i
+			})
+			.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+			.on("mousemove", function(d, i) {
+				svg.select('.chart-area .unit' + i).attr("r", 8).style("opacity", 1);
+			})
+			.on("mouseout",  function(d,i) {
+				svg.select('.chart-area .unit' + i).attr("r", 4).style("opacity", 0);
+			});
+		legend.append("circle")
+			.attr("cx", width + 70)
+			.attr("cy", 10)
+			.transition()
+			.duration(500)
+			.attr("r", 12)
+			.attr("width", 18)
+			.attr("height", 18)
+			.style("fill", "#b6c6cc");
+		legend.append("text")
+			.attr("x", width + 100)
+			.attr("y", 9)
+			.transition()
+			.duration(500)
+			.attr("dy", ".35em")
+			.style("text-anchor", "start")
+			.style("font-size", "14px")
+			.style("fill", "#4c596b")
+			.text(function(d) { return d.unit });
+
+		switch(previous_chart){
+			case 'bar-chart':
+				var xaxis_g = svg.select("g.x.axis");
+				xaxis_g.selectAll('.tick circle').remove();
+				xaxis_g.attr("transform", "translate(0," + height + ")")
+					.transition()
+					.duration(500)
+					.call(xAxis)
+					.selectAll('text')
+					.style("font-size","14px")
+					.style("text-anchor","start")
+					.style("fill", "#4c596b")
+					.attr("transform", "translate(5, 30)rotate(45)");
+				xaxis_g.selectAll('.tick')
+					.append("circle")
+					.style("fill", "#36393a")
+					.attr("cy", 15)
+					.attr("r", 3);
+
+				var yaxis_g = svg.select("g.y.axis");
+				yaxis_g.selectAll('.tick circle').remove();
+				yaxis_g.transition()
+					.duration(500)
+					.call(yAxis)
+					.selectAll('text')
+					.style("font-size", "14px")
+					.style("text-anchor", "end")
+					.style("fill", "#4c596b")
+					.attr("x", -30);
+				yaxis_g.selectAll('.tick')
+					.append("circle")
+					.style("fill", "#36393a")
+					.attr("cx", -10)
+					.attr("r", 3);
+
+				var chart_area = svg.select(".chart-area");
+
+				chart_area.selectAll(".bar")
+					.transition()
+					.duration(1000)
+					.attr("x", function(d){ return x(d.unit) + x.bandwidth()/2})
+					.attr("y", function(d){ return y(d.value)})
+					.attr("width", 1)
+					.attr("height", function(d){ return height - y(d.value)})
+					.transition()
+					.style("opacity", 0)
+					.remove();
+
+				var line = d3.line()
+					.x(function(d) { return x(d.unit) + x.bandwidth()/2 })
+					.y(function(d) { return y(d.value) });
+
+				chart_area.append("path").datum(data)
+					.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.attr("class", "line")
+					.transition()
+					.duration(1000)
+					.attr("d", line)
+					.style("opacity", 1);
+				chart_area
+					.on("mouseover", function (d, i) {
+						$('.chart-area .line').addClass("selected")
+						$('.chart-area circle').css("opacity", 1);
+					})
+					.on("mouseout",	function(d) {
+						$('.chart-area circle').css("opacity", 0);
+						$('.selected').removeClass('selected');
+					})
+				chart_area.selectAll("circle")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("class", function(d, i){
+						return "unit" +i
+					})
+					.attr("cx", function(d){ return x(d.unit) + x.bandwidth()/2 })
+					.attr("cy", function(d){ return y(d.value) })
+					.attr("r", 4)
+					.style("fill", "#b6c6cc")
+					.style("opacity", 0)
+					.on("mouseover", function (d, i) {
+						d3.select(this).attr("r", 8);
+
+						var legend_item = '.legend_area .unit' + i;
+						$(legend_item).find('text').addClass("selected");
+						$(legend_item).find('circle').addClass("selected");
+
+						var html = '<div>' + d.value + '</div>';
+						var pos = $(".chart-area").position();
+						tooltip.classed("hidden", false)
+							.style("opacity", 1)
+							.style("left", (pos.left + x(d.unit) + 20) + "px")
+							.style("top", (pos.top + y(d.value) - 60) + "px")
+							.html(html);
+					})
+					.on("mouseout",	function(d) {
+						d3.select(this).attr("r", 4);
+						$('.legend_area .selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					})
+				break;
+			case 'pie-chart':
+				svg.select(".pie-area").selectAll("text").remove();
+				svg.select(".chart-area").selectAll("path")
+			        .transition()
+			        .duration(1500)
+			        .tween("arc", pie_to_line)
+			        .transition()
+			        .duration(500)
+			        .style("opacity", 0)
+			        .remove();
+
+				function pie_to_line(d) {
+			        var path = d3.select(this),
+			            x0 = x(d.data.unit),
+			            y0 = width - y(d.data.value); //initial height
+
+			        return function(t) {
+			            t = 1-t;
+			            var r = width / 2 / Math.min(1, t + 1e-3),
+			                //a is stepping factor, starting from 1 to 0,
+			                //as the timer t goes.
+			                //A simper alternative: a = 1 - t;
+			                a = Math.cos(t * Math.PI / 2),
+			                xx = (-r + (a) * (x0 + x.bandwidth()/2) + (1 - a) * width),
+			                yy = ((a) * width + (1 - a) * width / 2),
+			                arc = d3.arc()
+			                	.innerRadius((r - 1 / (2 - a)) * a)
+			                	.outerRadius(r)
+			                	.startAngle(a * (Math.PI / 2 - y0 / r) + (1 - a) * d.startAngle)
+			                	.endAngle(a * (Math.PI / 2) + (1 - a) * d.endAngle);
+
+			            // path.attr("transform", "translate(" + xx + "," + yy + ")");
+			            path.attr("transform", "translate(" + (xx-width/2) + "," + (yy-width/2) + ")");
+			            path.attr("d", arc);
+			        };
+			    }
+
+				svg.select(".chart-area")
+					.transition()
+					.duration(1500)
+					.remove();
+
+				var xaxis_g = svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+				xaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cy", 15).attr("r", 3);
+				xaxis_g.selectAll('text').style("font-size","14px").style("text-anchor","start").style("fill", "#4c596b").attr("transform", "translate(5, 30)rotate(45)");
+
+				var yaxis_g = svg.append("g").attr("class", "y axis").call(yAxis);
+				yaxis_g.selectAll('text').style("font-size", "14px").style("text-anchor", "end").style("fill", "#4c596b").attr("x", -30);
+				yaxis_g.selectAll('.tick').append("circle").style("fill", "#36393a").attr("cx", -10).attr("r", 3);
+
+				var chart_area = svg.append("g").attr("class", "chart-area");
+
+				var line = d3.line()
+					.x(function(d) { return x(d.unit) + x.bandwidth()/2 })
+					.y(function(d) { return y(d.value) });
+
+				var line0 = d3.line()
+					.x(function(d) { return x(d.unit) + x.bandwidth()/2 })
+					.y(function(d) { return y(0) });
+
+				chart_area.append("path").datum(data)
+					.attr("class", "line")
+					.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.attr("d", line)
+					.transition()
+					.duration(500)
+					.style("opacity", 1)
+					
+				chart_area
+					.on("mouseover", function (d, i) {
+						$('.chart-area .line').addClass("selected")
+						$('.chart-area circle').css("opacity", 1);
+					})
+					.on("mouseout",	function(d) {
+						$('.chart-area circle').css("opacity", 0);
+						$('.selected').removeClass('selected');
+					})
+				chart_area.selectAll("circle")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("class", function(d, i){
+						return "unit" +i
+					})
+					.attr("cx", function(d){ return x(d.unit) + x.bandwidth()/2 })
+					.attr("cy", function(d){ return y(d.value) })
+					.attr("r", 4)
+					.style("fill", "#b6c6cc")
+					.style("opacity", 0)
+					.on("mouseover", function (d, i) {
+						d3.select(this).attr("r", 8);
+
+						var legend_item = '.legend_area .unit' + i;
+						$(legend_item).find('text').addClass("selected");
+						$(legend_item).find('circle').addClass("selected");
+
+						var html = '<div>' + d.value + '</div>';
+						var pos = $(".chart-area").position();
+						tooltip.classed("hidden", false)
+							.style("opacity", 1)
+							.style("left", (pos.left + x(d.unit) + 20) + "px")
+							.style("top", (pos.top + y(d.value) - 60) + "px")
+							.html(html);
+					})
+					.on("mouseout",	function(d) {
+						d3.select(this).attr("r", 4);
+						$('.legend_area .selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					});
+		}
+	}
+
+	function pie() {
+
+		var previous_chart = $("#chart svg").attr("class");
+
+		var margin = {top: 50, right: 300, bottom: 200, left: 100},
+			width = 900 - margin.left - margin.right,
+			height = 700 - margin.top - margin.bottom;
+
+		var svg_container = d3.select("#chart svg").attr("class", "pie-chart").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom);
+		var svg = svg_container.select("g.chart-body");
+		svg.transition().duration(1500).attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		switch(previous_chart){
+			case 'line-chart':
+				var x = d3.scaleBand().range([0, width]);
+				var y = d3.scaleLinear().range([height, 0]);
+				x.domain(data.map(function(d) { return d.unit }));
+				y.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+
+				var c20 = d3.scaleOrdinal(d3.schemeCategory20);
+				svg.select('.chart-area').selectAll("rect")
+					.data(data)
+					.enter()
+					.append("rect")
+					.attr("x", function(d){ return x(d.unit)+x.bandwidth()/2 } )
+					.attr("y", function(d){ return y(d.value) } )
+					.attr("width", 0)
+					.attr("height", function(d){ return height - y(d.value) } )
+					.style("fill", function(d,i){ return c20(i) })
+					.transition()
+					.duration(500)
+					.attr("width", x.bandwidth())
+					.attr("x", function(d){ return x(d.unit) } )
+					.transition()
+					.duration(1)
+					.remove();
+
+				svg.selectAll('.chart-area circle').remove();
+
+				svg.select('.chart-area .line')
+					.transition()
+					.duration(500)
+					.remove();
+
+				svg.select('.x.axis')
+					.transition().duration(500)
+					.transition().duration(1000)
+					.style("opacity", 0)
+					.remove();
+				svg.select('.y.axis')
+					.transition().duration(500)
+					.transition().duration(1000)
+					.style("opacity", 0)
+					.remove();
+
+				svg_container.select(".legend_area").remove();
+				var legend = svg.append("g")
+					.attr("class", "legend_area")
+					.selectAll("g")
+					.data(data)
+					.enter().append("g")
+					.attr("class", function(d, i){
+						return "unit" + i
+					})
+					.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+					.on("mousemove", function(d, i) {
+						$('.chart-area .unit' + i).addClass("selected");
+					})
+					.on("mouseout",  function(d,i) {
+						$('.selected').removeClass('selected');
+					});
+				legend.append("circle")
+					.attr("cx", width + 70)
+					.attr("cy", 10)
+					.transition()
+					.duration(500)
+					.attr("r", 12)
+					.attr("width", 18)
+					.attr("height", 18)
+					.style("fill", function(d, i){ return c20(i)});
+				legend.append("text")
+					.attr("x", width + 100)
+					.attr("y", 9)
+					.attr("dy", ".35em")
+					.style("text-anchor", "start")
+					.style("font-size", "14px")
+					.style("fill", "#4c596b")
+					.text(function(d) { return d.unit });
+
+				var arcs = d3.pie().sort(null).value(function(d) { return d.value });
+					
+				var arc = d3.arc()
+					.outerRadius(width/2)
+					.innerRadius(4)
+					.padAngle(0.03)
+				var arcOver = d3.arc()
+					.outerRadius(width/2 + 30)
+					.innerRadius(4)
+					.padAngle(0.03)
+
+				var pieG = svg.select('.chart-area').selectAll("g")
+					.data([data])
+					.enter()
+					.append("g")
+					.attr("class", "pie-area")
+					.attr("transform", "translate("+[width/2, width/2]+")")
+				
+				var block = pieG.selectAll(".arc").data(arcs)
+					
+				var newBlock = block.enter()
+					.append("g")
+					.attr("class", function(d, i){return "arc unit"+i})
+					.style("opacity", 0.6);
+
+				x = d3.scaleBand().range([0, width]);
+				y = d3.scaleLinear().range([height, 0]);
+				x.domain(data.map(function(d) { return d.unit }));
+				y.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+
+				function line_to_pie(d) {
+			        var path = d3.select(this),
+			            x0 = x(d.data.unit),
+			            y0 = width - y(d.data.value); //initial height
+
+			        return function(t) {
+			            var r = width / 2 / Math.min(1, t + 1e-3),
+			                //a is stepping factor, starting from 1 to 0,
+			                //as the timer t goes.
+			                //A simper alternative: a = 1 - t;
+			                a = Math.cos(t * Math.PI / 2),
+			                xx = (-r + (a) * (x0 + x.bandwidth()) + (1 - a) * width),
+			                yy = ((a) * width + (1 - a) * width / 2),
+			                arc = d3.arc()
+			                	.innerRadius((r - x.bandwidth() / (2 - a)) * a)
+			                	.outerRadius(r)
+			                	.startAngle(a * (Math.PI / 2 - y0 / r) + (1 - a) * d.startAngle)
+			                	.endAngle(a * (Math.PI / 2) + (1 - a) * d.endAngle);
+			            path.attr("transform", "translate(" + (xx-width/2) + "," + (yy-width/2) + ")");
+			            path.attr("d", arc);
+			        };
+			    }
+
+				var paths = newBlock.append("path")
+					.transition()
+					.duration(500)
+					.transition()
+					.duration(1500)
+					.tween("arc", line_to_pie)
+					.attr("id", function(d, i) { return "arc-" + i })
+					.attr("stroke", "gray")
+					.attr("fill", function(d,i){ return c20(i) });
+					
+				newBlock
+					.on("mouseenter", function(d, i){
+						d3.select(this)
+							.select("path")
+							.transition()
+							.duration(200)
+							.attr("d", arcOver);
+
+						$('.legend_area .unit' + i).find('text').addClass("selected");
+						$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+						var p = $(".unit" + i +" .tooltip-helper").position();
+						var c = $(".pie-center").position();
+
+						var html = '<div>' + d.value + '</div>';
+
+						tooltip.html(html).style("opacity", 1).classed("hidden", false);
+
+						var w = $('#chart .tooltip').outerWidth();
+						var h = $('#chart .tooltip').outerHeight();
+
+						if(c.top > p.top) {
+							p.top -= h;
+						}
+						if(c.left > p.left) {
+							p.left -= w;
+						}
+
+						tooltip.style("left", (p.left) + "px").style("top", (p.top) + "px")				
+					})
+					.on("mouseout", function(d){
+						d3.select(this)
+							.select("path")
+							.transition()
+							.duration(500)
+							.attr("d", arc);
+						$('.selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					})
+
+				var total = 0;
+				data.forEach(function(d){
+					total += d.value;
+				});
+				
+				newBlock.append("text")
+					.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+					.attr("dy", ".35em")
+					.style("font-size", "16px")
+					.style("font-weight", "bold")
+					.attr("fill", "white")
+					.style("text-anchor","middle")
+					.transition()
+					.duration(2000)
+					.transition()
+					.duration(1)
+					.text(function(d) { return (100 * d.data.value / total).toFixed(2) + "%" })
+
+				newBlock.append("text")
+					.attr("class", "tooltip-helper")
+					.attr("transform", function(d) {
+						var offset = [arc.centroid(d)[0] * 2.2, arc.centroid(d)[1] * 2.2];
+						return "translate(" + offset + ")"; 
+					})
+					.attr("dy", ".35em")
+					.text("")
+
+				newBlock.append("text")
+					.attr("class", "pie-center")
+					.attr("transform", function(d) {
+						return "translate(" + [0,0] + ")"; 
+					})
+					.attr("dy", ".35em")
+
+				break;
+			case 'bar-chart':
+				var c20 = d3.scaleOrdinal(d3.schemeCategory20);
+				var x = d3.scaleLinear().range([0, width]);
+				var y = d3.scaleBand().rangeRound([0, height]).padding(0.1).align(0.1);
+				x.domain([0, d3.max(data, function(d) { return d.value })]).nice();
+				y.domain(data.map(function(d) { return d.unit }));
+
+				svg.select('.chart-area').selectAll(".bar").remove();
+
+				svg.select('.x.axis')
+					.transition().duration(1500)
+					.style("opacity", 0)
+					.remove();
+				svg.select('.y.axis')
+					.transition().duration(1500)
+					.style("opacity", 0)
+					.remove();
+
+				var c20 = d3.scaleOrdinal(d3.schemeCategory20);
+
+				svg_container.select(".legend_area").remove();
+				var legend = svg.append("g")
+					.attr("class", "legend_area")
+					.selectAll("g")
+					.data(data)
+					.enter().append("g")
+					.attr("class", function(d, i){
+						return "unit" + i
+					})
+					.attr("transform", function(d, i) { return "translate(0," + i*40 + ")"; })
+					.on("mousemove", function(d, i) {
+						$('.chart-area .unit' + i).addClass("selected");
+					})
+					.on("mouseout",  function(d,i) {
+						$('.selected').removeClass('selected');
+					});
+				legend.append("circle")
+					.attr("cx", width + 70)
+					.attr("cy", 10)
+					.transition()
+					.duration(500)
+					.attr("r", 12)
+					.attr("width", 18)
+					.attr("height", 18)
+					.style("fill", function(d, i){ return c20(i)});
+				legend.append("text")
+					.attr("x", width + 100)
+					.attr("y", 9)
+					.attr("dy", ".35em")
+					.style("text-anchor", "start")
+					.style("font-size", "14px")
+					.style("fill", "#4c596b")
+					.text(function(d) { return d.unit });
+
+				var arcs = d3.pie().sort(null).value(function(d) { return d.value });
+					
+				var arc = d3.arc()
+					.outerRadius(width/2)
+					.innerRadius(4)
+					.padAngle(0.03)
+				var arcOver = d3.arc()
+					.outerRadius(width/2 + 30)
+					.innerRadius(4)
+					.padAngle(0.03)
+
+				var pieG = svg.select(".chart-area")
+					.selectAll("g")
+					.data([data])
+					.enter()
+					.append("g")
+					.attr("class", "pie-area")
+					.attr("transform", "translate("+[width/2, width/2]+")")
+
+				var block =  pieG.selectAll(".arc").data(arcs)
+					
+				var newBlock = block.enter()
+					.append("g")
+					.attr("class", function(d, i){return "arc unit"+i})
+					.style("opacity", 0.6);
+
+				function bar_to_pie(d) {
+			        var path = d3.select(this),
+			            x0 = x(d.data.value),
+			            y0 = y(d.data.unit);
+
+			        return function(t) {
+			            var r = width / 2 / Math.min(1, t + 1e-3),
+			                //a is stepping factor, starting from 1 to 0,
+			                //as the timer t goes.
+			                //A simper alternative: a = 1 - t;
+			                a = Math.cos(t * Math.PI / 2),
+			                xx = (1 - a) * (width / 2),
+			                yy = (-r + (a) * (y0 + y.bandwidth()) + (1 - a) * width),
+			                arc = d3.arc()
+			                	.innerRadius((r - y.bandwidth() / (2 - a)) * a)
+			                	.outerRadius(r)
+			                	.startAngle(a * (Math.PI - x0 / r) + (1 - a) * d.startAngle)
+			                	.endAngle(a * (Math.PI) + (1 - a) * d.endAngle);
+			            path.attr("transform", "translate(" + (xx-width/2) + "," + (yy-width/2) + ")");
+			            path.attr("d", arc);
+			        };
+			    }
+
+				var paths = newBlock.append("path")
+					.attr("fill", "#b6c6cc")
+					.transition()
+					.duration(1500)
+					.tween("arc", bar_to_pie)
+					.attr("id", function(d, i) { return "arc-" + i })
+					.attr("stroke", "gray")
+					.attr("fill", function(d,i){ return c20(i) })
+
+				newBlock
+					.on("mouseenter", function(d, i){
+						d3.select(this)
+							.select("path")
+							.transition()
+							.duration(200)
+							.attr("d", arcOver);
+
+						$('.legend_area .unit' + i).find('text').addClass("selected");
+						$('.legend_area .unit' + i).find('circle').addClass("selected");
+
+						var p = $(".unit" + i +" .tooltip-helper").position();
+						var c = $(".pie-center").position();
+
+						var html = '<div>' + d.value + '</div>';
+
+						tooltip.html(html).style("opacity", 1).classed("hidden", false);
+
+						var w = $('#chart .tooltip').outerWidth();
+						var h = $('#chart .tooltip').outerHeight();
+
+						if(c.top > p.top) {
+							p.top -= h;
+						}
+						if(c.left > p.left) {
+							p.left -= w;
+						}
+
+						tooltip.style("left", (p.left) + "px").style("top", (p.top) + "px")				
+					})
+					.on("mouseout", function(d){
+						d3.select(this)
+							.select("path")
+							.transition()
+							.duration(500)
+							.attr("d", arc);
+						$('.selected').removeClass('selected');
+						tooltip.classed("hidden", true).style("opacity", 0);
+					})
+
+				var total = 0;
+				data.forEach(function(d){
+					total += d.value;
+				});
+				
+				newBlock.append("text")
+					.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+					.attr("dy", ".35em")
+					.style("font-size", "16px")
+					.style("font-weight", "bold")
+					.attr("fill", "white")
+					.style("text-anchor","middle")
+					.transition()
+					.duration(2000)
+					.text(function(d) { return (100 * d.data.value / total).toFixed(2) + "%" })
+
+				newBlock.append("text")
+					.attr("class", "tooltip-helper")
+					.attr("transform", function(d) {
+						var offset = [arc.centroid(d)[0] * 2.2, arc.centroid(d)[1] * 2.2];
+						return "translate(" + offset + ")"; 
+					})
+					.attr("dy", ".35em")
+
+				newBlock.append("text")
+					.attr("class", "pie-center")
+					.attr("transform", function(d) {
+						return "translate(" + [0,0] + ")"; 
+					})
+					.attr("dy", ".35em")
+
+				break;
+		}
+	}
+</script>

@@ -1,0 +1,372 @@
+#report{
+	display: none;
+	padding: 53px 0 0;
+	.wrapper{
+		max-width: 1210px;
+	}
+	.np-bar{
+		padding: 0 0 61px;
+		color: @dark-color;
+		font-size: 16px;
+		line-height: 20px;
+		font-weight: @font-regular;
+		.notification{
+			color: @green-color;
+			font-weight: @font-regular;
+		}
+	}
+	.datatable-bar{
+		table{
+			.survey-name{
+				width: 320px;
+			}
+			.status{
+				width: 197px;
+			}
+			.date{
+				width: 262px;
+				display: table-cell;
+			}
+			.status, .date{
+				i{
+					margin-right: 10px;
+				}
+			}
+			tr:hover, tr:focus{				
+				td{
+					background: @green-color1;
+					&:first-child:before, &:last-child:after{
+						display: block;
+					}
+					.dropdown{
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+			}
+			.table-dropdown{
+				position: relative;
+				.dropdown-toggle{
+					display: none;					
+				}
+				.dropdown{
+					display: block;					
+					width: auto;
+					position: relative;
+					background: none;
+					padding: 0px;
+					.transform(scale(1,1));
+					visibility: hidden;
+					opacity: 0;	
+					li{
+						display: inline-block;
+						vertical-align: top;
+						font-size: 14px;
+						padding: 0 19px 0 0;
+						font-weight: @font-regular;
+						a{
+							color: @light-gray-color2;
+							padding: 0px;
+							background: none;
+							position: relative;	
+							span{
+								display: block;
+								color: @gray-color6;
+								.position-absolute;
+								top: auto;
+								left: 50%;
+								bottom: 25px;
+								border: 1px solid @light-gray-color1;
+								.border-radius(5px);
+								.transform (translateX(-50%) scale(1,0));
+								background: @white-color;
+								min-width: 69px;
+								text-align: center;
+								padding: 2px 10px 5px;
+								font-weight: @font-black;
+								font-size: 9px;
+								line-height: 12px;								
+								visibility: hidden;
+								opacity: 0;
+								.transition;
+								.backface;
+							}
+							&:hover{
+								span{
+									.transform(translateX(-50%) scale(1,1));
+									visibility: visible;
+									opacity: 1;								
+								}
+							}
+							.fa-times{
+								font-size: 18px;
+								color: @error-color1;
+							}						
+						}
+					}         	
+				}
+			}
+		}
+		th{
+			border: 0px;
+			font-size: 12px;
+			line-height: 15px;
+			color: @gray-color4;
+			font-weight: @font-bold;
+			padding: 0 0 15px;
+			i{
+				margin-right: 24px;
+			}
+			a{
+				color: @gray-color4;
+				i{
+					color: @gray-color5;
+				}
+			}
+			&:first-child:after, &:last-child:after{ 
+				display: none;
+			}
+		}
+		td{
+			font-size: 14px; 
+			line-height: 20px;
+			color: @dark-color;
+			padding: 18px 0;
+			&:first-child:before, &:last-child:after{
+				background: @white-color;
+		        content: "";
+		        display: none;
+		        width: 2500px;
+		        height: 100%;
+		        position: absolute;
+		        top: 0px;
+		        left: -2500px;		        
+			}
+			&:last-child:after{
+				left: 0px;
+				right: -2500px;
+			}
+			&.status{
+				font-weight: @font-light;
+				padding-left: 19px;
+			}
+			&.date{
+				padding-left: 21px;
+				small{
+					padding: 4px 0 0 5px;
+					display: inline-block;
+					vertical-align: top;
+					font-size: 10px;
+					line-height: 14px;
+					color: @dark-color;
+				}
+			}
+			&.survey-name{
+				padding-left: 29px;
+				font-size: 15px;
+				line-height: 20px;
+				color: @light-gray-color4;
+				font-weight: 500;
+				a{
+					color: @light-gray-color4;
+					i{
+						color: @dark-color;
+						margin-right: 9px;
+					}
+				}
+			}
+		}
+	}
+	@media @desktop{ 
+		.datatable-bar{
+			table{
+				.table-dropdown{
+					.dropdown{
+						li{
+							padding: 0 9px 0 0;
+						}
+					}	
+				}
+			}
+		}    
+	}
+	@media @tablet{
+		padding: 35px 0 0;
+		.np-bar{
+			padding: 0 0 35px;
+		} 
+		.datatable-bar{
+			table{
+				.table-dropdown{
+					.dropdown{
+						li{
+							padding: 0 9px 0 0;
+							font-size: 12px;
+							a{
+								.fa-times{
+									font-size: 15px;
+								}
+							}
+						}
+					}	
+				}
+				.survey-name{
+					width: 210px;
+				}
+				.status{
+					width: 154px;
+				}
+				.date{
+					width: 190px;
+				}
+			}
+			td{
+				&.survey-name{
+					font-size: 14px;
+				}
+				font-size: 13px;
+				&.date{
+					padding-left: 17px;
+				}
+			}
+		}    
+	}
+	@media @mobile{
+		padding: 53px 0 0;
+		.np-bar{
+			padding: 0 0 62px;
+		}
+		.datatable-bar{
+			th{
+				font-size: 10px;
+				line-height: 14px;
+				padding: 0 0 14px;
+				i{
+					margin-right: 6px;
+				}
+			}
+			table{
+				tr:hover{				
+					td{
+						background: @green-color1;
+						&:first-child:before, &:last-child:after{
+							display: block;
+						}
+						.dropdown{
+							display: block;
+						}
+					}
+				}
+				.table-dropdown{
+					.dropdown-toggle{
+						display: block;
+						width: 26px;
+						height: 26px;
+						border: 1px solid @gray-color7;
+						font-size: 11px;
+						color: @gray-color5;
+						.border-radius(5px);
+						text-align: center;
+						.border-radius(5px);
+						background: @white-color;
+						line-height: 24px; 
+						.box-shadow(-1px 0 1px rgba(0, 0, 0, 0.05)); 
+						z-index: 3;
+						position: relative;
+					}
+					&.show{
+						.dropdown{
+							.transform(translateX(0px) scale(1,1));
+							visibility: visible;
+							opacity: 1;
+						}
+					}
+					.dropdown{
+						display: block;
+						width: 131px;
+						border: 1px solid rgba(0, 0, 0, 0.12);
+						background: @white-color;
+						padding: 22px 12px 20px;	
+						position: absolute;	
+						.box-shadow(-1px 0 1px rgba(0, 0, 0, 0.05));
+						left: -38px;
+						z-index: 9;
+						top: -100px;
+						.transform(translateX(0px) scale(1,0));
+						visibility: hidden;
+						opacity: 0;			
+						li{
+							padding: 0 0 24px; 
+							font-size: 14px;
+							line-height: 18px; 
+							display: block;	
+							&:last-child {
+								padding-bottom: 0px;
+							}						
+							a{
+								line-height: 14px;
+								i{
+									display: inline-block;
+									vertical-align: middle;
+								}
+								span{
+									.border-radius(0px);
+									.transform (translateX(0px) scale(1,1));
+									background: none;
+									min-width: inherit;
+									display: inline-block;
+									vertical-align: middle;
+									position: relative;
+									top: auto;
+									left: auto;
+									opacity: 1;
+									visibility: visible;
+									border: 0px;
+									padding: 0 0 0 12px;
+									font-size: 11px;
+									color: @dark-color;
+									font-weight: @font-regular;
+									text-align: left;
+									width: auto;
+									bottom: auto;
+								}
+								&:hover{
+									span{
+										.transform(translateX(0px) scale(1,1));
+										visibility: visible;
+										opacity: 1;								
+									}
+								}
+								.fa-times{
+									font-size: 14px;
+									line-height: 10px;
+								}
+							}
+						}
+					}	
+				}
+				.survey-name{
+					width: 158px;
+				}
+				.status{
+					width: 140px;
+				}
+				.date{
+					width: 162px;
+				}
+			}
+			td{
+				font-size: 12px;
+				padding: 16px 0;
+				&.survey-name{
+					font-size: 12px;
+					line-height: 15px;
+					padding-left: 10px;
+				}				
+				&.date{
+					padding-left: 17px;
+				}
+			}
+		}
+	}
+}

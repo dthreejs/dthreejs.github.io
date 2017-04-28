@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Compare Chart</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+
+    <body>
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+    </body>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/d3.v4.min.js"></script>
+    <script src="js/highstock.js"></script>
+    <script src="js/exporting.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        var seriesOptions = [],
+            seriesCounter = 0,
+            names = ['MSFT', 'AAPL', 'GOOG'];
+
+        /**
+         * Create the chart when all data is loaded
+         * @returns {undefined}
+         */
+        function createChart() {
+            var today_date = new Date();
+
+            $('#container').highcharts('StockChart', {
+
+                rangeSelector: {
+                    selected: 4,
+                    allButtonsEnabled: true
+                },
+
+                yAxis: {
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
+                },
+
+                plotOptions: {
+                    series: {
+                        compare: ''
+                    }
+                },
+
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.1f}</b><br/>',
+                    valueDecimals: 2
+                },
+
+                series: seriesOptions
+            });
+        }
+
+        function leapYear(year){
+            return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+        }
+
+        function getIndex(date){
+            var month_arr = [31,28,31,30,31,30,31,31,30,31,30,31];
+            var year = date.getFullYear();
+            var ind = 0;
+            for(k = 2010; k < year; k++){
+                if(leapYear(k)){
+                    ind += 366;
+                }else{
+                    ind += 365;
+                }
+            }
+            var month = date.getMonth();
+            for (k = 0; k < month; k++){
+                ind += month_arr[k];
+            }
+            if(month > 2 && leapYear(year)){
+                ind++;
+            }
+            ind += date.getDate()-1;
+            // console.log(date+":::"+ind+":"+year+":"+month+":"+month_arr[0]+":"+date.getDate());
+            return ind;
+        }
+
+        Date.prototype.addDays = function(days) {
+            var dat = new Date(this.valueOf())
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+
+        function getDates(startDate, stopDate) {
+            var dateArray = new Array();
+            var currentDate = startDate;
+            var endDate = stopDate;
+            endDate.setHours(14);
+            while (currentDate <= stopDate) {
+                currentDate.setHours(13);
+                dateArray.push( new Date (currentDate) )
+                currentDate = currentDate.addDays(1);
+            }
+            return dateArray;
+        }
+
+        d3.csv("data/data.csv", function(error, data) {
+            var empty_value = 90;
+            var output_data = [];
+            var range = getDates(new Date('2010-01-01'),new Date());
+            var i;
+
+            for(i = 0; i<data.length; i++){
+                var tmp_arr = [];
+                var dt = data[i].Date;
+                var dt_arr = dt.split('/');
+                var date = new Date(dt_arr[2]+'-'+dt_arr[0]+'-'+dt_arr[1]);
+                tmp_arr[0] = date.getTime();
+                tmp_arr[1] = parseFloat(data[i].Growth);;
+                output_data.push(tmp_arr);
+            }
+
+            // for(i = 0; i < data.length; i++){
+            //     var date = new Date(data[i].Date);
+            //     var dateIndex = getIndex(date);
+            //     output_data[dateIndex][1] = parseFloat(data[i].Growth);
+            // }
+
+            seriesOptions.push({
+                name: "Growth",
+                data: output_data
+            });
+
+            var output_data = [];
+
+            // for(i = 0; i<range.length; i++){
+            //     var tmp_arr = [];
+            //     tmp_arr[0] = range[i].getTime();
+            //     tmp_arr[1] = empty_value;
+            //     output_data.push(tmp_arr);
+            // }
+
+            // for(i = 0; i < data.length; i++){
+            //     var date = new Date(data[i].Date);
+            //     var dateIndex = getIndex(date);
+            //     output_data[dateIndex][1] = parseFloat(data[i].Benchmark);
+            // }
+
+            for(i = 0; i<data.length; i++){
+                var tmp_arr = [];
+                var dt = data[i].Date;
+                var dt_arr = dt.split('/');
+                var date = new Date(dt_arr[2]+'-'+dt_arr[0]+'-'+dt_arr[1]);
+                tmp_arr[0] = date.getTime();
+                tmp_arr[1] = parseFloat(data[i].Benchmark);;
+                output_data.push(tmp_arr);
+            }
+
+            seriesOptions.push({
+                name: "Benchmark",
+                data: output_data
+            });
+
+            createChart();
+        });
+    });
+    </script>
+</html>

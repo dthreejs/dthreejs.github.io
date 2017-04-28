@@ -1,0 +1,38 @@
+[
+	{
+		"value" : 0.6,
+		"show_alert" : true,
+		"alert_type" : 2,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
+	{
+		"value" : 0.3,
+		"show_alert" : false,
+		"alert_type" : 2,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
+	{
+		"value" : 0.7,
+		"show_alert" : true,
+		"alert_type" : 2,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
+	{
+		"value" : 1,
+		"show_alert" : true,
+		"alert_type" : 1,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
+	{
+		"value" : 0,
+		"show_alert" : false,
+		"alert_type" : 2,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
+	{
+		"value" : 0.1,
+		"show_alert" : true,
+		"alert_type" : 2,
+		"alert_text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	}
+]

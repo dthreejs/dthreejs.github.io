@@ -1,0 +1,171 @@
+.html-graph {
+	width: 100%;
+	display: table;
+	content: ""
+}
+.html-graph .navi {
+	display: table;
+	content: "";
+	width: 100%;
+	padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    font-size: 20px;
+}
+.html-graph .navi .navi-title {
+	width: 100px;
+	float: left;
+	padding: 10px 0;
+	color: #a5a5a5;
+}
+.html-graph .navi .navi-list {
+	width: calc(100% - 100px);
+	float: left;
+}
+.html-graph .navi .navi-list ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.html-graph .navi .navi-list ul li {
+	float: left;
+	padding: 10px;
+	color: #1abd9d;
+	cursor: pointer;
+}
+.html-graph .navi .navi-list ul li:hover {
+	background: #eee;
+}
+.html-graph .legend {
+	width: 200px;
+	float: left;
+}
+.html-graph .legend .legend-line {
+	margin: 5px 0;
+	display: table;
+	content: ""
+}
+.html-graph .legend .legend-box {
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 5px;
+}
+.html-graph .legend .legend-name {
+	float: left;
+}
+.html-graph .bars-group {
+	width: calc(100% - 201px);
+	float: left;
+	padding-top: 40px;
+}
+.html-graph .bars-group .bars {
+	height: 100%;
+	float: left;
+}
+.html-graph .bars-group .bars .rect {
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	display: table;
+	content: ""
+}
+.html-graph .bars-group .bars .rect .bar {
+	float: left;
+	height: 100%;
+}
+.html-graph .bars-group .bars .rect .bar .bar-stick {
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+.html-graph .bars-group .bars .rect .bar .bar-stick .bar-stick-fill {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+.html-graph .bars-group .bars .rect .bar .bar-stick .value{
+	width: 100%;
+	position: absolute;
+}
+.html-graph .bars-group .bars .name {
+	padding-top: 30px;
+}
+
+.html-graph-small {
+	width: 100%;
+	margin: 0 auto;
+}
+.html-graph-small .navi {
+	display: table;
+	content: "";
+	width: 100%;
+	padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    font-size: 20px;
+    color: #1abd9d;
+    text-align: center;
+}
+.html-graph-small .navi select {
+	border: none;
+	outline: none;
+}
+.html-graph-small .legend {
+	width: 100%;
+	padding: 10px 0;
+	border-bottom: 1px solid gray;
+	display: table;
+	content: ""
+}
+.html-graph-small .legend .legend-line {
+	width: 33%;
+	float: left;
+	padding: 10px 0;
+}
+.html-graph-small .legend .legend-box {
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 5px;
+}
+.html-graph-small .legend .legend-name {
+	float: left;
+}
+.html-graph-small .bars-group {
+	width: 100%;
+	padding: 10px 0;
+	display: table;
+	content: ""
+}
+.html-graph-small .bars-group .bars {
+	width: 100%;
+	padding: 10px 0;
+	display: table;
+	content: ""
+}
+.html-graph-small .bars-group .name {
+	width: 200px;
+	float: left;
+}
+.html-graph-small .bars-group .rect {
+	width: calc(100% - 220px);
+	float: left;
+	border-left: 1px solid gray;
+}
+.html-graph-small .bars-group .rect .bar-stick {
+	width: 100%;
+	height: 20px;
+	position: relative;
+	margin-bottom: 10px;
+}
+.html-graph-small .bars-group .rect .bar-stick:last-child {
+	margin-bottom: 0;
+}
+.html-graph-small .bars-group .rect .bar-stick .bar-stick-fill {
+	height: 100%;
+}
+.html-graph-small .bars-group .rect .bar-stick .value {
+	position: absolute;
+	top: 0px;
+	padding-left: 10px;
+}

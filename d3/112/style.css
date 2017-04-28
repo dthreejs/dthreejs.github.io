@@ -1,0 +1,85 @@
+body {
+	margin: 0
+}
+#chart {
+	width: 100%;
+	position: relative;
+}
+.splice-area-chart {
+	background-color: #394194;
+	padding-bottom: 100px;
+	font-family: 'Open Sans', sans-serif;
+}
+.splice-area-chart .title {
+	text-align: center;
+	padding: 20px 0;
+	color: white;
+}
+.splice-area-chart .graph-body {
+	position: relative;
+}
+.splice-area-chart svg {
+	width: 100%;
+	height: 100%;
+}
+.splice-area-chart svg .main-board .vertical-line line {
+	stroke: white;
+	stroke-dasharray: 4,4;
+}
+.splice-area-chart svg .main-board .category-title text {
+	text-anchor: middle;
+	fill: white;
+	font-weight: lighter;
+}
+.splice-area-chart svg .main-board .separator {
+	stroke: #eea82d;
+	stroke-width: 4px;
+	stroke-linecap: round;
+}
+.splice-area-chart .tooltip1 {
+	position: absolute;
+	padding: 20px;
+	border-radius: 5px;
+	color: white;
+	background: #eea82d;
+	line-height: 24px;
+	display: table;
+}
+.splice-area-chart .tooltip1 .arrow-top{
+	position: absolute;
+	top: -20px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 20px 20px 20px;
+	border-color: transparent transparent #eea82d transparent;
+}
+.splice-area-chart .tooltip1 .filterby {
+	background: #eea82d;
+	color: white;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid white;
+	padding-right: 20px;
+}
+.splice-area-chart .tooltip2 {
+	position: absolute;
+	width: 250px;
+	padding: 20px;
+	border-radius: 5px;
+	color: white;
+	background: #2d9f85;
+	line-height: 24px;
+	text-align: center;
+	display: table;
+}
+.splice-area-chart .tooltip2 .arrow-top{
+	position: absolute;
+	top: -20px;
+	left: calc(50% - 20px);
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 20px 20px 20px;
+	border-color: transparent transparent #2d9f85 transparent;
+}

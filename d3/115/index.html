@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html class=" cssanimations" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- below cache control change is only for dev testing -->
+        <!--meta http-equiv='cache-control' content='no-cache'>
+            <meta http-equiv='expires' content='0'>
+            <meta http-equiv='pragma' content='no-cache'-->
+        <!--End: below cache control change is only for dev testing -->
+        <title>Manage Survey</title>
+        <link href="common/css/main.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="common/js/jquery.min.js"></script>
+        <script type="text/javascript" src="common/js/d3.v4.min.js"></script>
+        <script type="text/javascript" src="common/js/custom.js"></script>
+
+        <!-- Chart Visualization -->
+        <link rel="stylesheet" type="text/css" href="common/chart_asset/style.css"/>
+        <script src="http://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
+        <script type="text/javascript" src="common/chart_asset/app.js"></script>
+        <!-- Placed at the end of the document so the pages load faster -->
+    </head>
+    <body class="analytic-body">
+        <header id="header">
+            <a class="logo" href="#"><img src="common/images/logo.svg" alt=""></a>
+            <ul class="top-links">
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>John<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+            </ul>
+            <div class="header-bottom">
+                <a class="survey-link" href="#"><i class="fa fa-arrow-circle-o-left"></i>John Doe Reports</a>
+                <a class="toggle" href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                <ul>
+                    <li><a href="#">COMPOSE SURVEY</a></li>
+                    <li><a href="#">PREVIEW & DESIGN</a></li>
+                    <li><a href="#">PREP & DEPLOY</a></li>
+                    <li class="active"><a href="#">ANALYZE & SHARE</a></li>
+                </ul>
+            </div>
+        </header>
+        <div class="sticky_top"> </div>
+        <div class="main_wrap manage_survey_wrap current">
+            <input name="_csrf" value="b2af5bbb-d4b0-4009-9295-eb3b06176fb6" id="csrfToken" type="hidden">
+            <section class="analytic-cntr">
+                <section class="analytic-wrapper">
+                    <div class="top-bar">
+                        <h1>John Doe’s Survey Results<a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></h1>
+                        <a class="print-btn" href="#">EXPORT<i class="fa fa-print" aria-hidden="true"></i></a>
+                        <a class="new-survey-btn">Create a New Report<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="tabs-bar">
+                        <ul class="tabs">
+                            <li class="overall-data tab"><a class="active">OVERALL DATA</a></li>
+                            <li class="report-data tab"><a>REPORTS</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content-wrapper">
+                        <div id="overall">
+                            <div class="filter">
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 1</span>
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 2</span>
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 3</span>
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 4</span>
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 5</span>
+                                <span class="repeat"><a href="#" class="close"><i class="fa fa-times" aria-hidden="true"></i></a>filter element 6</span>
+                            </div>
+                            <div class="row">
+                                <div class="one">
+                                    <h5><span class="number">1.</span> Deployments</h5>
+                                    <div id="deployment-graph"></div>
+                                </div>
+                                <div class="two">
+                                    <h5><span class="number">2.</span> Response Heatmap</h5>
+                                    <div id="heatmap-graph"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="three">
+                                    <h5><span class="number">3.</span> Geo Map</h5>
+                                    <div id="geomap-graph"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="four">
+                                    <h5><span class="number">4.</span> Avg. Completion Time</h5>
+                                    <span class="result">15.5
+                                    <sub>mins</sub>
+                                    </span>
+                                </div>
+                                <div class="five">
+                                    <h5><span class="number">5.</span> Avg.Completion Rate</h5>
+                                    <span class="result">86
+                                    <sup>%</sup>
+                                    <sub>Complete</sub>
+                                    </span>
+                                </div>
+                                <div class="six">
+                                    <h5><span class="number">6.</span> Avg. Drop Rate</h5>
+                                    <span class="result">7
+                                    <sup>%</sup>
+                                    </span>
+                                </div>
+                                <div class="seven">
+                                    <h5><span class="number">7.</span> Devices</h5>
+                                    <div id="device-graph"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="report">
+                            <div class="wrapper">
+                                <div class="np-bar"> <span class="notes table-desc">All Reports<small class="notification">Click + hold to select and drag desired surveys to the folder icons on the left.</small></span> 
+                                    <span class="tag-name table-desc" style="display:none"></span>              
+                                </div>
+                                <div class="datatable-bar">
+                                    <table>
+                                        <thead>
+                                            <tr class="ui-draggable ui-draggable-handle">
+                                                <th class="survey-name"><a><i class="fa fa-caret-down" aria-hidden="true"></i>Report Name</a></th>
+                                                <th class="status"><a><i class="fa fa-caret-down" aria-hidden="true"></i>Report Type</a></th>
+                                                <th class="date"><a><i class="fa fa-caret-down" aria-hidden="true"></i>Date Created</a></th>
+                                                <th class="action">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="push_up on">
+                                            <tr data-id="545" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 1’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Segmentation</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="550" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 2’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Cross Tab</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="551" class="ui-draggable ui-draggable-handle" style="">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 3’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Report Type</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="552" class="ui-draggable ui-draggable-handle" style="">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 4’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Segmentation</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="554" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 5’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Report Type</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="555" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 6’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Segmentation</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="556" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 7’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Segmentation</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="557" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 8’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Report Type</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-id="558" class="ui-draggable ui-draggable-handle">
+                                                <td class="survey-name"><a><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="title">Report 9’s Name</span><span class="create-date">Created April 12, 2014</span></a></td>
+                                                <td class="status">Segmentation</td>
+                                                <td class="date">12/10/16<small>4:30pm</small></td>
+                                                <td class="action">
+                                                    <div class="table-dropdown">
+                                                        <a class="dropdown-toggle" href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>File</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-folder-open-o" aria-hidden="true"></i><span>Folder</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i><span>Duplicate</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-external-link" aria-hidden="true"></i><span>Open</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i><span>Forward</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <ul class="edit-bar" style="display: none;">
+                <li class="droppable folder_hover"><a class="open-menu"><i class="fa fa-folder-open-o" aria-hidden="true"></i></a></li>
+                <li class="droppable delete_drop"><a class="delete" data-fetch="trash" data-table-desc="delete-notification" data-default-view="most-recent"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+            </ul>
+            <section id="right-panel" class="folders-panel">
+                <h4><i class="fa fa-folder-open-o" aria-hidden="true"></i>Folders</h4>
+                <a class="create-btn new-folder"><i class="fa fa-plus" aria-hidden="true"></i>Create a New Folder</a>
+                <div class="scroll-wrapper parent_scroll scrollbar-inner" style="position: relative;">
+                    <div class="parent_scroll scrollbar-inner scroll-content scroll-scrolly_visible" style="height: auto; margin-bottom: -17px; margin-right: -17px; max-height: 648px;">
+                        <ul class="folder-list" style="height: 648px;">
+                            <li class="new-t fetch folder " data-table-title="All Surveys" data-table-desc="tag-name" data-default-view="most-recent"><a><i class="folder-icon fa fa-folder-o" aria-hidden="true"></i>View ALL REPORTS</a></li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="1" data-table-desc="tag-name" data-table-title="First Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">First Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="First Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="2" data-table-desc="tag-name" data-table-title="Second Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">Second Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="Second Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="3" data-table-desc="tag-name" data-table-title="Third Folder " data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">Third Folder </span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="Third Folder " type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="4" data-table-desc="tag-name" data-table-title="Forth Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">Forth Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="Forth Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="10" data-table-desc="tag-name" data-table-title="Tenth Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">Tenth Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="Tenth Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="11" data-table-desc="tag-name" data-table-title="11th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">11th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="11th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="12" data-table-desc="tag-name" data-table-title="12th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">12th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="12th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="13" data-table-desc="tag-name" data-table-title="13th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">13th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="13th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="14" data-table-desc="tag-name" data-table-title="15th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">15th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="15th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="15" data-table-desc="tag-name" data-table-title="16th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">16th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="16th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="30" data-table-desc="tag-name" data-table-title="30th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">30th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="30th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="31" data-table-desc="tag-name" data-table-title="31th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">31th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="31th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="32" data-table-desc="tag-name" data-table-title="32th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">32th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="32th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="33" data-table-desc="tag-name" data-table-title="33rd Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">33rd Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="33rd Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="34" data-table-desc="tag-name" data-table-title="34th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">34th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="34th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder droppable" data-fetch="tag" data-id="35" data-table-desc="tag-name" data-table-title="35th Folder" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name folder-name">35th Folder</span> <span class="folder-actions"> <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> </span> </a>
+                                <div class="edit-folder"><i class="edit-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" value="35th Folder" type="text">
+                                </div>
+                            </li>
+                            <li class="new-t fetch folder add-placeholder" data-fetch="tag" data-table-desc="tag-name" data-default-view="most-recent">
+                                <a> <i class="folder-icon fa fa-folder-o" aria-hidden="true"></i> <span class="tag_name"></span> </a>
+                                <div class="create-folder"><i class="create-icon folder-icon fa fa-folder-o" aria-hidden="true"></i>
+                                    <input placeholder="Enter Folder Name" type="text">
+                                </div>
+                                <i class="delete-icon fa fa-close"></i> <i class="edit-icon fa fa-pencil"></i> 
+                            </li>
+                            <!--li ><div class="create-folder"><i class="create-icon folder-icon fa fa-folder-o" aria-hidden="true"></i><input type='text' placeholder='Enter Folder Name'></div></li-->
+                        </ul>
+                    </div>
+                    <div class="scroll-element scroll-x scroll-scrolly_visible">
+                        <div class="scroll-element_outer">
+                            <div class="scroll-element_size"></div>
+                            <div class="scroll-element_track"></div>
+                            <div class="scroll-bar" style="width: 88px;"></div>
+                        </div>
+                    </div>
+                    <div class="scroll-element scroll-y scroll-scrolly_visible">
+                        <div class="scroll-element_outer">
+                            <div class="scroll-element_size"></div>
+                            <div class="scroll-element_track"></div>
+                            <div class="scroll-bar" style="height: 479px; top: 0px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <a class="all-delete" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+            </section>
+            <section class=" create_new survey-overlay" style="display: none;">
+                <a class="logo"><img src="common/images/overlay-logo.svg" alt=""></a> <a class="details-overlay-close">Close</a>
+                <form action="stage/create" name="create_survey" method="post" class="create_form">
+                    <div class="wrapper">
+                        <h1>Create a New Survey<span class="survey_title showh1Text"></span></h1>
+                        <div class="slide-animation">
+                            <div class="slide1 slide su-current">
+                                <p>First, let’s give your new survey a name: </p>
+                                <div class="first-section">
+                                    <div class="form-row">
+                                        <input class="form-input" placeholder="" name="surveyTitle" type="text">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> 
+                                    </div>
+                                    <label>Choose to Start From:</label>
+                                    <ul class="template-list">
+                                        <li> <span class="select-template">
+                                            <input name="action" value="new" type="radio">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            <label>Compose a new survey <br>
+                                            from scratch</label>
+                                            </span> 
+                                        </li>
+                                        <li> <span class="select-template active">
+                                            <input name="action" value="existing" checked="checked" type="radio">
+                                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                                            <label>Copy from an <br>
+                                            existing survey</label>
+                                            </span> 
+                                        </li>
+                                        <li> <span class="select-template">
+                                            <input name="action" value="template" type="radio">
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <label>Start from <br>
+                                            a template</label>
+                                            </span> 
+                                        </li>
+                                    </ul>
+                                    <a id="next" class="button"><span class="button_text">Next</span> <i class="fa fa-arrow-right" aria-hidden="true"></i></a> 
+                                </div>
+                            </div>
+                            <div class="slide2 slide">
+                                <ul class="pagination">
+                                    <li><a>NAME YOUR SURVEY</a></li>
+                                    <li>COPY FROM EXISTING SURVEY</li>
+                                </ul>
+                                <div class="survey-wrap">
+                                    <div class="left">
+                                        <ul>
+                                            <li class="overlay_fetch"><a class="active">All</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="1"><a><i class="fa fa-folder-o" aria-hidden="true"></i>First Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="2"><a><i class="fa fa-folder-o" aria-hidden="true"></i>Second Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="3"><a><i class="fa fa-folder-o" aria-hidden="true"></i>Third Folder </a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="4"><a><i class="fa fa-folder-o" aria-hidden="true"></i>Forth Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="10"><a><i class="fa fa-folder-o" aria-hidden="true"></i>Tenth Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="11"><a><i class="fa fa-folder-o" aria-hidden="true"></i>11th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="12"><a><i class="fa fa-folder-o" aria-hidden="true"></i>12th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="13"><a><i class="fa fa-folder-o" aria-hidden="true"></i>13th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="14"><a><i class="fa fa-folder-o" aria-hidden="true"></i>15th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="15"><a><i class="fa fa-folder-o" aria-hidden="true"></i>16th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="30"><a><i class="fa fa-folder-o" aria-hidden="true"></i>30th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="31"><a><i class="fa fa-folder-o" aria-hidden="true"></i>31th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="32"><a><i class="fa fa-folder-o" aria-hidden="true"></i>32th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="33"><a><i class="fa fa-folder-o" aria-hidden="true"></i>33rd Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="34"><a><i class="fa fa-folder-o" aria-hidden="true"></i>34th Folder</a></li>
+                                            <li class="overlay_fetch" data-fetch="tag" data-id="35"><a><i class="fa fa-folder-o" aria-hidden="true"></i>35th Folder</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="right">
+                                        <span class="notes">Select the existing survey you wish to copy...</span>
+                                        <ul class="existing-list">
+                                            <li data-id="545"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Do Not Delete Survey</a></li>
+                                            <li data-id="550"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>First Survey</a></li>
+                                            <li data-id="551"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Second Survey</a></li>
+                                            <li data-id="552"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Third Survey</a></li>
+                                            <li data-id="554"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Fifth Survey</a></li>
+                                            <li data-id="555"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Sixth Survey</a></li>
+                                            <li data-id="556"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Seventh Survey</a></li>
+                                            <li data-id="557"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Eighth Survey</a></li>
+                                            <li data-id="558"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Nineth Survey</a></li>
+                                            <li data-id="559"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Tenth Survey</a></li>
+                                            <li data-id="560"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Eleventh Survey</a></li>
+                                            <li data-id="561"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Twelth Survey</a></li>
+                                            <li data-id="565"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Thirteen Survey</a></li>
+                                            <li data-id="566"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>14th Survey</a></li>
+                                            <li data-id="568"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>15th Survey</a></li>
+                                            <li data-id="587"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Clone of do not delete</a></li>
+                                            <li data-id="591"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="593"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="594"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="595"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="597"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="598"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="599"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="600"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="601"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                            <li data-id="607"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do not Delete With working code</a></li>
+                                            <li data-id="608"><a class="source_identifier"><i class="fa fa-clipboard" aria-hidden="true"></i>Copy of Do Not Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <input value="Cancel" id="cancel" class="button" type="button">
+                                    <input value="Begin" id="enter" class="dark-button copy_existing" type="button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <div class="mobile-screen-overlay">
+                <h2>:^( &nbsp;Yikes! <br>
+                    Your screen is too small.
+                </h2>
+                <p>Expand your screen size to a tablet, or better yet desktop resolution, and we're good to go!</p>
+            </div>
+            <section class="edit-folder-overlay survey-overlay" style="display: none;">
+                <!-- <a class="logo"><img src="Manage%20Survey_files/popup_logo.svg" alt=""></a> <a class="details-overlay-close">Close</a> -->
+                <div class="wrapper">
+                    <h1 class="add_property">Add Folder</h1>
+                    <h1 class="edit_property">Edit Folder</h1>
+                    <div>
+                        <p class="add_property">let’s give your new folder a name: </p>
+                        <p class="edit_property">enter new folder name below: </p>
+                        <form action="#">
+                            <div class="form-row">
+                                <input class="form-input" placeholder="" type="text">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> 
+                            </div>
+                            <a class="save_folder button">Next <i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <i class="loading fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom hide"></i>
+        </div>
+    </body>
+</html>

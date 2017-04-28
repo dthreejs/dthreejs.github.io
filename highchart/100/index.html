@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+	<div id="main">
+		<div id="header">
+			<div class="container"><h1>Muhlenberg College Printing</h1></div>
+			<div class="btn-group" role="group" aria-label="Basic example">
+			  <button type="button" class="btn btn-secondary active">Week</button>
+			  <button type="button" class="btn btn-secondary">Month</button>
+			</div>
+		</div>
+		<div id="data-table">
+			<div id="current" class="col-sm-6">
+				<h5>Current</h5>
+				<h6>09/18/16 to Now</h6>
+				<table class="data-table">
+					<thead>
+						<tr>
+							<th>Pages</th>
+							<th>Sheets</th>
+							<th>BW Pages</th>
+							<th>BW Sheets</th>
+							<th>Color Pages</th>
+							<th>Color Sheets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>100,000</td>
+							<td>75,000</td>
+							<td>80,000</td>
+							<td>60,000</td>
+							<td>25,000</td>
+							<td>20,000</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="trees"><div class="trees-img"></div></div>
+				<div class="charts">
+					<div class="topK chart"></div>
+					<div class="printM chart"></div>
+					<div class="singleS chart"></div>
+				</div>
+			</div>
+			<div id="prior" class="col-sm-6">
+				<h5>Prior</h5>
+				<h6>09/11/16 to 9/17/16</h6>
+				<table class="data-table">
+					<thead>
+						<tr>
+							<th>Pages</th>
+							<th>Sheets</th>
+							<th>BW Pages</th>
+							<th>BW Sheets</th>
+							<th>Color Pages</th>
+							<th>Color Sheets</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>100,000</td>
+							<td>75,000</td>
+							<td>80,000</td>
+							<td>60,000</td>
+							<td>25,000</td>
+							<td>20,000</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="trees"><div class="trees-img"></div></div>
+				<div class="charts">
+					<div class="topK chart"></div>
+					<div class="printM chart"></div>
+					<div class="singleS chart"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/highstock.js"></script>
+<!-- <script src="js/exporting.js"></script> -->
+<script type="text/javascript">
+	var str_arr = ['Top 10 Kiosks','Print Methods','Single Sided vs Double Sided'];
+	var class_arr = ['topK','printM','singleS'];
+	var id_arr = ['current','prior'];
+	$(document).ready(function(){
+		$('.btn-group button').click(function(){
+			$('.btn-group button').removeClass('active');
+			$(this).addClass('active');
+		});
+		var i,j;
+		for(j = 0 ; j < id_arr.length; j++){
+			for(i = 0; i < class_arr.length; i++){
+				var tmp = '#'+id_arr[j]+' .'+class_arr[i];
+			    $(tmp).highcharts({
+			        chart: {
+			            type: 'column'
+			        },
+			        title: {
+			            text: ''
+			        },
+			        subtitle: {
+			            text: ''
+			        },
+			        xAxis: {
+			            categories: [
+			                'Jan',
+			                'Feb'
+			            ],
+			            crosshair: true,
+			            title: {
+			            	text: str_arr[i]
+			            }
+			        },
+			        yAxis: {
+			            min: 0,
+			            title: {
+			                text: ''
+			            }
+			        },
+			        tooltip: {
+			            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+			            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+			                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+			            footerFormat: '</table>',
+			            shared: true,
+			            useHTML: true,
+			            enabled: false
+			        },
+			        plotOptions: {
+			            column: {
+			                pointPadding: 0.2,
+			                borderWidth: 0
+			            }
+			        },
+			        series: [ {
+			            name: 'New York',
+			            data: [38.8,83.6]
+
+			        }, {
+			            name: 'London',
+			            data: [48.9, 78.8]
+
+			        }]
+			    });
+			}
+		}
+
+	});
+</script>
+</html>
